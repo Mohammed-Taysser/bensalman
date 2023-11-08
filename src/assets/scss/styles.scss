@@ -97,9 +97,9 @@ nav.navbar {
   }
 }
 
-.welcome-page {
-  width: 100vw;
-  height: 100vh;
+.blank-page {
+  min-width: 100vw;
+  min-height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
