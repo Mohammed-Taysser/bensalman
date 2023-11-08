@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        aurora: '#f2bd27',
+        aurora: '#dda300',
       },
     },
   },

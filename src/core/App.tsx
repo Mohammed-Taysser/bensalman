@@ -12,7 +12,7 @@ function App() {
       theme={{
         algorithm: theme.darkAlgorithm,
         token: {
-          colorPrimary: '#F2BD27',
+          colorPrimary: '#dda300',
           fontFamily: `'Lato', sans-serif`,
         },
         components: {
@@ -23,6 +23,11 @@ function App() {
             colorPrimary: '#cfa670',
             primaryColor: '#000',
           },
+          Badge:{
+            colorBgContainer:'#fff',
+            textFontWeight:'bold',
+            textFontSize: 14
+          }
         },
       }}
     >
