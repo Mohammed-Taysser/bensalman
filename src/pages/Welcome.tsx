@@ -1,4 +1,5 @@
 import { Col, Image, Row, Typography } from 'antd';
+import { Link } from 'react-router-dom';
 import welcomeBG from '../assets/images/background/welcome.jpeg';
 import chief from '../assets/images/icons/chief.png';
 import bottomLines from '../assets/images/icons/welcome/welcome-lines-bottom.png';
@@ -7,8 +8,8 @@ import Base from '../layouts/Base';
 
 const CATEGORY = [
   {
-    label: 'Margherita',
-    url: '/',
+    label: 'Menu',
+    url: '/menu',
   },
   {
     label: 'Simply Cheese',
@@ -44,9 +45,9 @@ function Welcome() {
             >
               {CATEGORY.map((item) => (
                 <Col key={item.label} xs={20} md={12}>
-                  <a href='#' className='ribbon'>
+                  <Link to={item.url} className='ribbon'>
                     {item.label}
-                  </a>
+                  </Link>
                 </Col>
               ))}
             </Row>
