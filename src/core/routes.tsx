@@ -25,15 +25,15 @@ import { createBrowserRouter } from 'react-router-dom';
 
 const PageNotFound = lazy(() => import('../pages/404'));
 const Login = lazy(() => import('../pages/Login'));
-const Homepage = lazy(() => import('../pages/Homepage'));
 const Welcome = lazy(() => import('../pages/Welcome'));
+const Menu = lazy(() => import('../pages/Menu'));
 
 const routes = createBrowserRouter([
   {
     path: '/',
     element: (
       // <RequireAuth>
-      <Homepage />
+      <Welcome />
       // </RequireAuth>
     ),
   },
@@ -46,10 +46,10 @@ const routes = createBrowserRouter([
     ),
   },
   {
-    path: '/welcome',
+    path: '/menu',
     element: (
       // <RequireAuth>
-      <Welcome />
+      <Menu />
       // </RequireAuth>
     ),
   },

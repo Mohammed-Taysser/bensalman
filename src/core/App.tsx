@@ -4,6 +4,8 @@ import { RouterProvider } from 'react-router-dom';
 import SuspenseLoading from '../components/SuspenseLoading';
 import routes from './routes';
 
+import 'swiper/scss';
+import 'swiper/scss/navigation';
 import '../assets/scss/styles.scss';
 
 function App() {
@@ -23,19 +25,19 @@ function App() {
             colorPrimary: '#cfa670',
             primaryColor: '#000',
           },
-          Badge:{
-            colorBgContainer:'#fff',
-            textFontWeight:'bold',
-            textFontSize: 14
-          }
+          Badge: {
+            colorBgContainer: '#fff',
+            textFontWeight: 'bold',
+            textFontSize: 14,
+          },
+          InputNumber: {
+            handleVisible: true,
+          },
         },
       }}
     >
       <Suspense fallback={<SuspenseLoading />}>
-        <RouterProvider
-          router={routes}
-          fallbackElement={<SuspenseLoading />}
-        />
+        <RouterProvider router={routes} fallbackElement={<SuspenseLoading />} />
       </Suspense>
     </ConfigProvider>
   );
