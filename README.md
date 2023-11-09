@@ -2,13 +2,13 @@
 
 ## Pages 📃
 
-| Page     | Path       |
-| -------- | ---------- |
-| Homepage | `/`        |
-| 404      | `*`        |
-| Sign In  | `/login`   |
-| Welcome  | `/welcome` |
-| Menu     | `/mene`    |
+| Page    | Path     |
+| ------- | -------- |
+| 404     | `*`      |
+| Welcome | `/`      |
+| Sign In | `/login` |
+| Menu    | `/menu`  |
+| Cart    | `/cart`  |
 
 ## Features 🎮
 
@@ -16,7 +16,8 @@
 - Written in TypeScript with predictable static types.
 - Use Redux with redux-toolkit Store
 - Lint using Eslint
-- Minimal need for any custom CSS.
+- Minimal need for any custom CSS using Sass.
+- Using Tailwindcss as class base utils
 
 ## Get Start 🚀
 
@@ -76,10 +77,8 @@ npm run deploy
 
 - [React](https://reactjs.org/)
 - [Typescript](https://www.typescriptlang.org/)
-- [Material-UI](https://mui.com/)
 - [Redux Toolkit](https://redux-toolkit.js.org/)
 - [Axios](https://axios-http.com/)
-- [Material React Table](https://www.material-react-table.com/)
 - [React Icons](https://react-icons.github.io/react-icons)
 - [React Router Dom](https://reactrouter.com/en/main)
 
@@ -88,3 +87,4 @@ npm run deploy
 - <https://themes.themegoods.com/grandrestaurantv6/home-6/>
 - <https://preview.themeforest.net/item/pizza-restaurant-fast-food-cafe-restaurant-wordpress-theme/full_screen_preview/17997095>
 - <https://preview.themeforest.net/item/restika-restaurant-html-template/full_screen_preview/48814938>
+- <https://preview.themeforest.net/item/benoit-restaurants-cafes-wordpress-theme/full_screen_preview/31676266>
