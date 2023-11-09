@@ -23,10 +23,11 @@ import { createBrowserRouter } from 'react-router-dom';
 //   return props.children;
 // }
 
-const PageNotFound = lazy(() => import('../pages/404'));
+const Cart = lazy(() => import('../pages/Cart'));
 const Login = lazy(() => import('../pages/Login'));
-const Welcome = lazy(() => import('../pages/Welcome'));
 const Menu = lazy(() => import('../pages/Menu'));
+const PageNotFound = lazy(() => import('../pages/404'));
+const Welcome = lazy(() => import('../pages/Welcome'));
 
 const routes = createBrowserRouter([
   {
@@ -43,6 +44,14 @@ const routes = createBrowserRouter([
       // <NoRequireAuth>
       <Login />
       // </NoRequireAuth>
+    ),
+  },
+  {
+    path: '/cart',
+    element: (
+      // <RequireAuth>
+      <Cart />
+      // </RequireAuth>
     ),
   },
   {
