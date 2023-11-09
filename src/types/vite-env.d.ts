@@ -31,7 +31,7 @@ interface SingleMenuItemProps {
 }
 
 interface MenuProductModalProps {
-  product: Product;
+  product: MenuProduct;
   isOpen: boolean;
   onClose: () => void;
 }

@@ -2,13 +2,14 @@
 
 ## Pages 📃
 
-| Page    | Path     |
-| ------- | -------- |
-| 404     | `*`      |
-| Welcome | `/`      |
-| Sign In | `/login` |
-| Menu    | `/menu`  |
-| Cart    | `/cart`  |
+| Page              | Path                 |
+| ----------------- | -------------------- |
+| 404               | `*`                  |
+| Welcome           | `/`                  |
+| Sign In           | `/login`             |
+| Menu              | `/menu`              |
+| Cart              | `/cart`              |
+| Chair Reservation | `/chair-reservation` |
 
 ## Features 🎮
 

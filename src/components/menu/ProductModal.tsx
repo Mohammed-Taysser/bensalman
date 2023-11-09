@@ -1,10 +1,16 @@
 import { Button, Col, Image, InputNumber, Modal, Row, Typography } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function ProductModal(props: Readonly<MenuProductModalProps>) {
   const { isOpen, onClose, product } = props;
 
-  const [qty, setQty] = useState(product.qty);  
+  const [qty, setQty] = useState(product.qty);
+
+  useEffect(() => {
+    if (isOpen) {
+      setQty(product.qty);
+    }
+  }, [isOpen]);
 
   const onQtyChange = (value: number | null) => {
     if (value) {
@@ -14,6 +20,7 @@ function ProductModal(props: Readonly<MenuProductModalProps>) {
 
   return (
     <Modal
+      destroyOnClose={true}
       title=''
       open={isOpen}
       onCancel={onClose}
@@ -38,6 +45,7 @@ function ProductModal(props: Readonly<MenuProductModalProps>) {
                 controls
                 min={1}
                 value={qty}
+                defaultValue={qty}
                 onChange={onQtyChange}
               />
             ) : (

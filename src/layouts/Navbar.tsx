@@ -2,6 +2,7 @@ import { Badge, Col, Row, Typography } from 'antd';
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { PiArmchairDuotone, PiShoppingCartDuotone } from 'react-icons/pi';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
@@ -26,19 +27,19 @@ function Navbar() {
           <Row gutter={25} align='middle'>
             {/* hide seat on empty */}
             <Col>
-              <a href='#'>
+              <Link to='/chair-reservation'>
                 <Badge count={'SE-89'} color='tomato'>
                   <PiArmchairDuotone />
                 </Badge>
-              </a>
+              </Link>
             </Col>
 
             <Col>
-              <a href='#'>
+              <Link to='/cart'>
                 <Badge count={5} color='tomato'>
                   <PiShoppingCartDuotone />
                 </Badge>
-              </a>
+              </Link>
             </Col>
 
             <Col>

@@ -1,12 +1,13 @@
 import { Button, Col, Row, Space, Statistic, Steps } from 'antd';
 import { BiMoneyWithdraw } from 'react-icons/bi';
-import { MdOutlineSoupKitchen } from 'react-icons/md';
+import { MdOutlineMenuBook, MdOutlineSoupKitchen } from 'react-icons/md';
 import { PiArmchairDuotone, PiShoppingCartDuotone } from 'react-icons/pi';
 import { TbToolsKitchen2 } from 'react-icons/tb';
 import columnBG from '../assets/images/background/bg-column.png';
 import welcomeBG from '../assets/images/background/welcome.jpeg';
 import CartItem from '../components/cart/CartItem';
 import Base from '../layouts/Base';
+import { useNavigate } from 'react-router-dom';
 
 const PRODUCTS = [
   {
@@ -46,7 +47,9 @@ const PRODUCTS = [
   },
 ];
 
-function Menu() {
+function Cart() {
+  const navigateTo = useNavigate();
+
   return (
     <Base bg={welcomeBG}>
       <Row
@@ -97,8 +100,18 @@ function Menu() {
 
             <Col xs={24} className='mt-5'>
               <Space>
-                <Button type='primary'>Checkout</Button>
-                <Button disabled>Cancel</Button>
+                <Button size='large' type='primary'>
+                  Checkout
+                </Button>
+                <Button
+                  size='large'
+                  onClick={() => navigateTo('/menu')}
+                  icon={
+                    <MdOutlineMenuBook className='text-xl relative top-1 ' />
+                  }
+                >
+                  Continue Shopping
+                </Button>
               </Space>
             </Col>
 
@@ -128,4 +141,4 @@ function Menu() {
   );
 }
 
-export default Menu;
+export default Cart;
