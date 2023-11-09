@@ -1,4 +1,5 @@
-import { Col, Row, Statistic, Steps } from 'antd';
+import { Button, Col, Row, Space, Statistic, Steps } from 'antd';
+import { BiMoneyWithdraw } from 'react-icons/bi';
 import { MdOutlineSoupKitchen } from 'react-icons/md';
 import { PiArmchairDuotone, PiShoppingCartDuotone } from 'react-icons/pi';
 import { TbToolsKitchen2 } from 'react-icons/tb';
@@ -6,7 +7,6 @@ import columnBG from '../assets/images/background/bg-column.png';
 import welcomeBG from '../assets/images/background/welcome.jpeg';
 import CartItem from '../components/cart/CartItem';
 import Base from '../layouts/Base';
-import { BiMoneyWithdraw } from 'react-icons/bi';
 
 const PRODUCTS = [
   {
@@ -95,7 +95,14 @@ function Menu() {
               </Col>
             ))}
 
-            <Col xs={24} className='mt-10'>
+            <Col xs={24} className='mt-5'>
+              <Space>
+                <Button type='primary'>Checkout</Button>
+                <Button disabled>Cancel</Button>
+              </Space>
+            </Col>
+
+            <Col xs={24} className='mt-8'>
               <Row gutter={16}>
                 <Col xs={12} md={6}>
                   <Statistic

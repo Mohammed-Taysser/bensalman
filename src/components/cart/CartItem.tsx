@@ -1,4 +1,4 @@
-import { Button, Col, Image, InputNumber, Row, Typography } from 'antd';
+import { Col, Image, InputNumber, Row, Typography } from 'antd';
 import { useState } from 'react';
 
 function CartItem(props: Readonly<CartItemProps>) {
@@ -34,11 +34,7 @@ function CartItem(props: Readonly<CartItemProps>) {
         </Typography.Title>
 
         <Row className='mb-3' justify='start'>
-          {product.qty > 0 ? (
-            <InputNumber controls min={1} value={qty} onChange={onQtyChange} />
-          ) : (
-            <Button>Add To Cart</Button>
-          )}
+          <InputNumber controls min={1} value={qty} onChange={onQtyChange} />
         </Row>
       </Col>
     </Row>
