@@ -1,4 +1,7 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Suspense } from 'react';
+import { Navigate, createBrowserRouter, useLocation } from 'react-router-dom';
+import SuspenseLoading from '../components/SuspenseLoading';
+import { isUserAuth } from '../helper';
 import {
   Cart,
   ChairReservation,
@@ -8,26 +11,64 @@ import {
   Welcome,
 } from './LazyPages';
 
+function RequireAuth(props: Readonly<{ children: React.ReactElement }>) {
+  const location = useLocation();
+
+  if (!isUserAuth()) {
+    return <Navigate to='/login' state={{ next: location }} replace />;
+  }
+
+  return props.children;
+}
+
+function NoRequireAuth(props: Readonly<{ children: React.ReactElement }>) {
+  if (isUserAuth()) {
+    return <Navigate to='/' replace />;
+  }
+
+  return <Suspense fallback={<SuspenseLoading />}>{props.children}</Suspense>;
+}
+
 const routes = createBrowserRouter([
   {
-    path: '/',
-    element: <Welcome />,
+    path: '/login',
+    element: (
+      <NoRequireAuth>
+        <Login />
+      </NoRequireAuth>
+    ),
   },
   {
-    path: '/login',
-    element: <Login />,
+    path: '/',
+    element: (
+      <RequireAuth>
+        <Welcome />
+      </RequireAuth>
+    ),
   },
   {
     path: '/cart',
-    element: <Cart />,
+    element: (
+      <RequireAuth>
+        <Cart />
+      </RequireAuth>
+    ),
   },
   {
-    path: '/chair-reservation',
-    element: <ChairReservation />,
+    path: '/chair',
+    element: (
+      <RequireAuth>
+        <ChairReservation />
+      </RequireAuth>
+    ),
   },
   {
     path: '/menu',
-    element: <Menu />,
+    element: (
+      <RequireAuth>
+        <Menu />
+      </RequireAuth>
+    ),
   },
   {
     path: '*',
