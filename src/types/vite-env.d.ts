@@ -41,7 +41,7 @@ interface CartItemProps {
 }
 
 // Local Storage
-type LocalStorageKeys = 'routes' | 'apiKey' | 'apiSecret';
+type LocalStorageKeys = 'authUser';
 
 type LocalStorageKeysObject = {
   [key in LocalStorageKeys]: string;
@@ -67,9 +67,9 @@ interface UserStatus {
 }
 
 // Login page
-interface LoginResponse {
-  api_secret: string | null;
-  api_key: string | null;
+interface AuthUser {
+  api_secret: string;
+  api_key: string;
   sid: string;
   routes: string[];
 }

@@ -14,11 +14,10 @@ class AxiosAPI {
 
     this.axiosInstance.interceptors.request.use(
       async (request) => {
-        const apiKey = LocalStorage.get('apiKey');
-        const apiSecret = LocalStorage.get('apiSecret');
+        const userInfo = LocalStorage.get<AuthUser>('authUser');
 
         if (request.url !== 'alhoda.alhoda.auth.login') {
-          request.headers.authorization = `token ${apiKey}:${apiSecret}`;
+          request.headers.authorization = `token ${userInfo?.api_key}:${userInfo?.api_secret}`;
         }
 
         request.headers['Content-Type'] = 'application/json';
@@ -35,10 +34,9 @@ class AxiosAPI {
         return response;
       },
       async (error) => {
-        const apiKey = LocalStorage.get('apiKey');
-        const apiSecret = LocalStorage.get('apiSecret');
+        const userInfo = LocalStorage.get<AuthUser>('authUser');
 
-        if (!apiKey || !apiSecret) {
+        if (userInfo && (!userInfo.api_key || !userInfo.api_secret)) {
           routes.navigate('/login');
         }
 
@@ -47,7 +45,6 @@ class AxiosAPI {
     );
   }
 
-  // Auth Endpoints
   login(body = {}) {
     return this.axiosInstance.post('alhoda.alhoda.auth.login', body);
   }

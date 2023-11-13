@@ -18,12 +18,13 @@ const login = createAsyncThunk(
   }
 );
 
-const initialState: RequestState<LoginResponse> = {
+const initialState: RequestState<AuthUser> = {
   data: {
-    api_key: LocalStorage.get('apiKey'),
-    api_secret: LocalStorage.get('apiSecret'),
-    sid: '',
+    api_key: '',
+    api_secret: '',
     routes: [],
+    sid: '',
+    ...LocalStorage.get('authUser'),
   },
   status: 'idle',
   error: '',
@@ -34,9 +35,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: () => {
-      LocalStorage.remove('apiKey');
-      LocalStorage.remove('routes');
-      LocalStorage.remove('apiSecret');
+      LocalStorage.remove('authUser');
       routes.navigate('/login');
     },
   },
@@ -56,9 +55,7 @@ const authSlice = createSlice({
 
         state.status = 'succeeded';
         state.data = apiResponse;
-        LocalStorage.set('routes', apiResponse.routes);
-        LocalStorage.set('apiSecret', apiResponse.api_secret);
-        LocalStorage.set('apiKey', apiResponse.api_key);
+        LocalStorage.set('authUser', apiResponse);
       })
       .addCase(login.rejected, (state, action) => {
         state.status = 'failed';

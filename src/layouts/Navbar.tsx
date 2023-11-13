@@ -27,7 +27,7 @@ function Navbar() {
           <Row gutter={25} align='middle'>
             {/* hide seat on empty */}
             <Col>
-              <Link to='/chair'>
+              <Link to='/chair-reservation'>
                 <Badge count={'SE-89'} color='tomato'>
                   <PiArmchairDuotone />
                 </Badge>

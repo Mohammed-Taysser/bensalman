@@ -18,25 +18,25 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../hooks/useRedux';
-import { login } from '../../redux/slices/auth';
+import { login } from '../../redux/slices/auth.slice';
 
 function Login() {
   const dispatch = useAppDispatch();
   const navigateTo = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
-  const loginState = useAppSelector(selectAuth);
+  const authState = useAppSelector(selectAuth);
 
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (loginState.error) {
+    if (authState.error) {
       messageApi.open({
         type: 'error',
-        content: loginState.error,
+        content: authState.error,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginState.error]);
+  }, [authState.error]);
 
   const onFinish = async (values: { usr: string; pwd: string }) => {
     dispatch(login(values)).then((action) => {
@@ -88,7 +88,7 @@ function Login() {
                 <Button
                   htmlType='submit'
                   type='primary'
-                  loading={loginState.status === 'loading'}
+                  loading={authState.status === 'loading'}
                   block
                   icon={<BiCoffeeTogo className='btn-icon' />}
                 >

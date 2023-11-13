@@ -1,7 +1,5 @@
 const Local_Storage_Keys: LocalStorageKeysObject = {
-  apiKey: 'dynamic-api-key',
-  apiSecret: 'dynamic-api-secret',
-  routes: 'dynamic-pages-routes',
+  authUser: 'dynamic-pages-auth-user',
 };
 
 class LocalStorage {
