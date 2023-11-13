@@ -1,8 +1,7 @@
+import { Typography } from 'antd';
 
 function NotAuthorized() {
-  return (
-    <div>NotAuthorized</div>
-  )
+  return <Typography.Title>NotAuthorized</Typography.Title>;
 }
 
-export default NotAuthorized
+export default NotAuthorized;
