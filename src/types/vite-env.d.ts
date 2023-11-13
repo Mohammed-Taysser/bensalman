@@ -39,3 +39,42 @@ interface MenuProductModalProps {
 interface CartItemProps {
   product: CartProduct;
 }
+
+// Local Storage
+type LocalStorageKeys = 'routes' | 'apiKey' | 'apiSecret';
+
+type LocalStorageKeysObject = {
+  [key in LocalStorageKeys]: string;
+};
+
+// Redux state
+type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
+
+interface RequestState<T = null> {
+  data: T;
+  status: RequestStatus;
+  error: SerializedError;
+}
+
+interface ResponseError {
+  message: string;
+}
+
+// Response
+interface UserStatus {
+  balance: number;
+  current_chair: boolean | string;
+}
+
+// Login page
+interface LoginResponse {
+  api_secret: string | null;
+  api_key: string | null;
+  sid: string;
+  routes: string[];
+}
+
+interface LoginBodyState {
+  usr: string;
+  pwd: string;
+}
