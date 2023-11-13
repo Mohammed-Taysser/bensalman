@@ -1,27 +1,32 @@
-import { Suspense } from 'react';
+import { ReactElement, Suspense } from 'react';
 import { Navigate, createBrowserRouter, useLocation } from 'react-router-dom';
 import SuspenseLoading from '../components/SuspenseLoading';
-import { isUserAuth } from '../helper';
+import { isRouteAUth, isUserAuth } from '../helper';
 import {
   Cart,
   ChairReservation,
   Login,
   Menu,
+  NotAuthorized,
   PageNotFound,
   Welcome,
 } from './LazyPages';
 
-function RequireAuth(props: Readonly<{ children: React.ReactElement }>) {
+function RequireAuth(props: Readonly<{ children: ReactElement; path: string }>) {
   const location = useLocation();
 
   if (!isUserAuth()) {
     return <Navigate to='/login' state={{ next: location }} replace />;
   }
 
+  if (!isRouteAUth(props.path)) {
+    return <NotAuthorized />;
+  }
+
   return props.children;
 }
 
-function NoRequireAuth(props: Readonly<{ children: React.ReactElement }>) {
+function NoRequireAuth(props: Readonly<{ children: ReactElement }>) {
   if (isUserAuth()) {
     return <Navigate to='/' replace />;
   }
@@ -41,7 +46,7 @@ const routes = createBrowserRouter([
   {
     path: '/',
     element: (
-      <RequireAuth>
+      <RequireAuth path='/'>
         <Welcome />
       </RequireAuth>
     ),
@@ -49,7 +54,7 @@ const routes = createBrowserRouter([
   {
     path: '/cart',
     element: (
-      <RequireAuth>
+      <RequireAuth path='/cart'>
         <Cart />
       </RequireAuth>
     ),
@@ -57,7 +62,7 @@ const routes = createBrowserRouter([
   {
     path: '/chair',
     element: (
-      <RequireAuth>
+      <RequireAuth path='/chair'>
         <ChairReservation />
       </RequireAuth>
     ),
@@ -65,7 +70,7 @@ const routes = createBrowserRouter([
   {
     path: '/menu',
     element: (
-      <RequireAuth>
+      <RequireAuth path='/menu'>
         <Menu />
       </RequireAuth>
     ),

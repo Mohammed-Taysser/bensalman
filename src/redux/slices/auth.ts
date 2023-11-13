@@ -49,7 +49,7 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         const apiResponse = {
           api_secret: action.payload.data.api_secret,
-          routes: action.payload.data.routes,
+          routes: action.payload.data.routing,
           sid: action.payload.data.sid,
           api_key: action.payload.data.api_key,
         };
