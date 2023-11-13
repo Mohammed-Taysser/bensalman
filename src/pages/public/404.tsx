@@ -1,5 +1,5 @@
 import { Col, Image, Row } from 'antd';
-import image404 from '../assets/images/background/404.svg';
+import image404 from '../../assets/images/background/404.svg';
 
 function PageNotFound() {
   return (

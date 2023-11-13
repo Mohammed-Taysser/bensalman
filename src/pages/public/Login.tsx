@@ -1,17 +1,54 @@
-import { Button, Col, Form, Image, Input, Row, Typography } from 'antd';
+import {
+  Button,
+  Col,
+  Form,
+  Image,
+  Input,
+  Row,
+  Typography,
+  message,
+} from 'antd';
+import { useEffect } from 'react';
 import { BiCoffeeTogo } from 'react-icons/bi';
-import chief from '../assets/images/icons/chief.png';
-import demo from '../assets/videos/login-demo.mp4';
+import { useNavigate } from 'react-router-dom';
+import chief from '../../assets/images/icons/chief.png';
+import demo from '../../assets/videos/login-demo.mp4';
+import {
+  selectAuth,
+  useAppDispatch,
+  useAppSelector,
+} from '../../hooks/useRedux';
+import { login } from '../../redux/slices/auth';
 
 function Login() {
+  const dispatch = useAppDispatch();
+  const navigateTo = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
+  const loginState = useAppSelector(selectAuth);
+
   const [form] = Form.useForm();
 
-  const onFinish = (values: { email: string; password: string }) => {
-    console.log(values);
+  useEffect(() => {
+    if (loginState.error) {
+      messageApi.open({
+        type: 'error',
+        content: loginState.error,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginState.error]);
+
+  const onFinish = async (values: { usr: string; pwd: string }) => {
+    dispatch(login(values)).then((action) => {
+      if (login.fulfilled.match(action)) {
+        navigateTo('/');
+      }
+    });
   };
 
   return (
     <div className='login-page'>
+      {contextHolder}
       <video src={demo} muted loop autoPlay className='video-bg' />
       <Row justify='center' align='middle' className='min-h-screen'>
         <Col xs={20} md={8}>
@@ -26,7 +63,7 @@ function Login() {
 
             <Form form={form} onFinish={onFinish} size='large'>
               <Form.Item
-                name='email'
+                name='usr'
                 rules={[
                   { required: true, message: 'Please input your email!' },
                   {
@@ -39,7 +76,7 @@ function Login() {
               </Form.Item>
 
               <Form.Item
-                name='password'
+                name='pwd'
                 rules={[
                   { required: true, message: 'Please input your password!' },
                 ]}
@@ -51,6 +88,7 @@ function Login() {
                 <Button
                   htmlType='submit'
                   type='primary'
+                  loading={loginState.status === 'loading'}
                   block
                   icon={<BiCoffeeTogo className='btn-icon' />}
                 >
