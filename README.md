@@ -9,7 +9,11 @@
 | Sign In           | `/login`             |
 | Menu              | `/menu`              |
 | Cart              | `/cart`              |
-| Chair Reservation | `/chair-reservation` |
+| Chair Reservation | `/chair` |
+
+## TODO
+
+- [ ] Improve page title to be dynamic
 
 ## Features 🎮
 
