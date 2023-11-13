@@ -16,4 +16,23 @@ function isUserAuth() {
   return false;
 }
 
-export { isUserAuth };
+/**
+ * The function checks if a given route requires authentication based on the routes
+ * stored in the application's state.
+ * @param {string} path - A string representing the route path that needs to be
+ * checked for authentication.
+ * @returns The function isRouteAuth is returning a boolean value. It returns true
+ * if the given path is included in the routes array stored in the auth.data
+ * object, and false otherwise.
+ */
+function isRouteAUth(path: string) {
+  const { auth } = store.getState();
+
+  if (auth.data.routes.includes(path)) {
+    return true;
+  }
+
+  return false;
+}
+
+export { isUserAuth, isRouteAUth };
