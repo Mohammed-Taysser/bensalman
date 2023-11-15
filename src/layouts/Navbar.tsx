@@ -1,20 +1,64 @@
-import { Badge, Col, Row, Typography } from 'antd';
+import { Badge, Col, Dropdown, MenuProps, Row, Typography } from 'antd';
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import { FaRegUserCircle } from 'react-icons/fa';
+import { IoLogOutOutline } from 'react-icons/io5';
+import { MdOutlineMenuBook } from 'react-icons/md';
 import { PiArmchairDuotone, PiShoppingCartDuotone } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
-import { selectAuth, selectStatus, useAppSelector } from '../hooks/useRedux';
+import {
+  selectAuth,
+  selectStatus,
+  useAppDispatch,
+  useAppSelector,
+} from '../hooks/useRedux';
+import { logout } from '../redux/slices/auth.slice';
 
 function Navbar() {
+  const dispatch = useAppDispatch();
+
   const statusState = useAppSelector(selectStatus);
   const authState = useAppSelector(selectAuth);
+
+  const onLogoutBtnClick = (
+    evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    evt.preventDefault();
+
+    dispatch(logout());
+  };
+
+  const items: MenuProps['items'] = [
+    {
+      label: <Link to='/menu'>Menu</Link>,
+      icon: <MdOutlineMenuBook className='!text-lg' />,
+      key: '0',
+    },
+    {
+      label: <Link to='/chair'>Chairs</Link>,
+      icon: <PiArmchairDuotone className='!text-lg' />,
+      key: '1',
+    },
+    {
+      type: 'divider',
+    },
+    {
+      label: (
+        <a href='#logout' onClick={onLogoutBtnClick}>
+          Logout
+        </a>
+      ),
+      key: '3',
+      danger: true,
+      icon: <IoLogOutOutline className='!text-lg' />,
+    },
+  ];
 
   return (
     <nav className='navbar'>
       <Row className='p-5 pr-10' justify='space-between' align='middle'>
         <Col>
-          <a href='#'>
-            <Row gutter={10} align='middle'>
+          <Dropdown menu={{ items }} trigger={['click']}>
+            <Row gutter={10} align='middle' className='cursor-pointer'>
               <Col>
                 <FaRegUserCircle />
               </Col>
@@ -24,7 +68,7 @@ function Navbar() {
                 </Typography.Title>
               </Col>
             </Row>
-          </a>
+          </Dropdown>
         </Col>
 
         <Col>

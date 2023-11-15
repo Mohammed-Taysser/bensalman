@@ -36,8 +36,12 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout: () => {
+    logout: (state) => {
+      state.data.api_key = '';
+      state.data.api_secret = '';
+
       LocalStorage.remove('authUser');
+
       routes.navigate('/login');
     },
   },
