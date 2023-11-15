@@ -2,7 +2,9 @@ import axios, { AxiosInstance } from 'axios';
 import { LocalStorage } from './localStorage';
 import routes from './routes';
 
-const API_ENDPOINT = 'http://192.168.1.64:8002/api/method';
+const SERVER_URL = 'http://192.168.1.64:8002';
+
+const API_ENDPOINT = SERVER_URL + '/api/method';
 
 class AxiosAPI {
   private axiosInstance: AxiosInstance;
@@ -17,7 +19,9 @@ class AxiosAPI {
         const userInfo = LocalStorage.get<AuthUser>('authUser');
 
         if (request.url !== 'alhoda.alhoda.auth.login') {
-          request.headers['Authorization'] = `token ${userInfo?.api_key}:${userInfo?.api_secret}`;
+          request.headers[
+            'Authorization'
+          ] = `token ${userInfo?.api_key}:${userInfo?.api_secret}`;
         }
 
         request.headers['Content-Type'] = 'application/json';
@@ -53,11 +57,21 @@ class AxiosAPI {
     return this.axiosInstance.get('alhoda.alhoda.apis.home');
   }
 
-  getAllChairs() {
+  getChairs() {
     return this.axiosInstance.get('alhoda.alhoda.apis.get_all_chairs');
+  }
+
+  getProducts(params?: Record<string, string | null>) {
+    return this.axiosInstance.get('alhoda.alhoda.apis.get_item_data', {
+      params,
+    });
+  }
+
+  getCategories() {
+    return this.axiosInstance.get('alhoda.alhoda.apis.get_item_groups');
   }
 }
 
 const API = new AxiosAPI();
 
-export { API };
+export { API, SERVER_URL };
