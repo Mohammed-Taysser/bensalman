@@ -31,7 +31,7 @@ function Navbar() {
           <Row gutter={25} align='middle'>
             {statusState.data.current_chair && (
               <Col>
-                <Link to='/chair-reservation'>
+                <Link to='/chair'>
                   <Badge
                     count={statusState.data.current_chair}
                     showZero
