@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import store from './redux/store';
 
 /**
@@ -35,4 +36,41 @@ function isRouteAUth(path: string) {
   return false;
 }
 
-export { isUserAuth, isRouteAUth };
+/**
+ * The function `getErrorMessage` returns an error message based on the given Axios
+ * error object.
+ * @param error - The `error` parameter is an AxiosError object, which is an error
+ * object specific to the Axios library. It contains information about the error
+ * that occurred during an HTTP request, such as the error message, status code,
+ * and response data.
+ * @returns an error message based on the provided AxiosError object. If the error
+ * object has a response data with a message property, that message is returned. If
+ * the error message is "Network Error", it returns a specific error message
+ * related to internet connection. If the error message is "Request aborted", it
+ * returns a specific error message related to a canceled request. If none of these
+ * conditions are met
+ */
+function getErrorMessage(error: AxiosError<ResponseError>) {
+  const errorObject = error?.response?.data;
+
+  if (!error) {
+    return null;
+  }
+
+  if (errorObject?.message) {
+    return errorObject?.message;
+  }
+
+  if (error?.message === 'Network Error') {
+    return `Please check your internet connection and try again.`;
+  }
+
+  if (error?.message === 'Request aborted') {
+    return `Request had been canceled`;
+  }
+
+  return JSON.stringify(error);
+}
+
+export { getErrorMessage, isRouteAUth, isUserAuth };
+
