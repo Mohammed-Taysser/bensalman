@@ -32,7 +32,7 @@ interface Chair {
 }
 
 // Local Storage
-type LocalStorageKeys = 'authUser';
+type LocalStorageKeys = 'authUser' | 'language';
 
 type LocalStorageKeysObject = {
   [key in LocalStorageKeys]: string;

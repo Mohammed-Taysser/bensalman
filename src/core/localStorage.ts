@@ -1,5 +1,6 @@
 const Local_Storage_Keys: LocalStorageKeysObject = {
   authUser: 'bs-auth-user',
+  language: 'bs-language',
 };
 
 class LocalStorage {

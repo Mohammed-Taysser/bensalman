@@ -1,5 +1,6 @@
 import { Col, Image, Row, Typography, message } from 'antd';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import welcomeBG from '../../assets/images/background/welcome.jpeg';
 import chief from '../../assets/images/icons/chief.png';
@@ -15,6 +16,7 @@ import Base from '../../layouts/Base';
 import { welcome } from '../../redux/slices/status.slice';
 
 function Welcome() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
   const statusState = useAppSelector(selectStatus);
@@ -80,8 +82,8 @@ function Welcome() {
           <div className='text-center'>
             <Image src={topLines} preview={false} className='mb-5' />
 
-            <Typography.Title className='dancing-font !text-aurora'>
-              Welcome To BS Restaurant
+            <Typography.Title className='!text-aurora'>
+              {t('welcome-to-bs-restaurant')}
             </Typography.Title>
 
             <div>
@@ -91,8 +93,9 @@ function Welcome() {
             <Image src={bottomLines} preview={false} className='mt-5' />
 
             <Typography.Title level={5} className='!font-normal'>
-              Welcome to Risotto Restaurant. Since 1988, Offering Traditional
-              Dishes of the highest quality.
+              {t(
+                'welcome-to-bs-restaurant-offering-traditional-dishes-of-the-highest-quality'
+              )}
             </Typography.Title>
           </div>
         </Col>

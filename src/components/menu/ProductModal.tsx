@@ -1,9 +1,12 @@
 import { Button, Col, Image, InputNumber, Modal, Row, Typography } from 'antd';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SERVER_URL } from '../../core/api';
 
 function ProductModal(props: Readonly<MenuProductModalProps>) {
   const { isOpen, onClose, product } = props;
+
+  const { t } = useTranslation();
 
   const [qty, setQty] = useState(product.cart_qty);
 
@@ -38,7 +41,7 @@ function ProductModal(props: Readonly<MenuProductModalProps>) {
         <Col xs={24} md={14}>
           <Typography.Title level={4}>{product.item_name}</Typography.Title>
           <Typography.Title level={5}>
-            ${product.standard_rate}
+            {product.standard_rate} ج.م
           </Typography.Title>
           <Row className='mb-3' justify='start'>
             {product.cart_qty > 0 ? (
@@ -50,7 +53,7 @@ function ProductModal(props: Readonly<MenuProductModalProps>) {
                 onChange={onQtyChange}
               />
             ) : (
-              <Button>Add To Cart</Button>
+              <Button>{t('add-to-cart')}</Button>
             )}
           </Row>
           <Typography.Text className='text-gray-400'>

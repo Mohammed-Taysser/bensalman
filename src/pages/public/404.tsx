@@ -1,4 +1,5 @@
 import { Button, Col, Image, Row, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import image404 from '../../assets/images/background/404.svg';
 import columnBG from '../../assets/images/background/bg-column.png';
@@ -6,6 +7,7 @@ import welcomeBG from '../../assets/images/background/welcome.jpeg';
 import Base from '../../layouts/Base';
 
 function PageNotFound() {
+  const { t } = useTranslation();
   const navigateTo = useNavigate();
 
   const onClick = () => {
@@ -31,10 +33,12 @@ function PageNotFound() {
               <Image preview={false} src={image404} width={300} />
 
               <Typography.Title className='!text-aurora' level={4}>
-                Sorry, the page you're looking for not exist or might be delete
+                {t(
+                  'sorry-the-page-youre-looking-for-not-exist-or-might-be-delete'
+                )}
               </Typography.Title>
 
-              <Button onClick={onClick}>Take Me Home</Button>
+              <Button onClick={onClick}>{t('take-me-home')}</Button>
             </Col>
           </Row>
         </Col>

@@ -12,10 +12,11 @@ import {
   useAppSelector,
 } from '../hooks/useRedux';
 import { logout } from '../redux/slices/auth.slice';
+import { useTranslation } from 'react-i18next';
 
 function Navbar() {
   const dispatch = useAppDispatch();
-
+  const { t } = useTranslation();
   const statusState = useAppSelector(selectStatus);
   const authState = useAppSelector(selectAuth);
 
@@ -44,7 +45,7 @@ function Navbar() {
     {
       label: (
         <a href='#logout' onClick={onLogoutBtnClick}>
-          Logout
+          {t('logout')}
         </a>
       ),
       key: '3',
@@ -55,7 +56,7 @@ function Navbar() {
 
   return (
     <nav className='navbar'>
-      <Row className='p-5 pr-10' justify='space-between' align='middle'>
+      <Row className='p-5 pl-10' justify='space-between' align='middle'>
         <Col>
           <Dropdown menu={{ items }} trigger={['click']}>
             <Row gutter={10} align='middle' className='cursor-pointer'>

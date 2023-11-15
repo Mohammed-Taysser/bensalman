@@ -7,13 +7,10 @@ $main-color: #dda300;
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Cairo', sans-serif;
   background-color: #090c0f;
-}
-
-// utils
-.dancing-font {
-  font-family: 'Dancing Script', cursive;
+  direction: rtl;
+  text-align: right;
 }
 
 .bg-overlay {
@@ -160,6 +157,7 @@ nav.navbar {
         text-align: center;
         min-height: 30px;
         background-color: $main-color;
+        font-family: 'Cairo', sans-serif;
         color: #000;
         cursor: pointer;
         user-select: none;

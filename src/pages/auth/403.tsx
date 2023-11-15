@@ -1,10 +1,13 @@
 import { Col, Image, Row, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 import image403 from '../../assets/images/background/403.svg';
 import columnBG from '../../assets/images/background/bg-column.png';
 import welcomeBG from '../../assets/images/background/welcome.jpeg';
 import Base from '../../layouts/Base';
 
 function NotAuthorized() {
+  const { t } = useTranslation();
+
   return (
     <Base bg={welcomeBG}>
       <Row
@@ -23,7 +26,7 @@ function NotAuthorized() {
             <Col xs={24} className='text-center my-16 '>
               <Image preview={false} src={image403} width={300} />
               <Typography.Title className='!text-aurora' level={3}>
-                You't Authorized To See This Page
+                {t('yout-authorized-to-see-this-page')}
               </Typography.Title>
             </Col>
           </Row>

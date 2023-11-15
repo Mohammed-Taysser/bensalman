@@ -1,6 +1,7 @@
 import { Col, Row, message } from 'antd';
 import { AxiosError } from 'axios';
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import columnBG from '../../assets/images/background/bg-column.png';
@@ -13,6 +14,7 @@ import { getErrorMessage } from '../../helper';
 import Base from '../../layouts/Base';
 
 function Menu() {
+  const { t } = useTranslation();
   const [messageApi, contextHolder] = message.useMessage();
 
   const [selectedCategoryName, setSelectedCategoryName] = useState<
@@ -131,7 +133,7 @@ function Menu() {
                     } `}
                     onClick={() => onCategoryBtnClick('')}
                   >
-                    All
+                    {t('all')}
                   </button>
                 </SwiperSlide>
 

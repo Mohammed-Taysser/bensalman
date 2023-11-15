@@ -9,6 +9,7 @@ import {
   message,
 } from 'antd';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BiCoffeeTogo } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import chief from '../../assets/images/icons/chief.png';
@@ -22,6 +23,7 @@ import { login } from '../../redux/slices/auth.slice';
 import { setUserStatus } from '../../redux/slices/status.slice';
 
 function Login() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const navigateTo = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
@@ -69,8 +71,8 @@ function Login() {
         <Col xs={20} md={8}>
           <div className='bg-overlay'>
             <div className='text-center mb-5'>
-              <Typography.Title className='dancing-font mt-0 !text-aurora'>
-                Welcome To BS
+              <Typography.Title className='mt-0 !text-aurora'>
+                {t('welcome-to-bs')}
               </Typography.Title>
 
               <Image src={chief} preview={false} width={180} />
@@ -80,23 +82,23 @@ function Login() {
               <Form.Item
                 name='email'
                 rules={[
-                  { required: true, message: 'Please input your email!' },
+                  { required: true, message: t('please-input-your-email') },
                   {
                     type: 'email',
-                    message: 'The input is not valid email!',
+                    message: t('the-input-is-not-valid-email'),
                   },
                 ]}
               >
-                <Input placeholder='Email' />
+                <Input placeholder={t('email')} />
               </Form.Item>
 
               <Form.Item
                 name='password'
                 rules={[
-                  { required: true, message: 'Please input your password!' },
+                  { required: true, message: t('please-input-your-password') },
                 ]}
               >
-                <Input.Password placeholder='Password' />
+                <Input.Password placeholder={t('password')} />
               </Form.Item>
 
               <Form.Item>
@@ -107,7 +109,7 @@ function Login() {
                   block
                   icon={<BiCoffeeTogo className='btn-icon' />}
                 >
-                  Sign In
+                  {t('sign-in')}
                 </Button>
               </Form.Item>
             </Form>

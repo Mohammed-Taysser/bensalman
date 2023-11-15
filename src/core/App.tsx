@@ -1,10 +1,13 @@
 import { ConfigProvider, theme } from 'antd';
+import arEG from 'antd/locale/ar_EG';
 import { Suspense } from 'react';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import SuspenseLoading from '../components/SuspenseLoading';
 import store from '../redux/store';
 import routes from './routes';
+
+import './i18n';
 
 import 'swiper/scss';
 import 'swiper/scss/navigation';
@@ -14,15 +17,17 @@ function App() {
   return (
     <Provider store={store}>
       <ConfigProvider
+        locale={arEG}
+        direction='rtl'
         theme={{
           algorithm: theme.darkAlgorithm,
           token: {
             colorPrimary: '#dda300',
-            fontFamily: `'Lato', sans-serif`,
+            fontFamily: `'Cairo', sans-serif`,
           },
           components: {
             Typography: {
-              fontFamily: `'Lato', sans-serif`,
+              fontFamily: `'Cairo', sans-serif`,
             },
             Button: {
               colorPrimary: '#cfa670',

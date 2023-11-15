@@ -1,8 +1,11 @@
 import { Button, Col, InputNumber, Row, Typography } from 'antd';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function SingleMenuItem(props: Readonly<SingleMenuItemProps>) {
   const { product, onProductClick } = props;
+
+  const { t } = useTranslation();
 
   const [qty, setQty] = useState(product?.cart_qty ?? 1);
 
@@ -30,7 +33,7 @@ function SingleMenuItem(props: Readonly<SingleMenuItemProps>) {
         </Col>
         <Col order={3}>
           <Typography.Title level={4}>
-            ${product.standard_rate}
+            {product.standard_rate} ج.م
           </Typography.Title>
         </Col>
       </Row>
@@ -48,7 +51,7 @@ function SingleMenuItem(props: Readonly<SingleMenuItemProps>) {
             onChange={onQtyChange}
           />
         ) : (
-          <Button>Add To Cart</Button>
+          <Button>{t('add-to-cart')}</Button>
         )}
       </Row>
     </div>

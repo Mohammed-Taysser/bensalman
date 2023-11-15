@@ -1,0 +1,17 @@
+{
+  "welcome-to-bs": "مرحبا بكم في بن-سليمان",
+  "email": "البريد إلكتروني",
+  "password": "كلمة المرور",
+  "please-input-your-email": "الرجاء إدخال البريد الإلكتروني الخاص بك!",
+  "please-input-your-password": "الرجاء إدخال كلمة المرور الخاصة بك!",
+  "sign-in": "تسجيل الدخول",
+  "the-input-is-not-valid-email": "الإدخال ليس بريدًا إلكترونيًا صالحًا!",
+  "sorry-the-page-youre-looking-for-not-exist-or-might-be-delete": "عذرًا، الصفحة التي تبحث عنها غير موجودة أو تم حذفها",
+  "take-me-home": "خذنى إلى المنزل",
+  "welcome-to-bs-restaurant": "مرحبا بكم في مطعم بن سليمان",
+  "welcome-to-bs-restaurant-offering-traditional-dishes-of-the-highest-quality": "مرحبا بكم في مطعم بن سليمان. \nتقديم الأطباق التقليدية بأعلى مستويات الجودة.",
+  "all": "الكل",
+  "yout-authorized-to-see-this-page": "أنت غير مصرح لك برؤية هذه الصفحة",
+  "logout": "تسجيل الخروج",
+  "add-to-cart": "أضف إلى السلة"
+}
