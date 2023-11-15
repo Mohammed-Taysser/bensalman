@@ -46,7 +46,7 @@ function Navbar() {
             <Col>
               <Link to='/cart'>
                 <Badge
-                  count={statusState.data.current_cart || 0}
+                  count={statusState.data.cart_count}
                   showZero
                   color='tomato'
                 >
