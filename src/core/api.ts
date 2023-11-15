@@ -17,7 +17,7 @@ class AxiosAPI {
         const userInfo = LocalStorage.get<AuthUser>('authUser');
 
         if (request.url !== 'alhoda.alhoda.auth.login') {
-          request.headers.authorization = `token ${userInfo?.api_key}:${userInfo?.api_secret}`;
+          request.headers['Authorization'] = `token ${userInfo?.api_key}:${userInfo?.api_secret}`;
         }
 
         request.headers['Content-Type'] = 'application/json';
@@ -47,6 +47,14 @@ class AxiosAPI {
 
   login(body = {}) {
     return this.axiosInstance.post('alhoda.alhoda.auth.login', body);
+  }
+
+  welcome() {
+    return this.axiosInstance.get('alhoda.alhoda.apis.home');
+  }
+
+  getAllChairs() {
+    return this.axiosInstance.get('alhoda.alhoda.apis.get_all_chairs');
   }
 }
 
