@@ -61,6 +61,13 @@ class AxiosAPI {
     return this.axiosInstance.get('alhoda.alhoda.apis.get_all_chairs');
   }
 
+  reserveChair(body = {}) {
+    return this.axiosInstance.post(
+      'alhoda.alhoda.apis.create_chair_Reservation',
+      body
+    );
+  }
+
   getProducts(params?: Record<string, string | null>) {
     return this.axiosInstance.get('alhoda.alhoda.apis.get_item_data', {
       params,
