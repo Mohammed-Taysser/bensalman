@@ -1,47 +1,32 @@
 /// <reference types="vite/client" />
 
-interface MenuProduct {
-  title: string;
-  description: string;
-  price: number;
-  id: string;
-  qty: number;
-}
-
 interface Product {
-  title: string;
+  name: string;
+  standard_rate: number;
+  item_name: string;
   description: string;
-  price: number;
-  id: string;
-  qty: number;
+  item_group: string;
   image: string;
+  cart_qty: number;
 }
 
-interface CartProduct {
-  title: string;
-  price: number;
-  id: string;
-  qty: number;
-  image: string;
+interface Category {
+  names: string;
 }
 
 interface SingleMenuItemProps {
   onProductClick: (id: string) => void;
-  product: MenuProduct;
+  product: Product;
 }
 
 interface MenuProductModalProps {
-  product: MenuProduct;
+  product: Product;
   isOpen: boolean;
   onClose: () => void;
 }
 
-interface CartItemProps {
-  product: CartProduct;
-}
-
 interface Chair {
-  id: string;
+  name: string;
   number: number;
   code: string;
 }
@@ -70,6 +55,8 @@ interface UserStatus {
   balance: number;
   current_chair: boolean | string;
   current_cart: boolean | string;
+  home_routing: WelcomeMenu[];
+  cart_count: number;
 }
 
 interface AuthUser {
