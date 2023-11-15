@@ -5,6 +5,7 @@ import welcomeBG from '../../assets/images/background/welcome.jpeg';
 import chief from '../../assets/images/icons/chief.png';
 import bottomLines from '../../assets/images/icons/welcome/welcome-lines-bottom.png';
 import topLines from '../../assets/images/icons/welcome/welcome-lines-top.png';
+import SuspenseLoading from '../../components/SuspenseLoading';
 import {
   selectStatus,
   useAppDispatch,
@@ -47,22 +48,26 @@ function Welcome() {
         <Col md={10}>
           <div className='text-center'>
             <Image src={topLines} preview={false} className='mb-10 md:hidden' />
-            <Row
-              align='middle'
-              justify='center'
-              gutter={[
-                { xs: 0, md: 100 },
-                { xs: 50, sm: 50, md: 50 },
-              ]}
-            >
-              {statusState.data.home_routing.map((item) => (
-                <Col key={item.id} xs={20} md={12}>
-                  <Link to={item.path} className='ribbon'>
-                    {item.label}
-                  </Link>
-                </Col>
-              ))}
-            </Row>
+            {statusState.status === 'loading' ? (
+              <SuspenseLoading />
+            ) : (
+              <Row
+                align='middle'
+                justify='center'
+                gutter={[
+                  { xs: 0, md: 100 },
+                  { xs: 50, sm: 50, md: 50 },
+                ]}
+              >
+                {statusState.data.home_routing.map((item) => (
+                  <Col key={item.id} xs={20} md={12}>
+                    <Link to={item.path} className='ribbon'>
+                      {item.label}
+                    </Link>
+                  </Col>
+                ))}
+              </Row>
+            )}
             <Image
               src={bottomLines}
               preview={false}
