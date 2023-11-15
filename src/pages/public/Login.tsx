@@ -50,7 +50,9 @@ function Login() {
         const payload: UserStatus = {
           balance: action.payload.data.balance,
           current_chair: action.payload.data.current_chair,
+          home_routing: action.payload.data.home_routing,
           current_cart: action.payload.data.current_cart,
+          cart_count: action.payload.data.cart_count,
         };
 
         dispatch(setUserStatus(payload));
