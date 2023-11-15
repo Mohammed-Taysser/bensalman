@@ -40,6 +40,12 @@ interface CartItemProps {
   product: CartProduct;
 }
 
+interface Chair {
+  id: string;
+  number: number;
+  code: string;
+}
+
 // Local Storage
 type LocalStorageKeys = 'authUser';
 
@@ -60,21 +66,27 @@ interface ResponseError {
   message: string;
 }
 
-// Response
 interface UserStatus {
   balance: number;
   current_chair: boolean | string;
+  current_cart: boolean | string;
 }
 
-// Login page
 interface AuthUser {
   api_secret: string;
   api_key: string;
   sid: string;
   routes: string[];
+  full_name: string;
 }
 
-interface LoginBodyState {
+interface LoginBody {
   usr: string;
   pwd: string;
+}
+
+interface WelcomeMenu {
+  id: string;
+  label: string;
+  path: string;
 }
