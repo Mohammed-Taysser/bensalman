@@ -1,33 +1,45 @@
-import { Col, Image, Row, Typography } from 'antd';
+import { Col, Image, Row, Typography, message } from 'antd';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import welcomeBG from '../assets/images/background/welcome.jpeg';
-import chief from '../assets/images/icons/chief.png';
-import bottomLines from '../assets/images/icons/welcome/welcome-lines-bottom.png';
-import topLines from '../assets/images/icons/welcome/welcome-lines-top.png';
-import Base from '../layouts/Base';
-
-const CATEGORY = [
-  {
-    label: 'Menu',
-    url: '/menu',
-  },
-  {
-    label: 'Simply Cheese',
-    url: '/',
-  },
-  {
-    label: 'Project details',
-    url: '/',
-  },
-  {
-    label: 'QUATTRO FORMAGGI',
-    url: '/',
-  },
-];
+import welcomeBG from '../../assets/images/background/welcome.jpeg';
+import chief from '../../assets/images/icons/chief.png';
+import bottomLines from '../../assets/images/icons/welcome/welcome-lines-bottom.png';
+import topLines from '../../assets/images/icons/welcome/welcome-lines-top.png';
+import {
+  selectStatus,
+  useAppDispatch,
+  useAppSelector,
+} from '../../hooks/useRedux';
+import Base from '../../layouts/Base';
+import { welcome } from '../../redux/slices/status.slice';
 
 function Welcome() {
+  const dispatch = useAppDispatch();
+  const [messageApi, contextHolder] = message.useMessage();
+  const statusState = useAppSelector(selectStatus);
+
+  useEffect(() => {
+    getWelcomeStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (statusState.error) {
+      messageApi.open({
+        type: 'error',
+        content: statusState.error,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statusState.error]);
+
+  const getWelcomeStatus = () => {
+    dispatch(welcome());
+  };
+
   return (
     <Base bg={welcomeBG}>
+      {contextHolder}
       <Row
         className='min-h-screen justify-center md:justify-around'
         align='middle'
@@ -43,9 +55,9 @@ function Welcome() {
                 { xs: 50, sm: 50, md: 50 },
               ]}
             >
-              {CATEGORY.map((item) => (
-                <Col key={item.label} xs={20} md={12}>
-                  <Link to={item.url} className='ribbon'>
+              {statusState.data.home_routing.map((item) => (
+                <Col key={item.id} xs={20} md={12}>
+                  <Link to={item.path} className='ribbon'>
                     {item.label}
                   </Link>
                 </Col>
