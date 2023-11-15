@@ -1,10 +1,11 @@
-import { Badge, Col, Dropdown, MenuProps, Row, Typography } from 'antd';
+import { Badge, Col, Dropdown, Row, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { IoLogOutOutline } from 'react-icons/io5';
-import { MdOutlineMenuBook } from 'react-icons/md';
 import { PiArmchairDuotone, PiShoppingCartDuotone } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
+import { getIcon } from '../helper';
 import {
   selectAuth,
   selectStatus,
@@ -12,7 +13,6 @@ import {
   useAppSelector,
 } from '../hooks/useRedux';
 import { logout } from '../redux/slices/auth.slice';
-import { useTranslation } from 'react-i18next';
 
 function Navbar() {
   const dispatch = useAppDispatch();
@@ -28,37 +28,38 @@ function Navbar() {
     dispatch(logout());
   };
 
-  const items: MenuProps['items'] = [
-    {
-      label: <Link to='/menu'>Menu</Link>,
-      icon: <MdOutlineMenuBook className='!text-lg' />,
-      key: '0',
-    },
-    {
-      label: <Link to='/chair'>Chairs</Link>,
-      icon: <PiArmchairDuotone className='!text-lg' />,
-      key: '1',
-    },
-    {
-      type: 'divider',
-    },
-    {
-      label: (
-        <a href='#logout' onClick={onLogoutBtnClick}>
-          {t('logout')}
-        </a>
-      ),
-      key: '3',
-      danger: true,
-      icon: <IoLogOutOutline className='!text-lg' />,
-    },
-  ];
-
   return (
     <nav className='navbar'>
       <Row className='p-5 pl-10' justify='space-between' align='middle'>
         <Col>
-          <Dropdown menu={{ items }} trigger={['click']}>
+          <Dropdown
+            menu={{
+              items: [
+                ...statusState.data.drop_down.map((item) => {
+                  const Icon = getIcon(item.path);
+                  return {
+                    key: item.id,
+                    icon: <Icon className='!text-lg' />,
+                    label: <Link to={item.path}>{item.label}</Link>,
+                  };
+                }),
+                {
+                  type: 'divider',
+                },
+                {
+                  label: (
+                    <a href='#logout' onClick={onLogoutBtnClick}>
+                      {t('logout')}
+                    </a>
+                  ),
+                  key: 'logout',
+                  danger: true,
+                  icon: <IoLogOutOutline className='!text-lg' />,
+                },
+              ],
+            }}
+            trigger={['click']}
+          >
             <Row gutter={10} align='middle' className='cursor-pointer'>
               <Col>
                 <FaRegUserCircle />
