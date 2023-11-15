@@ -4,7 +4,7 @@ import { useState } from 'react';
 function SingleMenuItem(props: Readonly<SingleMenuItemProps>) {
   const { product, onProductClick } = props;
 
-  const [qty, setQty] = useState(product?.qty ?? 1);
+  const [qty, setQty] = useState(product?.cart_qty ?? 1);
 
   if (!product) {
     return null;
@@ -23,13 +23,15 @@ function SingleMenuItem(props: Readonly<SingleMenuItemProps>) {
           <Typography.Title
             level={4}
             className='cursor-pointer'
-            onClick={() => onProductClick(product.id)}
+            onClick={() => onProductClick(product.name)}
           >
-            {product.title}
+            {product.item_name}
           </Typography.Title>
         </Col>
         <Col order={3}>
-          <Typography.Title level={4}>${product.price}</Typography.Title>
+          <Typography.Title level={4}>
+            ${product.standard_rate}
+          </Typography.Title>
         </Col>
       </Row>
 
@@ -38,7 +40,7 @@ function SingleMenuItem(props: Readonly<SingleMenuItemProps>) {
       </Typography.Text>
 
       <Row justify='end'>
-        {product.qty > 0 ? (
+        {product.cart_qty > 0 ? (
           <InputNumber
             controls
             min={1}
