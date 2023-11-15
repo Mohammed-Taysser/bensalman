@@ -136,12 +136,6 @@ nav.navbar {
   .category-slider {
     margin-bottom: 10px;
 
-    .swiper-wrapper {
-      @media (min-width: 768px) {
-        justify-content: center;
-      }
-    }
-
     .swiper-button-prev,
     .swiper-button-next {
       color: $main-color;
