@@ -1,10 +1,12 @@
 import React from 'react';
 import Navbar from './Navbar';
 
-function Base(props: { children: React.ReactNode; bg: string }) {
+function Base(
+  props: Readonly<{ children: React.ReactNode; bg: string; noNavbar?: boolean }>
+) {
   return (
     <>
-      <Navbar />
+      {!props.noNavbar && <Navbar />}
 
       <div
         className='blank-page'
