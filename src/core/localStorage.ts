@@ -1,5 +1,5 @@
 const Local_Storage_Keys: LocalStorageKeysObject = {
-  authUser: 'dynamic-pages-auth-user',
+  authUser: 'bs-auth-user',
 };
 
 class LocalStorage {
