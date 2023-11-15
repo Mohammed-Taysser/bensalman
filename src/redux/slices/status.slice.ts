@@ -17,8 +17,10 @@ const welcome = createAsyncThunk('status/welcome', async (_, thunkApi) => {
 const initialState: RequestState<UserStatus> = {
   data: {
     balance: 0,
+    cart_count: 0,
     current_chair: false,
     current_cart: false,
+    home_routing: [],
   },
   status: 'idle',
   error: '',
@@ -43,6 +45,8 @@ const statusSlice = createSlice({
           balance: action.payload.data.balance,
           current_chair: action.payload.data.current_chair,
           current_cart: action.payload.data.current_cart,
+          home_routing: action.payload.data.home_routing,
+          cart_count: action.payload.data.cart_count,
         };
 
         state.status = 'succeeded';
