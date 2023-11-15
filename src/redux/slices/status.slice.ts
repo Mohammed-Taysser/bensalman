@@ -20,6 +20,7 @@ const initialState: RequestState<UserStatus> = {
     cart_count: 0,
     current_chair: false,
     current_cart: false,
+    drop_down: [],
     home_routing: [],
   },
   status: 'idle',
@@ -47,6 +48,7 @@ const statusSlice = createSlice({
           current_cart: action.payload.data.current_cart,
           home_routing: action.payload.data.home_routing,
           cart_count: action.payload.data.cart_count,
+          drop_down: action.payload.data.drop_down,
         };
 
         state.status = 'succeeded';

@@ -55,6 +55,7 @@ function Login() {
           home_routing: action.payload.data.home_routing,
           current_cart: action.payload.data.current_cart,
           cart_count: action.payload.data.cart_count,
+          drop_down: action.payload.data.drop_down,
         };
 
         dispatch(setUserStatus(payload));

@@ -51,11 +51,18 @@ interface ResponseError {
   message: string;
 }
 
+interface NavbarDropdownItem {
+  id: number;
+  path: string;
+  label: string;
+}
+
 interface UserStatus {
   balance: number;
   current_chair: boolean | string;
   current_cart: boolean | string;
   home_routing: WelcomeMenu[];
+  drop_down: NavbarDropdownItem[];
   cart_count: number;
 }
 

@@ -11,10 +11,13 @@ import ProductModal from '../../components/menu/ProductModal';
 import SingleMenuItem from '../../components/menu/SingleMenuItem';
 import { API } from '../../core/api';
 import { getErrorMessage } from '../../helper';
+import { useAppDispatch } from '../../hooks/useRedux';
 import Base from '../../layouts/Base';
+import { setUserStatus } from '../../redux/slices/status.slice';
 
 function Menu() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
 
   const [selectedCategoryName, setSelectedCategoryName] = useState<
@@ -68,6 +71,17 @@ function Menu() {
 
       setProducts(productsResponse.data.data);
       setCategories(categoryResponse.data.data);
+
+      const payload: UserStatus = {
+        balance: productsResponse.data.extra.balance,
+        current_chair: productsResponse.data.extra.current_chair,
+        home_routing: productsResponse.data.extra.home_routing,
+        current_cart: productsResponse.data.extra.current_cart,
+        cart_count: productsResponse.data.extra.cart_count,
+        drop_down: productsResponse.data.extra.drop_down,
+      };
+
+      dispatch(setUserStatus(payload));
     } catch (err) {
       const error = err as AxiosError<ResponseError>;
 

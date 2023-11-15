@@ -1,4 +1,7 @@
 import { AxiosError } from 'axios';
+import { BiHome } from 'react-icons/bi';
+import { MdOutlineMenuBook } from 'react-icons/md';
+import { PiShoppingCartDuotone } from 'react-icons/pi';
 import store from './redux/store';
 
 /**
@@ -72,5 +75,19 @@ function getErrorMessage(error: AxiosError<ResponseError>) {
   return JSON.stringify(error);
 }
 
-export { getErrorMessage, isRouteAUth, isUserAuth };
+const getIcon = (path: string) => {
+  switch (path) {
+    case '/':
+      return BiHome;
+    case '/menu':
+      return MdOutlineMenuBook;
 
+    case '/cart':
+      return PiShoppingCartDuotone;
+
+    default:
+      return BiHome;
+  }
+};
+
+export { getIcon, getErrorMessage, isRouteAUth, isUserAuth };

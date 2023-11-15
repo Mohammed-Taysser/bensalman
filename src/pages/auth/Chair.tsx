@@ -35,6 +35,7 @@ function ChairReservation() {
           home_routing: response.data.data.home_routing,
           current_cart: response.data.data.current_cart,
           cart_count: response.data.data.cart_count,
+          drop_down: response.data.data.drop_down,
         };
 
         dispatch(setUserStatus(payload));
@@ -61,6 +62,7 @@ function ChairReservation() {
           home_routing: response.data.data.home_routing,
           current_cart: response.data.data.current_cart,
           cart_count: response.data.data.cart_count,
+          drop_down: response.data.data.drop_down,
         };
 
         setChairs(response.data.data.chairs);
