@@ -11,39 +11,74 @@ import welcomeBG from '../../assets/images/background/welcome.jpeg';
 
 const PRODUCTS = [
   {
-    title: 'Pepper - Black, Ground',
-    price: 80.15,
-    id: '14794b15-b81f-4ea9-8a94-2db3f20e516e',
-    qty: 1,
-    image: 'http://dummyimage.com/186x100.png/dddddd/000000',
+    name: 'Cup - Paper 10oz 92959',
+    standard_rate: 53.5,
+    item_name: 'Pepper - Green, Chili',
+    description:
+      'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.',
+    item_group: 'Structural and Misc Steel (Fabrication)',
+    image: 'http://dummyimage.com/148x100.png/dddddd/000000',
+    cart_qty: 1,
   },
   {
-    title: 'Sausage - Meat',
-    price: 38.25,
-    id: '822d9f19-a68f-42b8-87d1-613f3cbe348f',
-    qty: 7,
-    image: 'http://dummyimage.com/150x100.png/dddddd/000000',
+    name: 'Miso - Soy Bean Paste',
+    standard_rate: 28.9,
+    item_name: 'Beer - Creemore',
+    description:
+      'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.',
+    item_group: 'Curb & Gutter',
+    image: 'http://dummyimage.com/128x100.png/ff4444/ffffff',
+    cart_qty: 1,
   },
   {
-    title: 'Tomatoes - Grape',
-    price: 30.71,
-    id: 'dbfddae8-77d0-4f72-9390-bff9d5d4abbb',
-    qty: 2,
-    image: 'http://dummyimage.com/181x100.png/5fa2dd/ffffff',
+    name: 'Wine - Soave Folonari',
+    standard_rate: 95.6,
+    item_name: 'Artichokes - Jerusalem',
+    description:
+      'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.',
+    item_group: 'RF Shielding',
+    image: 'http://dummyimage.com/151x100.png/cc0000/ffffff',
+    cart_qty: 2,
   },
   {
-    title: 'Chicken Thigh - Bone Out',
-    price: 83.59,
-    id: 'ce4437be-e2fb-468a-ad37-273685f29903',
-    qty: 8,
-    image: 'http://dummyimage.com/154x100.png/ff4444/ffffff',
+    name: 'Oranges - Navel, 72',
+    standard_rate: 5.0,
+    item_name: 'Sobe - Cranberry Grapefruit',
+    description:
+      'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.',
+    item_group: 'Curb & Gutter',
+    image: 'http://dummyimage.com/134x100.png/5fa2dd/ffffff',
+    cart_qty: 1,
   },
   {
-    title: 'Squash - Butternut',
-    price: 32.78,
-    id: '52006cda-cc87-44e3-9f72-f20bafb8cbe7',
-    qty: 9,
-    image: 'http://dummyimage.com/199x100.png/cc0000/ffffff',
+    name: 'Sausage - Meat',
+    standard_rate: 75.4,
+    item_name: 'Beans - Kidney, Canned',
+    description:
+      'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\n\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.',
+    item_group: 'Fire Protection',
+    image: 'http://dummyimage.com/123x100.png/ff4444/ffffff',
+    cart_qty: 2,
+  },
+  {
+    name: 'Garlic Powder',
+    standard_rate: 13.0,
+    item_name: 'Orange - Canned, Mandarin',
+    description:
+      'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.',
+    item_group: 'Granite Surfaces',
+    image: 'http://dummyimage.com/113x100.png/ff4444/ffffff',
+    cart_qty: 0,
+  },
+  {
+    name: 'Filling - Mince Meat',
+    standard_rate: 68.1,
+    item_name: 'Wine - Tribal Sauvignon',
+    description:
+      'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.',
+    item_group: 'RF Shielding',
+    image: 'http://dummyimage.com/103x100.png/cc0000/ffffff',
+    cart_qty: 0,
   },
 ];
 
@@ -93,7 +128,7 @@ function Cart() {
             </Col>
 
             {PRODUCTS.map((product) => (
-              <Col xs={24} md={12} key={product.id}>
+              <Col xs={24} md={12} key={product.name}>
                 <CartItem product={product} />
               </Col>
             ))}
