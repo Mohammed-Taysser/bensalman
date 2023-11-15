@@ -1,38 +1,14 @@
-import { ReactElement, Suspense } from 'react';
-import { Navigate, createBrowserRouter, useLocation } from 'react-router-dom';
-import SuspenseLoading from '../components/SuspenseLoading';
-import { isRouteAUth, isUserAuth } from '../helper';
+import { createBrowserRouter } from 'react-router-dom';
 import {
   Cart,
   ChairReservation,
   Login,
   Menu,
-  NotAuthorized,
+  NoRequireAuth,
   PageNotFound,
+  RequireAuth,
   Welcome,
 } from './LazyPages';
-
-function RequireAuth(props: Readonly<{ children: ReactElement; path: string }>) {
-  const location = useLocation();
-
-  if (!isUserAuth()) {
-    return <Navigate to='/login' state={{ next: location }} replace />;
-  }
-
-  if (!isRouteAUth(props.path)) {
-    return <NotAuthorized />;
-  }
-
-  return props.children;
-}
-
-function NoRequireAuth(props: Readonly<{ children: ReactElement }>) {
-  if (isUserAuth()) {
-    return <Navigate to='/' replace />;
-  }
-
-  return <Suspense fallback={<SuspenseLoading />}>{props.children}</Suspense>;
-}
 
 const routes = createBrowserRouter([
   {
