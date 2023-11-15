@@ -47,7 +47,6 @@ function ProductModal(props: Readonly<MenuProductModalProps>) {
             {product.cart_qty > 0 ? (
               <InputNumber
                 controls
-                min={1}
                 value={qty}
                 defaultValue={qty}
                 onChange={onQtyChange}

@@ -1,10 +1,10 @@
 import { Col, Image, InputNumber, Row, Typography } from 'antd';
 import { useState } from 'react';
 
-function CartItem(props: Readonly<CartItemProps>) {
+function CartItem(props: Readonly<{ product: Product }>) {
   const { product } = props;
 
-  const [qty, setQty] = useState(product.qty);
+  const [qty, setQty] = useState(product.cart_qty);
 
   const onQtyChange = (value: number | null) => {
     if (value) {
@@ -15,26 +15,20 @@ function CartItem(props: Readonly<CartItemProps>) {
   return (
     <Row gutter={{ xs: 10, md: 20 }}>
       <Col>
-        <Image
-          src={
-            'https://wgl-demo.net/benoit/wp-content/uploads/2021/03/bg-column_02.jpg'
-          }
-          preview={false}
-          width={90}
-        />
+        <Image src={product.image} preview={false} width={90} />
       </Col>
 
       <Col>
         <Typography.Title level={4} className='!my-0'>
-          {product.title}
+          {product.item_name}
         </Typography.Title>
 
         <Typography.Title level={5} className='!my-2'>
-          ${product.price}
+          ${product.standard_rate}
         </Typography.Title>
 
         <Row className='mb-3' justify='start'>
-          <InputNumber controls min={1} value={qty} onChange={onQtyChange} />
+          <InputNumber controls value={qty} onChange={onQtyChange} />
         </Row>
       </Col>
     </Row>

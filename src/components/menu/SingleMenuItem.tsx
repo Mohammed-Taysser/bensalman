@@ -44,12 +44,7 @@ function SingleMenuItem(props: Readonly<SingleMenuItemProps>) {
 
       <Row justify='end'>
         {product.cart_qty > 0 ? (
-          <InputNumber
-            controls
-            min={1}
-            defaultValue={qty}
-            onChange={onQtyChange}
-          />
+          <InputNumber controls defaultValue={qty} onChange={onQtyChange} />
         ) : (
           <Button>{t('add-to-cart')}</Button>
         )}
