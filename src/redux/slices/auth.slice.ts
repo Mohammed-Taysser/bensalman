@@ -3,17 +3,18 @@ import { AxiosError } from 'axios';
 import { API } from '../../core/api';
 import { LocalStorage } from '../../core/localStorage';
 import routes from '../../core/routes';
+import { getErrorMessage } from '../../helper';
 
 const login = createAsyncThunk(
   'auth/login',
-  async (body: LoginBodyState, thunkApi) => {
+  async (body: LoginBody, thunkApi) => {
     try {
       const response = await API.login(body);
       return response.data;
     } catch (err) {
       const error = err as AxiosError<ResponseError>;
 
-      return thunkApi.rejectWithValue(error?.response?.data.message);
+      return thunkApi.rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -23,6 +24,7 @@ const initialState: RequestState<AuthUser> = {
     api_key: '',
     api_secret: '',
     routes: [],
+    full_name: '',
     sid: '',
     ...LocalStorage.get('authUser'),
   },
@@ -46,11 +48,12 @@ const authSlice = createSlice({
         state.error = '';
       })
       .addCase(login.fulfilled, (state, action) => {
-        const apiResponse = {
+        const apiResponse: AuthUser = {
           api_secret: action.payload.data.api_secret,
           routes: action.payload.data.routing,
           sid: action.payload.data.sid,
           api_key: action.payload.data.api_key,
+          full_name: action.payload.data.full_name,
         };
 
         state.status = 'succeeded';
