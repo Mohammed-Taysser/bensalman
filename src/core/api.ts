@@ -24,6 +24,7 @@ class AxiosAPI {
           ] = `token ${userInfo?.api_key}:${userInfo?.api_secret}`;
         }
 
+        request.headers['Accept-Language'] = 'ar';
         request.headers['Content-Type'] = 'application/json';
 
         return request;
