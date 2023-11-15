@@ -19,6 +19,7 @@ import {
   useAppSelector,
 } from '../../hooks/useRedux';
 import { login } from '../../redux/slices/auth.slice';
+import { setUserStatus } from '../../redux/slices/status.slice';
 
 function Login() {
   const dispatch = useAppDispatch();
@@ -38,9 +39,21 @@ function Login() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authState.error]);
 
-  const onFinish = async (values: { usr: string; pwd: string }) => {
-    dispatch(login(values)).then((action) => {
+  const onFinish = async (values: { email: string; password: string }) => {
+    const body = {
+      usr: values.email,
+      pwd: values.password,
+    };
+
+    dispatch(login(body)).then((action) => {
       if (login.fulfilled.match(action)) {
+        const payload: UserStatus = {
+          balance: action.payload.data.balance,
+          current_chair: action.payload.data.current_chair,
+          current_cart: action.payload.data.current_cart,
+        };
+
+        dispatch(setUserStatus(payload));
         navigateTo('/');
       }
     });
@@ -63,12 +76,12 @@ function Login() {
 
             <Form form={form} onFinish={onFinish} size='large'>
               <Form.Item
-                name='usr'
+                name='email'
                 rules={[
                   { required: true, message: 'Please input your email!' },
                   {
                     type: 'email',
-                    message: 'The input is not valid E-mail!',
+                    message: 'The input is not valid email!',
                   },
                 ]}
               >
@@ -76,7 +89,7 @@ function Login() {
               </Form.Item>
 
               <Form.Item
-                name='pwd'
+                name='password'
                 rules={[
                   { required: true, message: 'Please input your password!' },
                 ]}
