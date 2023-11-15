@@ -3,11 +3,11 @@ import { BiMoneyWithdraw } from 'react-icons/bi';
 import { MdOutlineMenuBook, MdOutlineSoupKitchen } from 'react-icons/md';
 import { PiArmchairDuotone, PiShoppingCartDuotone } from 'react-icons/pi';
 import { TbToolsKitchen2 } from 'react-icons/tb';
-import columnBG from '../assets/images/background/bg-column.png';
-import welcomeBG from '../assets/images/background/welcome.jpeg';
-import CartItem from '../components/cart/CartItem';
-import Base from '../layouts/Base';
 import { useNavigate } from 'react-router-dom';
+import CartItem from '../../components/cart/CartItem';
+import Base from '../../layouts/Base';
+import columnBG from '../../assets/images/background/bg-column.png';
+import welcomeBG from '../../assets/images/background/welcome.jpeg';
 
 const PRODUCTS = [
   {

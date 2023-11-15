@@ -2,11 +2,11 @@ import { Col, Row } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import columnBG from '../assets/images/background/bg-column.png';
-import welcomeBG from '../assets/images/background/welcome.jpeg';
-import SingleMenuItem from '../components/menu/SingleMenuItem';
-import ProductModal from '../components/menu/ProductModal';
-import Base from '../layouts/Base';
+import columnBG from '../../assets/images/background/bg-column.png';
+import welcomeBG from '../../assets/images/background/welcome.jpeg';
+import SingleMenuItem from '../../components/menu/SingleMenuItem';
+import ProductModal from '../../components/menu/ProductModal';
+import Base from '../../layouts/Base';
 
 const CATEGORY = [
   {
