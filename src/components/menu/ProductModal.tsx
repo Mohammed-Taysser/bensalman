@@ -10,6 +10,7 @@ function ProductModal(props: Readonly<MenuProductModalProps>) {
     if (isOpen) {
       setQty(product.qty);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   const onQtyChange = (value: number | null) => {
