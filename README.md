@@ -2,18 +2,19 @@
 
 ## Pages 📃
 
-| Page              | Path                 |
-| ----------------- | -------------------- |
-| 404               | `*`                  |
-| Welcome           | `/`                  |
-| Sign In           | `/login`             |
-| Menu              | `/menu`              |
-| Cart              | `/cart`              |
+| Page              | Path     |
+| ----------------- | -------- |
+| 404               | `*`      |
+| Welcome           | `/`      |
+| Sign In           | `/login` |
+| Menu              | `/menu`  |
+| Cart              | `/cart`  |
 | Chair Reservation | `/chair` |
 
 ## TODO
 
 - [ ] Improve page title to be dynamic
+- [ ] fix cart status step
 
 ## Features 🎮
 
