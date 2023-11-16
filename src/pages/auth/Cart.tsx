@@ -1,92 +1,122 @@
-import { Button, Col, Row, Space, Statistic, Steps } from 'antd';
+import {
+  Button,
+  Col,
+  Empty,
+  Row,
+  Space,
+  Statistic,
+  StepProps,
+  Steps,
+  message,
+} from 'antd';
+import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import { MdOutlineMenuBook, MdOutlineSoupKitchen } from 'react-icons/md';
 import { PiArmchairDuotone, PiShoppingCartDuotone } from 'react-icons/pi';
 import { TbToolsKitchen2 } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
-import CartItem from '../../components/cart/CartItem';
-import Base from '../../layouts/Base';
 import columnBG from '../../assets/images/background/bg-column.png';
-import welcomeBG from '../../assets/images/background/welcome.jpeg';
-
-const PRODUCTS = [
-  {
-    name: 'Cup - Paper 10oz 92959',
-    standard_rate: 53.5,
-    item_name: 'Pepper - Green, Chili',
-    description:
-      'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.',
-    item_group: 'Structural and Misc Steel (Fabrication)',
-    image: 'http://dummyimage.com/148x100.png/dddddd/000000',
-    cart_qty: 1,
-  },
-  {
-    name: 'Miso - Soy Bean Paste',
-    standard_rate: 28.9,
-    item_name: 'Beer - Creemore',
-    description:
-      'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.',
-    item_group: 'Curb & Gutter',
-    image: 'http://dummyimage.com/128x100.png/ff4444/ffffff',
-    cart_qty: 1,
-  },
-  {
-    name: 'Wine - Soave Folonari',
-    standard_rate: 95.6,
-    item_name: 'Artichokes - Jerusalem',
-    description:
-      'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.',
-    item_group: 'RF Shielding',
-    image: 'http://dummyimage.com/151x100.png/cc0000/ffffff',
-    cart_qty: 2,
-  },
-  {
-    name: 'Oranges - Navel, 72',
-    standard_rate: 5.0,
-    item_name: 'Sobe - Cranberry Grapefruit',
-    description:
-      'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.',
-    item_group: 'Curb & Gutter',
-    image: 'http://dummyimage.com/134x100.png/5fa2dd/ffffff',
-    cart_qty: 1,
-  },
-  {
-    name: 'Sausage - Meat',
-    standard_rate: 75.4,
-    item_name: 'Beans - Kidney, Canned',
-    description:
-      'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\n\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.',
-    item_group: 'Fire Protection',
-    image: 'http://dummyimage.com/123x100.png/ff4444/ffffff',
-    cart_qty: 2,
-  },
-  {
-    name: 'Garlic Powder',
-    standard_rate: 13.0,
-    item_name: 'Orange - Canned, Mandarin',
-    description:
-      'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.',
-    item_group: 'Granite Surfaces',
-    image: 'http://dummyimage.com/113x100.png/ff4444/ffffff',
-    cart_qty: 0,
-  },
-  {
-    name: 'Filling - Mince Meat',
-    standard_rate: 68.1,
-    item_name: 'Wine - Tribal Sauvignon',
-    description:
-      'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.',
-    item_group: 'RF Shielding',
-    image: 'http://dummyimage.com/103x100.png/cc0000/ffffff',
-    cart_qty: 0,
-  },
-];
+import SuspenseLoading from '../../components/SuspenseLoading';
+import CartItem from '../../components/cart/CartItem';
+import { API } from '../../core/api';
+import { getErrorMessage } from '../../helper';
+import Base from '../../layouts/Base';
 
 function Cart() {
+  const { t } = useTranslation();
   const navigateTo = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [extraInfo, setExtraInfo] = useState({
+    status: 'Ordered',
+    total_amount: 0,
+    total_items: 0,
+  });
+
+  useEffect(() => {
+    fetchNeededData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const fetchNeededData = async () => {
+    setIsLoading(true);
+
+    API.getCartItems()
+      .then((response) => {
+        setProducts(response.data.data.items);
+        setExtraInfo({
+          status: response.data.data.status,
+          total_amount: response.data.data.total_amount,
+          total_items: response.data.data.total_items,
+        });
+      })
+      .catch((error) => {
+        messageApi.open({
+          type: 'error',
+          content: getErrorMessage(error),
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const Products = useCallback(() => {
+    if (isLoading) {
+      return (
+        <Col xs={24}>
+          <SuspenseLoading />
+        </Col>
+      );
+    }
+
+    if (products.length > 0) {
+      return products.map((product) => (
+        <Col xs={24} md={12} key={product.item_name}>
+          <CartItem product={product} />
+        </Col>
+      ));
+    }
+
+    return (
+      <Col xs={24}>
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      </Col>
+    );
+  }, [isLoading, products]);
+
+  const getStepItems = (): StepProps[] => {
+    return [
+      {
+        status: 'finish',
+        title: t('ordered'),
+        icon: <PiShoppingCartDuotone />,
+      },
+      {
+        title: t('preparing'),
+        status: 'process',
+        icon: <MdOutlineSoupKitchen />,
+      },
+      {
+        title: t('completed'),
+        status: 'wait',
+        icon: <PiArmchairDuotone />,
+      },
+      {
+        title: t('on-table'),
+        status: 'wait',
+        icon: <TbToolsKitchen2 />,
+      },
+    ];
+  };
 
   return (
-    <Base bg={welcomeBG}>
+    <Base>
+      {contextHolder}
       <Row
         className='min-h-screen justify-center md:justify-around menu-page '
         align='middle'
@@ -101,42 +131,15 @@ function Cart() {
             }}
           >
             <Col className='mb-8' xs={24}>
-              <Steps
-                items={[
-                  {
-                    status: 'finish',
-                    title: 'Ordered',
-                    icon: <PiShoppingCartDuotone />,
-                  },
-                  {
-                    title: 'Preparing',
-                    status: 'process',
-                    icon: <MdOutlineSoupKitchen />,
-                  },
-                  {
-                    title: 'Completed',
-                    status: 'wait',
-                    icon: <PiArmchairDuotone />,
-                  },
-                  {
-                    title: 'On Table',
-                    status: 'wait',
-                    icon: <TbToolsKitchen2 />,
-                  },
-                ]}
-              />
+              <Steps items={getStepItems()} />
             </Col>
 
-            {PRODUCTS.map((product) => (
-              <Col xs={24} md={12} key={product.name}>
-                <CartItem product={product} />
-              </Col>
-            ))}
+            <Products />
 
             <Col xs={24} className='mt-5'>
               <Space>
                 <Button size='large' type='primary'>
-                  Checkout
+                  {t('checkout')}
                 </Button>
                 <Button
                   size='large'
@@ -145,7 +148,7 @@ function Cart() {
                     <MdOutlineMenuBook className='text-xl relative top-1 ' />
                   }
                 >
-                  Continue Shopping
+                  {t('continue-shopping')}
                 </Button>
               </Space>
             </Col>
@@ -154,16 +157,16 @@ function Cart() {
               <Row gutter={16}>
                 <Col xs={12} md={6}>
                   <Statistic
-                    title='Total Price'
-                    value={1128}
+                    title={t('total-price')}
+                    value={extraInfo.total_amount}
                     prefix={<BiMoneyWithdraw />}
                   />
                 </Col>
 
                 <Col xs={12} md={6}>
                   <Statistic
-                    title='Total Products'
-                    value={18}
+                    title={t('total-products')}
+                    value={extraInfo.total_items}
                     prefix={<PiShoppingCartDuotone />}
                   />
                 </Col>
