@@ -1,27 +1,82 @@
-import { Button, Col, Image, InputNumber, Modal, Row, Typography } from 'antd';
-import { useEffect, useState } from 'react';
+import {
+  Button,
+  Col,
+  Image,
+  InputNumber,
+  Modal,
+  Row,
+  Spin,
+  Typography,
+  message,
+} from 'antd';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SERVER_URL } from '../../core/api';
+import { API } from '../../core/api';
+import { getErrorMessage, getImageUrl } from '../../helper';
+import useDebounce from '../../hooks/useDebounce';
+import { useAppDispatch } from '../../hooks/useRedux';
+import { setUserStatus } from '../../redux/slices/status.slice';
 
 function ProductModal(props: Readonly<MenuProductModalProps>) {
   const { isOpen, onClose, product } = props;
 
   const { t } = useTranslation();
 
+  const dispatch = useAppDispatch();
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const fistInit = useRef(true);
+
   const [qty, setQty] = useState(product.cart_qty);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { debouncedValue, setDebouncedValue } = useDebounce(qty);
 
   useEffect(() => {
-    if (isOpen) {
-      setQty(product.cart_qty);
+    setTimeout(() => {
+      fistInit.current = false;
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    if (!fistInit.current) {
+      modifyQty();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
+  }, [debouncedValue]);
+
+  const modifyQty = async () => {
+    setIsLoading(true);
+
+    API.modifyCartQuantity({ item: product.item_name, qty: debouncedValue })
+      .then((response) => {
+        dispatch(setUserStatus(response.data.data));
+      })
+      .catch((error) => {
+        messageApi.open({
+          type: 'error',
+          content: getErrorMessage(error),
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const onAddToCartBtnClick = () => {
+    setDebouncedValue(1);
+    setQty(1);
+  };
 
   const onQtyChange = (value: number | null) => {
-    if (value) {
+    if (value !== null && !isNaN(value)) {
       setQty(value);
     }
   };
+
+  if (!product) {
+    return null;
+  }
 
   return (
     <Modal
@@ -33,9 +88,10 @@ function ProductModal(props: Readonly<MenuProductModalProps>) {
       className='md:!w-[60vw]'
       footer={[]}
     >
+      {contextHolder}
       <Row gutter={{ xs: 10, md: 20 }}>
         <Col xs={24} md={10}>
-          <Image src={SERVER_URL + product.image} preview={false} />
+          <Image src={getImageUrl(product.image)} preview={false} />
         </Col>
 
         <Col xs={24} md={14}>
@@ -44,15 +100,19 @@ function ProductModal(props: Readonly<MenuProductModalProps>) {
             {product.standard_rate} ج.م
           </Typography.Title>
           <Row className='mb-3' justify='start'>
-            {product.cart_qty > 0 ? (
-              <InputNumber
-                controls
-                value={qty}
-                defaultValue={qty}
-                onChange={onQtyChange}
-              />
+            {debouncedValue > 0 ? (
+              <Spin spinning={isLoading}>
+                <InputNumber
+                  controls
+                  value={qty}
+                  min={0}
+                  onChange={onQtyChange}
+                />
+              </Spin>
             ) : (
-              <Button>{t('add-to-cart')}</Button>
+              <Button loading={isLoading} onClick={onAddToCartBtnClick}>
+                {t('add-to-cart')}
+              </Button>
             )}
           </Row>
           <Typography.Text className='text-gray-400'>
