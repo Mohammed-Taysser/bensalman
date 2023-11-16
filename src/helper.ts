@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { BiHome } from 'react-icons/bi';
 import { MdOutlineMenuBook } from 'react-icons/md';
 import { PiShoppingCartDuotone } from 'react-icons/pi';
+import { SERVER_URL } from './core/api';
 import i18n from './core/i18n';
 import store from './redux/store';
 
@@ -91,4 +92,9 @@ const getIcon = (path: string) => {
   }
 };
 
-export { getErrorMessage, getIcon, isRouteAUth, isUserAuth };
+function getImageUrl(slug: string) {
+  return SERVER_URL + slug;
+}
+
+export { getErrorMessage, getIcon, getImageUrl, isRouteAUth, isUserAuth };
+
