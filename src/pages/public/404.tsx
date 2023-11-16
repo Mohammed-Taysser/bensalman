@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import image404 from '../../assets/images/background/404.svg';
 import columnBG from '../../assets/images/background/bg-column.png';
-import welcomeBG from '../../assets/images/background/welcome.jpeg';
 import Base from '../../layouts/Base';
 
 function PageNotFound() {
@@ -15,7 +14,7 @@ function PageNotFound() {
   };
 
   return (
-    <Base bg={welcomeBG} noNavbar>
+    <Base noNavbar>
       <Row
         className='min-h-screen justify-center md:justify-around menu-page '
         align='middle'

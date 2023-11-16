@@ -2,14 +2,13 @@ import { Col, Image, Row, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import image403 from '../../assets/images/background/403.svg';
 import columnBG from '../../assets/images/background/bg-column.png';
-import welcomeBG from '../../assets/images/background/welcome.jpeg';
 import Base from '../../layouts/Base';
 
 function NotAuthorized() {
   const { t } = useTranslation();
 
   return (
-    <Base bg={welcomeBG}>
+    <Base>
       <Row
         className='min-h-screen justify-center md:justify-around menu-page '
         align='middle'

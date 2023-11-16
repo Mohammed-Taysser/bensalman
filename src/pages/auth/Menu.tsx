@@ -5,10 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import columnBG from '../../assets/images/background/bg-column.png';
-import welcomeBG from '../../assets/images/background/welcome.jpeg';
 import SuspenseLoading from '../../components/SuspenseLoading';
+import MenuItem from '../../components/menu/MenuItem';
 import ProductModal from '../../components/menu/ProductModal';
-import SingleMenuItem from '../../components/menu/SingleMenuItem';
 import { API } from '../../core/api';
 import { getErrorMessage } from '../../helper';
 import { useAppDispatch } from '../../hooks/useRedux';
@@ -117,7 +116,7 @@ function Menu() {
     if (products.length > 0) {
       return products.map((product) => (
         <Col xs={24} md={12} key={product.name}>
-          <SingleMenuItem product={product} onProductClick={onProductClick} />
+          <MenuItem product={product} onProductClick={onProductClick} />
         </Col>
       ));
     }
@@ -130,7 +129,7 @@ function Menu() {
   }, [isLoading, isSearching, products]);
 
   return (
-    <Base bg={welcomeBG}>
+    <Base>
       {contextHolder}
 
       {selectedProduct && (

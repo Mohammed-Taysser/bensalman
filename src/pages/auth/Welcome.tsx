@@ -2,7 +2,6 @@ import { Col, Image, Row, Typography, message } from 'antd';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import welcomeBG from '../../assets/images/background/welcome.jpeg';
 import chief from '../../assets/images/icons/chief.png';
 import bottomLines from '../../assets/images/icons/welcome/welcome-lines-bottom.png';
 import topLines from '../../assets/images/icons/welcome/welcome-lines-top.png';
@@ -41,7 +40,7 @@ function Welcome() {
   };
 
   return (
-    <Base bg={welcomeBG}>
+    <Base>
       {contextHolder}
       <Row
         className='min-h-screen justify-center md:justify-around'

@@ -2,7 +2,6 @@ import { Col, Empty, Row, Typography, message } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { PiArmchairDuotone } from 'react-icons/pi';
 import columnBG from '../../assets/images/background/bg-column.png';
-import welcomeBG from '../../assets/images/background/welcome.jpeg';
 import SuspenseLoading from '../../components/SuspenseLoading';
 import { API } from '../../core/api';
 import { getErrorMessage } from '../../helper';
@@ -107,7 +106,7 @@ function ChairReservation() {
   }, [isLoading, chairs]);
 
   return (
-    <Base bg={welcomeBG}>
+    <Base  >
       {contextHolder}
 
       <Row

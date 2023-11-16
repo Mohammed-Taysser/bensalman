@@ -15,7 +15,13 @@ interface Category {
   names: string;
 }
 
-interface SingleMenuItemProps {
+interface BaseLayoutProps {
+  children: React.ReactNode;
+  bg?: string;
+  noNavbar?: boolean;
+}
+
+interface MenuItemProps {
   onProductClick: (id: string) => void;
   product: Product;
 }
