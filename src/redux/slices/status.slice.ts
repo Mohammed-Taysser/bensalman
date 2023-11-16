@@ -31,8 +31,17 @@ const statusSlice = createSlice({
   name: 'status',
   initialState,
   reducers: {
-    setUserStatus: (state, action: { payload: UserStatus }) => {
-      state.data = action.payload;
+    setUserStatus: (state, action) => {      
+      const payload: UserStatus = {
+        balance: action.payload.balance,
+        current_chair: action.payload.current_chair,
+        home_routing: action.payload.home_routing,
+        current_cart: action.payload.current_cart,
+        cart_count: action.payload.cart_count,
+        drop_down: action.payload.drop_down,
+      };
+
+      state.data = payload;
     },
   },
   extraReducers: (builder) => {

@@ -1,6 +1,6 @@
-import { Col, Row, message } from 'antd';
+import { Col, Empty, Row, message } from 'antd';
 import { AxiosError } from 'axios';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -72,16 +72,7 @@ function Menu() {
       setProducts(productsResponse.data.data);
       setCategories(categoryResponse.data.data);
 
-      const payload: UserStatus = {
-        balance: productsResponse.data.extra.balance,
-        current_chair: productsResponse.data.extra.current_chair,
-        home_routing: productsResponse.data.extra.home_routing,
-        current_cart: productsResponse.data.extra.current_cart,
-        cart_count: productsResponse.data.extra.cart_count,
-        drop_down: productsResponse.data.extra.drop_down,
-      };
-
-      dispatch(setUserStatus(payload));
+      dispatch(setUserStatus(productsResponse.data.extra));
     } catch (err) {
       const error = err as AxiosError<ResponseError>;
 
@@ -113,6 +104,30 @@ function Menu() {
     () => products.find((product) => product.name === selectedProductName),
     [selectedProductName, products]
   );
+
+  const Products = useCallback(() => {
+    if (isLoading || isSearching) {
+      return (
+        <Col xs={24}>
+          <SuspenseLoading />
+        </Col>
+      );
+    }
+
+    if (products.length > 0) {
+      return products.map((product) => (
+        <Col xs={24} md={12} key={product.name}>
+          <SingleMenuItem product={product} onProductClick={onProductClick} />
+        </Col>
+      ));
+    }
+
+    return (
+      <Col xs={24}>
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      </Col>
+    );
+  }, [isLoading, isSearching, products]);
 
   return (
     <Base bg={welcomeBG}>
@@ -174,20 +189,7 @@ function Menu() {
               backgroundImage: `url('${columnBG}')`,
             }}
           >
-            {isLoading || isSearching ? (
-              <Col xs={24}>
-                <SuspenseLoading />
-              </Col>
-            ) : (
-              products.map((product) => (
-                <Col xs={24} md={12} key={product.name}>
-                  <SingleMenuItem
-                    product={product}
-                    onProductClick={onProductClick}
-                  />
-                </Col>
-              ))
-            )}
+            <Products />
           </Row>
         </Col>
       </Row>

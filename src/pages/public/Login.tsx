@@ -49,16 +49,7 @@ function Login() {
 
     dispatch(login(body)).then((action) => {
       if (login.fulfilled.match(action)) {
-        const payload: UserStatus = {
-          balance: action.payload.data.balance,
-          current_chair: action.payload.data.current_chair,
-          home_routing: action.payload.data.home_routing,
-          current_cart: action.payload.data.current_cart,
-          cart_count: action.payload.data.cart_count,
-          drop_down: action.payload.data.drop_down,
-        };
-
-        dispatch(setUserStatus(payload));
+        dispatch(setUserStatus(action.payload.data));
         navigateTo('/');
       }
     });
