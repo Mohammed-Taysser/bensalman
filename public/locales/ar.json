@@ -7,11 +7,21 @@
   "sign-in": "تسجيل الدخول",
   "the-input-is-not-valid-email": "الإدخال ليس بريدًا إلكترونيًا صالحًا!",
   "sorry-the-page-youre-looking-for-not-exist-or-might-be-delete": "عذرًا، الصفحة التي تبحث عنها غير موجودة أو تم حذفها",
-  "take-me-home": "خذنى إلى المنزل",
+  "take-me-home": "خذني إلى المنزل",
   "welcome-to-bs-restaurant": "مرحبا بكم في مطعم بن سليمان",
   "welcome-to-bs-restaurant-offering-traditional-dishes-of-the-highest-quality": "مرحبا بكم في مطعم بن سليمان. \nتقديم الأطباق التقليدية بأعلى مستويات الجودة.",
   "all": "الكل",
   "yout-authorized-to-see-this-page": "أنت غير مصرح لك برؤية هذه الصفحة",
   "logout": "تسجيل الخروج",
-  "add-to-cart": "أضف إلى السلة"
+  "add-to-cart": "أضف إلى السلة",
+  "checkout": "الدفع",
+  "completed": "مكتمل",
+  "on-table": "على الطاولة",
+  "continue-shopping": "مواصلة التسوق",
+  "ordered": "تم الطلب",
+  "preparing": "جار التحضير",
+  "total-products": "إجمالي المنتجات",
+  "total-price": "السعر الكلي",
+  "please-check-your-internet-connection-and-try-again": "يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.",
+  "request-had-been-canceled": "تم إلغاء الطلب"
 }

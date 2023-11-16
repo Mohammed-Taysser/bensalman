@@ -13,5 +13,15 @@
   "all": "All",
   "yout-authorized-to-see-this-page": "You't Authorized To See This Page",
   "logout": "Logout",
-  "add-to-cart": "Add To Cart"
+  "add-to-cart": "Add To Cart",
+  "ordered": "Ordered",
+  "preparing": "Preparing",
+  "completed": "Completed",
+  "on-table": "On Table",
+  "total-price": "Total Price",
+  "total-products": "Total Products",
+  "continue-shopping": "Continue Shopping",
+  "checkout": "Checkout",
+  "please-check-your-internet-connection-and-try-again": "Please check your internet connection and try again.",
+  "request-had-been-canceled": "Request had been canceled"
 }
