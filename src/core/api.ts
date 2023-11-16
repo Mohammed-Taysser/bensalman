@@ -78,6 +78,14 @@ class AxiosAPI {
   getCategories() {
     return this.axiosInstance.get('alhoda.alhoda.apis.get_item_groups');
   }
+
+  getCartItems() {
+    return this.axiosInstance.get('alhoda.alhoda.cart.get_cart_details');
+  }
+
+  modifyCartQuantity(body = {}) {
+    return this.axiosInstance.post('alhoda.alhoda.cart.cart_item', body);
+  }
 }
 
 const API = new AxiosAPI();
