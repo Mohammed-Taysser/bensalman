@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { BiHome } from 'react-icons/bi';
 import { MdOutlineMenuBook } from 'react-icons/md';
 import { PiShoppingCartDuotone } from 'react-icons/pi';
+import i18n from './core/i18n';
 import store from './redux/store';
 
 /**
@@ -65,11 +66,11 @@ function getErrorMessage(error: AxiosError<ResponseError>) {
   }
 
   if (error?.message === 'Network Error') {
-    return `Please check your internet connection and try again.`;
+    return i18n.t('please-check-your-internet-connection-and-try-again');
   }
 
   if (error?.message === 'Request aborted') {
-    return `Request had been canceled`;
+    return i18n.t('request-had-been-canceled');
   }
 
   return JSON.stringify(error);
@@ -90,4 +91,4 @@ const getIcon = (path: string) => {
   }
 };
 
-export { getIcon, getErrorMessage, isRouteAUth, isUserAuth };
+export { getErrorMessage, getIcon, isRouteAUth, isUserAuth };
