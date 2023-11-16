@@ -8,6 +8,7 @@ interface Product {
   item_group: string;
   image: string;
   cart_qty: number;
+  total: number;
 }
 
 interface Category {
