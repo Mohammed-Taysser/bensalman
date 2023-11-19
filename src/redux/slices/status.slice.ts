@@ -31,7 +31,7 @@ const statusSlice = createSlice({
   name: 'status',
   initialState,
   reducers: {
-    setUserStatus: (state, action) => {      
+    setUserStatus: (state, action: { payload: UserStatus }) => {
       const payload: UserStatus = {
         balance: action.payload.balance,
         current_chair: action.payload.current_chair,
@@ -51,7 +51,7 @@ const statusSlice = createSlice({
         state.error = '';
       })
       .addCase(welcome.fulfilled, (state, action) => {
-        const apiResponse = {
+        const apiResponse: UserStatus = {
           balance: action.payload.data.balance,
           current_chair: action.payload.data.current_chair,
           current_cart: action.payload.data.current_cart,
