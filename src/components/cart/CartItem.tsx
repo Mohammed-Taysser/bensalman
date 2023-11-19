@@ -6,12 +6,12 @@ import useDebounce from '../../hooks/useDebounce';
 import { useAppDispatch } from '../../hooks/useRedux';
 import { setUserStatus } from '../../redux/slices/status.slice';
 
-function CartItem(props: Readonly<{ product: Product }>) {
-  const { product } = props;
+function CartItem(props: Readonly<CartItemProps>) {
+  const { product, setExtraInfo } = props;
   const dispatch = useAppDispatch();
 
   const [messageApi, contextHolder] = message.useMessage();
-  const fistInit = useRef(true);
+  const isMount = useRef(false);
 
   const [qty, setQty] = useState(product.cart_qty);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,12 +20,12 @@ function CartItem(props: Readonly<{ product: Product }>) {
 
   useEffect(() => {
     setTimeout(() => {
-      fistInit.current = false;
+      isMount.current = true;
     }, 1000);
   }, []);
 
   useEffect(() => {
-    if (!fistInit.current) {
+    if (isMount.current) {
       modifyQty();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,6 +37,12 @@ function CartItem(props: Readonly<{ product: Product }>) {
     API.modifyCartQuantity({ item: product.item_name, qty: debouncedValue })
       .then((response) => {
         dispatch(setUserStatus(response.data.data));
+
+        setExtraInfo({
+          status: response.data.data.status,
+          total_amount: response.data.data.total_amount,
+          total_items: response.data.data.total_items,
+        });
       })
       .catch((error) => {
         messageApi.open({
@@ -55,7 +61,7 @@ function CartItem(props: Readonly<{ product: Product }>) {
     }
   };
 
-  if (!product) {
+  if (!product || debouncedValue === 0) {
     return null;
   }
 
@@ -72,7 +78,7 @@ function CartItem(props: Readonly<{ product: Product }>) {
         </Typography.Title>
 
         <Typography.Title level={5} className='!my-2'>
-          {product.total} ج.م
+          {product.cart_qty * product.standard_rate} ج.م
         </Typography.Title>
 
         <Row className='mb-3' justify='start'>
