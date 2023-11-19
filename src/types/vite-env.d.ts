@@ -8,11 +8,17 @@ interface Product {
   item_group: string;
   image: string;
   cart_qty: number;
-  total: number;
 }
 
 interface Category {
   names: string;
+}
+
+interface ProductQuantityProps {
+  id: string;
+  quantity: number;
+  onSuccessCallback?: () => void;
+  className?: React.ComponentProps<'div'>['className'];
 }
 
 interface BaseLayoutProps {
@@ -27,7 +33,7 @@ interface MenuItemProps {
 }
 
 interface MenuProductModalProps {
-  product: Product;
+  id: string;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -68,7 +74,7 @@ interface UserStatus {
   balance: number;
   current_chair: boolean | string;
   current_cart: boolean | string;
-  home_routing: WelcomeMenu[];
+  home_routing: HomeRoute[];
   drop_down: NavbarDropdownItem[];
   cart_count: number;
 }
@@ -86,8 +92,113 @@ interface LoginBody {
   pwd: string;
 }
 
-interface WelcomeMenu {
-  id: string;
+type CartStatus = 'Ordered' | 'Prepare' | 'Completed' | 'On Table';
+
+interface CartExtraInfo {
+  status: CartStatus;
+  total_amount: number;
+  total_items: number;
+}
+
+interface CartItemProps {
+  product: Product;
+  setExtraInfo: (value: CartExtraInfo) => void;
+}
+
+// axios response
+interface Customer {
+  name: string;
+  customer_name: string;
+  language: string;
+}
+
+interface HomeRoute {
+  id: number;
+  path: string;
+  label: string;
+}
+
+interface DropdownRoute {
+  id: number;
   label: string;
   path: string;
+  icon: string;
+}
+
+type CartProduct = Product & { total?: number };
+
+interface ResponseStatus {
+  balance: number;
+  cart_count: number;
+  credit: string;
+  current_cart: string;
+  current_chair: string;
+  customer: Customer;
+  debit: number;
+  drop_down: DropdownRoute[];
+  home_routing: HomeRoute[];
+  routing: string[];
+}
+
+interface AxiosLoginResponse {
+  message: string;
+  home_page: string;
+  full_name: string;
+  data: ResponseStatus & {
+    full_name: string;
+    sid: string;
+    api_key: string;
+    api_secret: string;
+  };
+}
+
+interface AxiosWelcomeResponse {
+  message: string;
+  data: ResponseStatus;
+}
+
+interface AxiosChairResponse {
+  message: string;
+  data: ResponseStatus & {
+    chairs: Chair[];
+  };
+}
+
+interface AxiosChairReservationResponse {
+  message: string;
+  data: ResponseStatus & {
+    chairs: Chair[];
+  };
+}
+
+interface AxiosCategoriesResponse {
+  message: string;
+  data: {
+    names: string;
+  }[];
+}
+
+interface AxiosProductsResponse {
+  message: string;
+  data: Product[];
+  extra: ResponseStatus;
+}
+
+interface AxiosCartDetailsResponse {
+  message: string;
+  data: ResponseStatus & {
+    status: CartStatus;
+    total_amount: number;
+    total_items: number;
+    items: CartProduct[];
+  };
+}
+
+interface AxiosCartModifyResponse {
+  message: string;
+  data: ResponseStatus & {
+    status: 'Ordered';
+    total_amount: number;
+    total_items: number;
+  };
 }
