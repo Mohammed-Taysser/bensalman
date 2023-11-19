@@ -14,7 +14,6 @@
 ## TODO
 
 - [ ] Improve page title to be dynamic
-- [ ] fix cart status step
 
 ## Features 🎮
 
