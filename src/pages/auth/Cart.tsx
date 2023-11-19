@@ -5,11 +5,10 @@ import {
   Row,
   Space,
   Statistic,
-  StepProps,
   Steps,
   message,
 } from 'antd';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import { MdOutlineMenuBook, MdOutlineSoupKitchen } from 'react-icons/md';
@@ -21,16 +20,19 @@ import SuspenseLoading from '../../components/SuspenseLoading';
 import CartItem from '../../components/cart/CartItem';
 import { API } from '../../core/api';
 import { getErrorMessage } from '../../helper';
+import { useAppDispatch } from '../../hooks/useRedux';
 import Base from '../../layouts/Base';
+import { setUserStatus } from '../../redux/slices/status.slice';
 
 function Cart() {
   const { t } = useTranslation();
   const navigateTo = useNavigate();
+  const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
 
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [extraInfo, setExtraInfo] = useState({
+  const [extraInfo, setExtraInfo] = useState<CartExtraInfo>({
     status: 'Ordered',
     total_amount: 0,
     total_items: 0,
@@ -38,7 +40,6 @@ function Cart() {
 
   useEffect(() => {
     fetchNeededData();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -48,11 +49,14 @@ function Cart() {
     API.getCartItems()
       .then((response) => {
         setProducts(response.data.data.items);
+
         setExtraInfo({
           status: response.data.data.status,
           total_amount: response.data.data.total_amount,
           total_items: response.data.data.total_items,
         });
+
+        dispatch(setUserStatus(response.data.data));
       })
       .catch((error) => {
         messageApi.open({
@@ -77,7 +81,7 @@ function Cart() {
     if (products.length > 0) {
       return products.map((product) => (
         <Col xs={24} md={12} key={product.item_name}>
-          <CartItem product={product} />
+          <CartItem product={product} setExtraInfo={setExtraInfo} />
         </Col>
       ));
     }
@@ -89,30 +93,20 @@ function Cart() {
     );
   }, [isLoading, products]);
 
-  const getStepItems = (): StepProps[] => {
-    return [
-      {
-        status: 'finish',
-        title: t('ordered'),
-        icon: <PiShoppingCartDuotone />,
-      },
-      {
-        title: t('preparing'),
-        status: 'process',
-        icon: <MdOutlineSoupKitchen />,
-      },
-      {
-        title: t('completed'),
-        status: 'wait',
-        icon: <PiArmchairDuotone />,
-      },
-      {
-        title: t('on-table'),
-        status: 'wait',
-        icon: <TbToolsKitchen2 />,
-      },
-    ];
-  };
+  const orderStatusIndex = useMemo(() => {
+    switch (extraInfo.status) {
+      case 'Ordered':
+        return 0;
+      case 'Prepare':
+        return 1;
+      case 'Completed':
+        return 2;
+      case 'On Table':
+        return 3;
+      default:
+        return 0;
+    }
+  }, [extraInfo.status]);
 
   return (
     <Base>
@@ -131,7 +125,27 @@ function Cart() {
             }}
           >
             <Col className='mb-8' xs={24}>
-              <Steps items={getStepItems()} />
+              <Steps
+                current={orderStatusIndex}
+                items={[
+                  {
+                    title: t('ordered'),
+                    icon: <PiShoppingCartDuotone />,
+                  },
+                  {
+                    title: t('preparing'),
+                    icon: <MdOutlineSoupKitchen />,
+                  },
+                  {
+                    title: t('completed'),
+                    icon: <PiArmchairDuotone />,
+                  },
+                  {
+                    title: t('on-table'),
+                    icon: <TbToolsKitchen2 />,
+                  },
+                ]}
+              />
             </Col>
 
             <Products />
