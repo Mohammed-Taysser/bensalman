@@ -1,56 +1,29 @@
-import {
-  Button,
-  Col,
-  Image,
-  InputNumber,
-  Modal,
-  Row,
-  Spin,
-  Typography,
-  message,
-} from 'antd';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Col, Empty, Image, Modal, Row, Typography, message } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
 import { API } from '../../core/api';
 import { getErrorMessage, getImageUrl } from '../../helper';
-import useDebounce from '../../hooks/useDebounce';
-import { useAppDispatch } from '../../hooks/useRedux';
-import { setUserStatus } from '../../redux/slices/status.slice';
+import ProductQuantity from '../ProductQuantity';
+import SuspenseLoading from '../SuspenseLoading';
 
 function ProductModal(props: Readonly<MenuProductModalProps>) {
-  const { isOpen, onClose, product } = props;
-
-  const { t } = useTranslation();
-
-  const dispatch = useAppDispatch();
-
   const [messageApi, contextHolder] = message.useMessage();
-  const fistInit = useRef(true);
 
-  const [qty, setQty] = useState(product.cart_qty);
-  const [isLoading, setIsLoading] = useState(false);
+  const { isOpen, onClose, id } = props;
 
-  const { debouncedValue, setDebouncedValue } = useDebounce(qty);
+  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    setTimeout(() => {
-      fistInit.current = false;
-    }, 1000);
+    getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (!fistInit.current) {
-      modifyQty();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedValue]);
-
-  const modifyQty = async () => {
+  const getProducts = async () => {
     setIsLoading(true);
 
-    API.modifyCartQuantity({ item: product.item_name, qty: debouncedValue })
+    API.getProducts({ item_name: id })
       .then((response) => {
-        dispatch(setUserStatus(response.data.data));
+        setProducts(response.data.data);
       })
       .catch((error) => {
         messageApi.open({
@@ -63,20 +36,50 @@ function ProductModal(props: Readonly<MenuProductModalProps>) {
       });
   };
 
-  const onAddToCartBtnClick = () => {
-    setDebouncedValue(1);
-    setQty(1);
-  };
-
-  const onQtyChange = (value: number | null) => {
-    if (value !== null && !isNaN(value)) {
-      setQty(value);
+  const Product = useCallback(() => {
+    if (isLoading) {
+      return (
+        <Col xs={24}>
+          <SuspenseLoading />
+        </Col>
+      );
     }
-  };
 
-  if (!product) {
-    return null;
-  }
+    if (products.length === 1) {
+      const product = products[0];
+
+      return (
+        <Row gutter={{ xs: 10, md: 20 }}>
+          <Col xs={24} md={10}>
+            <Image src={getImageUrl(product.image)} preview={false} />
+          </Col>
+
+          <Col xs={24} md={14}>
+            <Typography.Title level={4}>{product.item_name}</Typography.Title>
+
+            <Typography.Title level={5}>
+              {product.standard_rate} ج.م
+            </Typography.Title>
+
+            <ProductQuantity
+              id={product.item_name}
+              quantity={product.cart_qty}
+            />
+
+            <Typography.Text className='text-gray-400 mt-3'>
+              {product.description}
+            </Typography.Text>
+          </Col>
+        </Row>
+      );
+    }
+
+    return (
+      <Col xs={24}>
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      </Col>
+    );
+  }, [isLoading, products]);
 
   return (
     <Modal
@@ -89,37 +92,7 @@ function ProductModal(props: Readonly<MenuProductModalProps>) {
       footer={[]}
     >
       {contextHolder}
-      <Row gutter={{ xs: 10, md: 20 }}>
-        <Col xs={24} md={10}>
-          <Image src={getImageUrl(product.image)} preview={false} />
-        </Col>
-
-        <Col xs={24} md={14}>
-          <Typography.Title level={4}>{product.item_name}</Typography.Title>
-          <Typography.Title level={5}>
-            {product.standard_rate} ج.م
-          </Typography.Title>
-          <Row className='mb-3' justify='start'>
-            {debouncedValue > 0 ? (
-              <Spin spinning={isLoading}>
-                <InputNumber
-                  controls
-                  value={qty}
-                  min={0}
-                  onChange={onQtyChange}
-                />
-              </Spin>
-            ) : (
-              <Button loading={isLoading} onClick={onAddToCartBtnClick}>
-                {t('add-to-cart')}
-              </Button>
-            )}
-          </Row>
-          <Typography.Text className='text-gray-400'>
-            {product.description}
-          </Typography.Text>
-        </Col>
-      </Row>
+      <Product />
     </Modal>
   );
 }
