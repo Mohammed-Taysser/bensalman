@@ -61,6 +61,24 @@ function Menu() {
       });
   };
 
+  const getProducts = async () => {
+    setIsSearching(true);
+
+    API.getProducts()
+      .then((response) => {
+        setProducts(response.data.data);
+      })
+      .catch((error) => {
+        messageApi.open({
+          type: 'error',
+          content: getErrorMessage(error),
+        });
+      })
+      .finally(() => {
+        setIsSearching(false);
+      });
+  };
+
   const getNeededData = async () => {
     setIsLoading(true);
 
@@ -97,6 +115,12 @@ function Menu() {
   const onClosePopup = () => {
     setIsPopupOpen(false);
     setSelectedProductName(null);
+
+    if (selectedCategoryName) {
+      getProductsByCategory(selectedCategoryName);
+    } else {
+      getProducts();
+    }
   };
 
   const selectedProduct = useMemo(
@@ -136,7 +160,7 @@ function Menu() {
         <ProductModal
           isOpen={isPopupOpen}
           onClose={onClosePopup}
-          product={selectedProduct}
+          id={selectedProduct.item_name}
         />
       )}
 
