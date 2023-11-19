@@ -51,40 +51,57 @@ class AxiosAPI {
   }
 
   login(body = {}) {
-    return this.axiosInstance.post('alhoda.alhoda.auth.login', body);
+    return this.axiosInstance.post<AxiosLoginResponse>(
+      'alhoda.alhoda.auth.login',
+      body
+    );
   }
 
   welcome() {
-    return this.axiosInstance.get('alhoda.alhoda.apis.home');
+    return this.axiosInstance.get<AxiosWelcomeResponse>(
+      'alhoda.alhoda.apis.home'
+    );
   }
 
   getChairs() {
-    return this.axiosInstance.get('alhoda.alhoda.apis.get_all_chairs');
+    return this.axiosInstance.get<AxiosChairResponse>(
+      'alhoda.alhoda.apis.get_all_chairs'
+    );
   }
 
   reserveChair(body = {}) {
-    return this.axiosInstance.post(
+    return this.axiosInstance.post<AxiosChairReservationResponse>(
       'alhoda.alhoda.apis.create_chair_Reservation',
       body
     );
   }
 
   getProducts(params?: Record<string, string | null>) {
-    return this.axiosInstance.get('alhoda.alhoda.apis.get_item_data', {
-      params,
-    });
+    return this.axiosInstance.get<AxiosProductsResponse>(
+      'alhoda.alhoda.apis.get_item_data',
+      {
+        params,
+      }
+    );
   }
 
   getCategories() {
-    return this.axiosInstance.get('alhoda.alhoda.apis.get_item_groups');
+    return this.axiosInstance.get<AxiosCategoriesResponse>(
+      'alhoda.alhoda.apis.get_item_groups'
+    );
   }
 
   getCartItems() {
-    return this.axiosInstance.get('alhoda.alhoda.cart.get_cart_details');
+    return this.axiosInstance.get<AxiosCartDetailsResponse>(
+      'alhoda.alhoda.cart.get_cart_details'
+    );
   }
 
   modifyCartQuantity(body = {}) {
-    return this.axiosInstance.post('alhoda.alhoda.cart.cart_item', body);
+    return this.axiosInstance.post<AxiosCartModifyResponse>(
+      'alhoda.alhoda.cart.cart_item',
+      body
+    );
   }
 }
 
