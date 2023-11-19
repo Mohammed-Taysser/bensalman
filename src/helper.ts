@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { BiHome } from 'react-icons/bi';
 import { MdOutlineMenuBook } from 'react-icons/md';
 import { PiShoppingCartDuotone } from 'react-icons/pi';
@@ -56,22 +56,22 @@ function isRouteAUth(path: string) {
  * conditions are met
  */
 function getErrorMessage(error: AxiosError<ResponseError>) {
-  const errorObject = error?.response?.data;
-
   if (!error) {
     return null;
   }
 
-  if (errorObject?.message) {
-    return errorObject?.message;
-  }
+  if (axios.isAxiosError(error)) {
+    if (error?.message === 'Network Error') {
+      return i18n.t('please-check-your-internet-connection-and-try-again');
+    }
 
-  if (error?.message === 'Network Error') {
-    return i18n.t('please-check-your-internet-connection-and-try-again');
-  }
+    if (error?.message === 'Request aborted') {
+      return i18n.t('request-had-been-canceled');
+    }
 
-  if (error?.message === 'Request aborted') {
-    return i18n.t('request-had-been-canceled');
+    if (error?.response?.data?.message) {
+      return error?.response?.data?.message;
+    }
   }
 
   return JSON.stringify(error);
@@ -97,4 +97,3 @@ function getImageUrl(slug: string) {
 }
 
 export { getErrorMessage, getIcon, getImageUrl, isRouteAUth, isUserAuth };
-
