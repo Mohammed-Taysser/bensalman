@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import { LocalStorage } from './localStorage';
 import routes from './routes';
 
-const SERVER_URL = 'http://192.168.1.64:8002';
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const API_ENDPOINT = SERVER_URL + '/api/method';
 
