@@ -103,6 +103,12 @@ class AxiosAPI {
       body
     );
   }
+
+  checkout() {
+    return this.axiosInstance.post<AxiosCheckoutResponse>(
+      'alhoda.alhoda.cart.submit_cart'
+    );
+  }
 }
 
 const API = new AxiosAPI();
