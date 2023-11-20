@@ -23,5 +23,7 @@
   "continue-shopping": "Continue Shopping",
   "checkout": "Checkout",
   "please-check-your-internet-connection-and-try-again": "Please check your internet connection and try again.",
-  "request-had-been-canceled": "Request had been canceled"
+  "request-had-been-canceled": "Request had been canceled",
+  "success-order": "Success Order",
+  "go-to-cart": "Go To Cart"
 }
