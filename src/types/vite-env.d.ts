@@ -14,6 +14,12 @@ interface Category {
   names: string;
 }
 
+interface Chair {
+  name: string;
+  number: number;
+  code: string;
+}
+
 interface ProductQuantityProps {
   id: string;
   quantity: number;
@@ -36,12 +42,6 @@ interface MenuProductModalProps {
   id: string;
   isOpen: boolean;
   onClose: () => void;
-}
-
-interface Chair {
-  name: string;
-  number: number;
-  code: string;
 }
 
 // Local Storage
@@ -87,25 +87,28 @@ interface AuthUser {
   full_name: string;
 }
 
+interface CartStatusSlice {
+  items: Product[];
+  total_items: number;
+  total_amount: number;
+  status: CartStatus;
+  current_cart: string;
+  loading: string[];
+}
+
 interface LoginBody {
   usr: string;
   pwd: string;
 }
 
+interface ModifyQuantityBody {
+  qty: number;
+  item: string;
+}
+
 type CartStatus = 'Ordered' | 'Prepare' | 'Completed' | 'On Table';
 
-interface CartExtraInfo {
-  status: CartStatus;
-  total_amount: number;
-  total_items: number;
-}
-
-interface CartItemProps {
-  product: Product;
-  setExtraInfo: (value: CartExtraInfo) => void;
-}
-
-// axios response
+// Axios Response
 interface Customer {
   name: string;
   customer_name: string;
@@ -197,8 +200,15 @@ interface AxiosCartDetailsResponse {
 interface AxiosCartModifyResponse {
   message: string;
   data: ResponseStatus & {
-    status: 'Ordered';
+    status: CartStatus;
     total_amount: number;
     total_items: number;
+  };
+}
+
+interface AxiosCheckoutResponse {
+  message: string;
+  data: ResponseStatus & {
+    status: CartStatus;
   };
 }
