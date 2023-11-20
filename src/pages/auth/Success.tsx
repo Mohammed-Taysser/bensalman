@@ -2,6 +2,7 @@ import { Button, Col, Image, Row, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import columnBG from '../../assets/images/background/bg-column.png';
+import successImage from '../../assets/images/background/success.gif';
 import Base from '../../layouts/Base';
 
 function Success() {
@@ -22,13 +23,13 @@ function Success() {
           <Row
             gutter={{ xs: 0, md: 20 }}
             align='middle'
-            className='menu-wrapper'
+            className='menu-wrapper !bg-white'
             style={{
               backgroundImage: `url('${columnBG}')`,
             }}
           >
             <Col xs={24} className='text-center my-16 '>
-              <Image preview={false} width={300} />
+              <Image preview={false} width={300} src={successImage} />
 
               <Typography.Title className='!text-aurora' level={4}>
                 {t('success-order')}
