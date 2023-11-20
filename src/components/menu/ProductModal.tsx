@@ -66,7 +66,7 @@ function ProductModal(props: Readonly<MenuProductModalProps>) {
               quantity={product.cart_qty}
             />
 
-            <Typography.Text className='text-gray-400 mt-3'>
+            <Typography.Text className='text-gray-400 mt-3 block'>
               {product.description}
             </Typography.Text>
           </Col>
