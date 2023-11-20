@@ -7,6 +7,7 @@ import {
   NoRequireAuth,
   PageNotFound,
   RequireAuth,
+  Success,
   Welcome,
 } from './LazyPages';
 
@@ -48,6 +49,14 @@ const routes = createBrowserRouter([
     element: (
       <RequireAuth path='/menu'>
         <Menu />
+      </RequireAuth>
+    ),
+  },
+  {
+    path: '/success',
+    element: (
+      <RequireAuth path='/success'>
+        <Success />
       </RequireAuth>
     ),
   },
