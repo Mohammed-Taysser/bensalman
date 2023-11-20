@@ -8,7 +8,7 @@ import {
   Steps,
   message,
 } from 'antd';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import { MdOutlineMenuBook, MdOutlineSoupKitchen } from 'react-icons/md';
@@ -18,11 +18,15 @@ import { useNavigate } from 'react-router-dom';
 import columnBG from '../../assets/images/background/bg-column.png';
 import SuspenseLoading from '../../components/SuspenseLoading';
 import CartItem from '../../components/cart/CartItem';
-import { API } from '../../core/api';
-import { getErrorMessage } from '../../helper';
-import { useAppDispatch } from '../../hooks/useRedux';
+import {
+  selectCart,
+  useAppDispatch,
+  useAppSelector,
+} from '../../hooks/useRedux';
 import Base from '../../layouts/Base';
+import { checkout, getCartItems } from '../../redux/slices/cart.slice';
 import { setUserStatus } from '../../redux/slices/status.slice';
+import { getOrderStatusIndex } from '../../helper';
 
 function Cart() {
   const { t } = useTranslation();
@@ -30,47 +34,38 @@ function Cart() {
   const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [extraInfo, setExtraInfo] = useState<CartExtraInfo>({
-    status: 'Ordered',
-    total_amount: 0,
-    total_items: 0,
-  });
+  const cartState = useAppSelector(selectCart);
 
   useEffect(() => {
-    fetchNeededData();
+    dispatch(getCartItems()).then((action) => {
+      if (getCartItems.fulfilled.match(action)) {
+        dispatch(setUserStatus(action.payload.data));
+      }
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchNeededData = async () => {
-    setIsLoading(true);
-
-    API.getCartItems()
-      .then((response) => {
-        setProducts(response.data.data.items);
-
-        setExtraInfo({
-          status: response.data.data.status,
-          total_amount: response.data.data.total_amount,
-          total_items: response.data.data.total_items,
-        });
-
-        dispatch(setUserStatus(response.data.data));
-      })
-      .catch((error) => {
-        messageApi.open({
-          type: 'error',
-          content: getErrorMessage(error),
-        });
-      })
-      .finally(() => {
-        setIsLoading(false);
+  useEffect(() => {
+    if (cartState.error) {
+      messageApi.open({
+        type: 'error',
+        content: cartState.error,
       });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartState.error]);
+
+  const onCheckoutBtnClick = async () => {
+    dispatch(checkout()).then((action) => {
+      if (checkout.fulfilled.match(action)) {
+        dispatch(setUserStatus(action.payload.data));
+        navigateTo('/success');
+      }
+    });
   };
 
   const Products = useCallback(() => {
-    if (isLoading) {
+    if (cartState.status === 'loading') {
       return (
         <Col xs={24}>
           <SuspenseLoading />
@@ -78,10 +73,10 @@ function Cart() {
       );
     }
 
-    if (products.length > 0) {
-      return products.map((product) => (
+    if (cartState.data.items.length > 0) {
+      return cartState.data.items.map((product) => (
         <Col xs={24} md={12} key={product.item_name}>
-          <CartItem product={product} setExtraInfo={setExtraInfo} />
+          <CartItem product={product} />
         </Col>
       ));
     }
@@ -91,22 +86,12 @@ function Cart() {
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       </Col>
     );
-  }, [isLoading, products]);
+  }, [cartState.status, cartState.data.items]);
 
-  const orderStatusIndex = useMemo(() => {
-    switch (extraInfo.status) {
-      case 'Ordered':
-        return 0;
-      case 'Prepare':
-        return 1;
-      case 'Completed':
-        return 2;
-      case 'On Table':
-        return 3;
-      default:
-        return 0;
-    }
-  }, [extraInfo.status]);
+  const orderStatusIndex = useMemo(
+    () => getOrderStatusIndex(cartState.data.status),
+    [cartState.data.status]
+  );
 
   return (
     <Base>
@@ -152,7 +137,11 @@ function Cart() {
 
             <Col xs={24} className='mt-5'>
               <Space>
-                <Button size='large' type='primary'>
+                <Button
+                  size='large'
+                  type='primary'
+                  onClick={onCheckoutBtnClick}
+                >
                   {t('checkout')}
                 </Button>
                 <Button
@@ -172,7 +161,7 @@ function Cart() {
                 <Col xs={12} md={6}>
                   <Statistic
                     title={t('total-price')}
-                    value={extraInfo.total_amount}
+                    value={cartState.data.total_amount}
                     prefix={<BiMoneyWithdraw />}
                   />
                 </Col>
@@ -180,7 +169,7 @@ function Cart() {
                 <Col xs={12} md={6}>
                   <Statistic
                     title={t('total-products')}
-                    value={extraInfo.total_items}
+                    value={cartState.data.total_items}
                     prefix={<PiShoppingCartDuotone />}
                   />
                 </Col>

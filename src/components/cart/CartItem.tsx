@@ -1,22 +1,36 @@
 import { Col, Image, InputNumber, Row, Spin, Typography, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
-import { API } from '../../core/api';
-import { getErrorMessage, getImageUrl } from '../../helper';
+import { getImageUrl } from '../../helper';
 import useDebounce from '../../hooks/useDebounce';
-import { useAppDispatch } from '../../hooks/useRedux';
+import {
+  selectCart,
+  useAppDispatch,
+  useAppSelector,
+} from '../../hooks/useRedux';
+import { modifyCartQuantity } from '../../redux/slices/cart.slice';
 import { setUserStatus } from '../../redux/slices/status.slice';
 
-function CartItem(props: Readonly<CartItemProps>) {
-  const { product, setExtraInfo } = props;
+function CartItem(props: Readonly<{ product: Product }>) {
+  const { product } = props;
   const dispatch = useAppDispatch();
+  const cartStatus = useAppSelector(selectCart);
 
   const [messageApi, contextHolder] = message.useMessage();
   const isMount = useRef(false);
 
   const [qty, setQty] = useState(product.cart_qty);
-  const [isLoading, setIsLoading] = useState(false);
 
   const { debouncedValue } = useDebounce(qty);
+
+  useEffect(() => {
+    if (cartStatus.error) {
+      messageApi.open({
+        type: 'error',
+        content: cartStatus.error,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartStatus.error]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -32,27 +46,13 @@ function CartItem(props: Readonly<CartItemProps>) {
   }, [debouncedValue]);
 
   const modifyQty = async () => {
-    setIsLoading(true);
-
-    API.modifyCartQuantity({ item: product.item_name, qty: debouncedValue })
-      .then((response) => {
-        dispatch(setUserStatus(response.data.data));
-
-        setExtraInfo({
-          status: response.data.data.status,
-          total_amount: response.data.data.total_amount,
-          total_items: response.data.data.total_items,
-        });
-      })
-      .catch((error) => {
-        messageApi.open({
-          type: 'error',
-          content: getErrorMessage(error),
-        });
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    dispatch(
+      modifyCartQuantity({ item: product.item_name, qty: debouncedValue })
+    ).then((action) => {
+      if (modifyCartQuantity.fulfilled.match(action)) {
+        dispatch(setUserStatus(action.payload.data));
+      }
+    });
   };
 
   const onQtyChange = (value: number | null) => {
@@ -61,7 +61,7 @@ function CartItem(props: Readonly<CartItemProps>) {
     }
   };
 
-  if (!product || debouncedValue === 0) {
+  if (!product) {
     return null;
   }
 
@@ -82,7 +82,7 @@ function CartItem(props: Readonly<CartItemProps>) {
         </Typography.Title>
 
         <Row className='mb-3' justify='start'>
-          <Spin spinning={isLoading}>
+          <Spin spinning={cartStatus.data.loading.includes(product.item_name)}>
             <InputNumber controls value={qty} min={0} onChange={onQtyChange} />
           </Spin>
         </Row>
