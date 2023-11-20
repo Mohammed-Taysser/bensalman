@@ -96,4 +96,26 @@ function getImageUrl(slug: string) {
   return SERVER_URL + slug;
 }
 
-export { getErrorMessage, getIcon, getImageUrl, isRouteAUth, isUserAuth };
+function getOrderStatusIndex(status: CartStatus) {
+  switch (status) {
+    case 'Ordered':
+      return 0;
+    case 'Prepare':
+      return 1;
+    case 'Completed':
+      return 2;
+    case 'On Table':
+      return 3;
+    default:
+      return 0;
+  }
+}
+
+export {
+  getErrorMessage,
+  getOrderStatusIndex,
+  getIcon,
+  getImageUrl,
+  isRouteAUth,
+  isUserAuth,
+};
