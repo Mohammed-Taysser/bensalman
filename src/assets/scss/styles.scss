@@ -3,14 +3,18 @@
 @tailwind utilities;
 
 $main-color: #dda300;
+$orange-color: #fc8019;
 
 body {
   margin: 0;
   padding: 0;
   font-family: 'Cairo', sans-serif;
-  background-color: #090c0f;
   direction: rtl;
   text-align: right;
+
+  &:not(.light) {
+    background-color: #090c0f;
+  }
 }
 
 .bg-overlay {
@@ -185,6 +189,166 @@ nav.navbar {
         flex: 1;
         order: 2;
         border-bottom: 1px solid $main-color;
+      }
+    }
+  }
+}
+
+.kitchen-page {
+  .single-card-status {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    border-radius: 0.5rem;
+    background-color: $orange-color;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+
+    .body {
+      padding: 1.875rem;
+      flex: 1 1 auto;
+
+      .subtitle {
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 1.5;
+      }
+
+      .title-wrapper {
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+        color: #fff;
+
+        .title {
+          font-size: 2.5rem;
+          line-height: 1.5;
+          font-weight: 700;
+        }
+
+        .total-count {
+          font-size: 1.5rem;
+          line-height: 1.5;
+        }
+      }
+    }
+
+    &.card-1 {
+      &:after,
+      &:before {
+        background: #dbdbdb33;
+        border-radius: 50%;
+        content: '';
+        height: 13rem;
+        position: absolute;
+        width: 11.063rem;
+      }
+
+      &:before {
+        bottom: -90px;
+        left: -80px;
+      }
+
+      &:after {
+        left: -90px;
+        top: -80px;
+      }
+    }
+
+    &.card-2 {
+      &:after,
+      &:before {
+        background-repeat: no-repeat;
+        content: '';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: -1;
+        opacity: 0.6;
+      }
+
+      &::before {
+        background-position: 100% 0;
+        background-image: url('../images/icons/kitchen/card-2-shape-1.png');
+      }
+
+      &::after {
+        background-position: 0 100%;
+        background-image: url('../images/icons/kitchen/card-2-shape-2.png');
+      }
+    }
+
+    &.card-3 {
+      &:after,
+      &:before {
+        background-repeat: no-repeat;
+        content: '';
+        position: absolute;
+        left: 0;
+      }
+
+      &:before {
+        background-image: url('../images/icons/kitchen/card-3-shape-1.png');
+        height: 3rem;
+        top: 1.2rem;
+        width: 3rem;
+        left: 1.2rem;
+      }
+
+      &:after {
+        background-image: url('../images/icons/kitchen/card-3-shape-2.png');
+        background-size: cover;
+        bottom: 0;
+        height: 56%;
+        width: 40%;
+        left: -2.3rem;
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .products-list {
+    max-height: 488px;
+    overflow: auto;
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $orange-color;
+    }
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .single-product {
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+      border-radius: 0.5rem;
+      background-color: rgba($color: $orange-color, $alpha: 0.2);
+      border: 1px solid $orange-color;
+      transition: all 0.5s ease-in-out;
+
+      .body {
+        padding: 1.5rem;
+
+        .subtitle {
+          color: $orange-color;
+          font-size: 1rem;
+          font-weight: 600;
+          line-height: 1.5;
+        }
+
+        .title {
+          font-size: 1.2rem;
+          line-height: 1.5;
+          color: $orange-color;
+          font-weight: 700;
+        }
       }
     }
   }
