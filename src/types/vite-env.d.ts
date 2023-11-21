@@ -52,6 +52,11 @@ interface MenuProductModalProps {
   onClose: () => void;
 }
 
+interface OrderModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 // Local Storage
 type LocalStorageKeys = 'authUser' | 'language';
 
