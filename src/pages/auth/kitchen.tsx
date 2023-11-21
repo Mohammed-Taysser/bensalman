@@ -1,39 +1,12 @@
-import {
-  Col,
-  ConfigProvider,
-  Row,
-  Select,
-  SelectProps,
-  Space,
-  theme,
-} from 'antd';
+import { Col, ConfigProvider, Row, Select, Space, theme } from 'antd';
 import { useEffect } from 'react';
 import Orders from '../../components/kitchen/Orders';
 import Products from '../../components/kitchen/Products';
 import Status from '../../components/kitchen/Status';
+import { selectKitchen, useAppSelector } from '../../hooks/useRedux';
 
 function Kitchen() {
-  const shiftsOptions: SelectProps['options'] = Array.from({ length: 20 }).map(
-    (_, index) => ({
-      label: `SHIFT-${index.toString().padStart(2, '0')}`,
-      value: index,
-    })
-  );
-
-  const statusOptions: SelectProps['options'] = [
-    {
-      label: `Ordered`,
-      value: 1,
-    },
-    {
-      label: `Completed`,
-      value: 2,
-    },
-    {
-      label: `On Table`,
-      value: 3,
-    },
-  ];
+  const kitchenState = useAppSelector(selectKitchen);
 
   useEffect(() => {
     document.body.classList.add('light');
@@ -69,14 +42,14 @@ function Kitchen() {
             <Select
               placeholder='Select Shift'
               onChange={onShiftChange}
-              options={shiftsOptions}
+              options={kitchenState.data.options.shift}
               className='w-32'
             />
 
             <Select
               placeholder='Select Status'
               onChange={onStatusChange}
-              options={statusOptions}
+              options={kitchenState.data.options.status}
               className='w-32'
             />
           </Space>

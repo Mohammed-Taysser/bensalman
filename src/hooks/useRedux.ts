@@ -9,5 +9,11 @@ const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 const selectAuth = (state: RootState) => state.auth;
 const selectStatus = (state: RootState) => state.status;
 const selectCart = (state: RootState) => state.cart;
+const selectKitchen = (state: RootState) => state.kitchen;
 
-export { selectAuth, selectCart, selectStatus, useAppDispatch, useAppSelector };
+export {
+  selectAuth,
+  selectCart, selectKitchen, selectStatus, useAppDispatch,
+  useAppSelector
+};
+

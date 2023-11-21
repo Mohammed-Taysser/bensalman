@@ -52,11 +52,6 @@ interface MenuProductModalProps {
   onClose: () => void;
 }
 
-interface OrderModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
 // Local Storage
 type LocalStorageKeys = 'authUser' | 'language';
 
@@ -120,6 +115,41 @@ interface ModifyQuantityBody {
 }
 
 type CartStatus = 'Ordered' | 'Prepare' | 'Completed' | 'On Table';
+
+// kitchen page
+interface KitchenProduct {
+  name: string;
+  qty: number;
+  image: string;
+  total: number;
+}
+
+interface KitchenOrder {
+  orderNumber: string;
+  tableNumber: string;
+  items: CartProduct[];
+}
+
+interface KitchenStatusSlice {
+  orders: KitchenOrder[];
+  products: KitchenProduct[];
+  status: {
+    ordered: number;
+    completed: number;
+    onTable: number;
+    total: number;
+  };
+  options: {
+    status: SelectProps['options'];
+    shift: SelectProps['options'];
+  };
+}
+
+interface OrderModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  selectedOrder: KitchenOrder;
+}
 
 // Axios Response
 interface Customer {
