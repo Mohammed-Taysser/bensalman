@@ -11,6 +11,7 @@ const PageNotFound = lazy(() => import('../pages/public/404'));
 const NotAuthorized = lazy(() => import('../pages/auth/403'));
 const Welcome = lazy(() => import('../pages/auth/Welcome'));
 const Success = lazy(() => import('../pages/auth/Success'));
+const Kitchen = lazy(() => import('../pages/auth/kitchen'));
 
 function RequireAuth(
   props: Readonly<{ children: ReactElement; path: string }>
@@ -42,8 +43,10 @@ export {
   Login,
   Menu,
   NotAuthorized,
-  PageNotFound, Success, Welcome
+  PageNotFound,
+  Success,
+  Welcome,
+  Kitchen,
 };
 
-  export { NoRequireAuth, RequireAuth };
-
+export { NoRequireAuth, RequireAuth };
