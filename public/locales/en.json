@@ -25,5 +25,10 @@
   "please-check-your-internet-connection-and-try-again": "Please check your internet connection and try again.",
   "request-had-been-canceled": "Request had been canceled",
   "success-order": "Success Order",
-  "go-to-cart": "Go To Cart"
+  "go-to-cart": "Go To Cart",
+  "select-shift": "Select Shift",
+  "select-status": "Select Status",
+  "on-tabled": "On Tabled",
+  "details": "Details",
+  "close": "Close"
 }

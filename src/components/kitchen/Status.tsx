@@ -1,7 +1,9 @@
 import { Col, Row } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { selectKitchen, useAppSelector } from '../../hooks/useRedux';
 
 function Status() {
+  const { t } = useTranslation();
   const kitchenState = useAppSelector(selectKitchen);
 
   return (
@@ -15,7 +17,7 @@ function Status() {
                 / {kitchenState.data.status.total}
               </div>
             </div>
-            <div className='subtitle'>Ordered</div>
+            <div className='subtitle'>{t('ordered')}</div>
           </div>
         </div>
       </Col>
@@ -29,7 +31,7 @@ function Status() {
                 / {kitchenState.data.status.total}
               </div>
             </div>
-            <div className='subtitle'>Completed</div>
+            <div className='subtitle'>{t('completed')}</div>
           </div>
         </div>
       </Col>
@@ -43,7 +45,7 @@ function Status() {
                 / {kitchenState.data.status.total}
               </div>
             </div>
-            <div className='subtitle'>On Tabled</div>
+            <div className='subtitle'>{t('on-tabled')}</div>
           </div>
         </div>
       </Col>

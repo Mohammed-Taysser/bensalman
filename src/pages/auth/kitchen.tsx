@@ -1,11 +1,13 @@
 import { Col, ConfigProvider, Row, Select, Space, theme } from 'antd';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Orders from '../../components/kitchen/Orders';
 import Products from '../../components/kitchen/Products';
 import Status from '../../components/kitchen/Status';
 import { selectKitchen, useAppSelector } from '../../hooks/useRedux';
 
 function Kitchen() {
+  const { t } = useTranslation();
   const kitchenState = useAppSelector(selectKitchen);
 
   useEffect(() => {
@@ -40,14 +42,14 @@ function Kitchen() {
         <div className='p-5 bg-[#fc8019]'>
           <Space>
             <Select
-              placeholder='Select Shift'
+              placeholder={t('select-shift')}
               onChange={onShiftChange}
               options={kitchenState.data.options.shift}
               className='w-32'
             />
 
             <Select
-              placeholder='Select Status'
+              placeholder={t('select-status')}
               onChange={onStatusChange}
               options={kitchenState.data.options.status}
               className='w-32'

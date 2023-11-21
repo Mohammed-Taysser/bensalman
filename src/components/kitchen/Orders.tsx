@@ -1,9 +1,11 @@
 import { Button, Col, Empty, Row, Typography } from 'antd';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { selectKitchen, useAppSelector } from '../../hooks/useRedux';
 import OrderModal from './OrderModal';
 
 function Orders() {
+  const { t } = useTranslation();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const kitchenState = useAppSelector(selectKitchen);
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
@@ -59,7 +61,7 @@ function Orders() {
                       type='primary'
                       onClick={() => onOrderClick(item.orderNumber)}
                     >
-                      Details
+                      {t('details')}
                     </Button>
                   </Col>
                 </Row>

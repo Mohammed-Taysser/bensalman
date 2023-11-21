@@ -25,5 +25,10 @@
   "please-check-your-internet-connection-and-try-again": "يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.",
   "request-had-been-canceled": "تم إلغاء الطلب",
   "success-order": "تم طلب الاوردر بنجاح",
-  "go-to-cart": "اذهب إلى سلة التسوق"
+  "go-to-cart": "اذهب إلى سلة التسوق",
+  "select-shift": "حدد الشيفت",
+  "select-status": "حدد الحالة",
+  "on-tabled": "على الطاولة",
+  "details": "تفاصيل",
+  "close": "أغلاق"
 }
