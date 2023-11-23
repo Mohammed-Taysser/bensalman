@@ -28,7 +28,7 @@
 - Minimal need for any custom CSS using Sass.
 - Using Tailwindcss as class base utils
 - UI Components from Ant Design
-- Integration of Swiper library:
+- Integration of Swiper library
 
 ## Get Start 🚀
 
@@ -116,20 +116,6 @@ This class encapsulates an Axios instance for making API requests to a server us
 > The `axios` module and `AxiosInstance` type are imported from the 'axios' package. The `SERVER_URL` constant is imported from the 'config' file. The `LOCAL_STORAGE` object is imported from the 'localStorage' file, and the `routes` object is imported from the 'routes' file.
 
 The class includes several methods for making specific API requests. These methods use the Axios instance to send requests and return the response data. The methods are named after the corresponding API endpoints and accept optional request bodies or query parameters.
-
-here is a list of available API endpoints in the AxiosAPI class:
-
-- **login**: `POST` request to `alhoda.alhoda.auth.login` endpoint.
-- **welcome**: `GET` request to `alhoda.alhoda.apis.home` endpoint.
-- **getChairs**: `GET` request to `alhoda.alhoda.apis.get_all_chairs` endpoint.
-- **reserveChair**: `POST` request to `alhoda.alhoda.apis.create_chair_Reservation` endpoint.
-- **getProducts**: `GET` request to `alhoda.alhoda.apis.get_item_data` endpoint with optional query parameters.
-- **getCategories**: `GET` request to `alhoda.alhoda.apis.get_item_groups` endpoint.
-- **getCartItems**: `GET` request to `alhoda.alhoda.cart.get_cart_details` endpoint.
-- **modifyCartQuantity**: `POST` request to `alhoda.alhoda.cart.cart_item` endpoint.
-- **checkout**: `POST` request to `alhoda.alhoda.cart.submit_cart` endpoint.
-
-These methods represent different API endpoints that can be used to interact with the server. Each method specifies the HTTP method (GET or POST) and the corresponding endpoint URL.
 
 ## Resources ☁️
 
