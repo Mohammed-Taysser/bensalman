@@ -77,13 +77,6 @@ npm run dev
 npm run lint
 ```
 
-### Deployment
-
-```shell
-# To deploy the project to GitHub Pages:
-npm run deploy
-```
-
 ## Built With 🧰
 
 - **React**: A JavaScript library for building user interfaces.
