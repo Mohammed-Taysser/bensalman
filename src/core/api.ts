@@ -1,8 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
-import { LocalStorage } from './localStorage';
+import { SERVER_URL } from './config';
+import LOCAL_STORAGE from './localStorage';
 import routes from './routes';
-
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const API_ENDPOINT = SERVER_URL + '/api/method';
 
@@ -16,7 +15,7 @@ class AxiosAPI {
 
     this.axiosInstance.interceptors.request.use(
       async (request) => {
-        const userInfo = LocalStorage.get<AuthUser>('authUser');
+        const userInfo = LOCAL_STORAGE.get<AuthUser>('authUser');
 
         if (request.url !== 'alhoda.alhoda.auth.login') {
           request.headers[
@@ -39,7 +38,7 @@ class AxiosAPI {
         return response;
       },
       async (error) => {
-        const userInfo = LocalStorage.get<AuthUser>('authUser');
+        const userInfo = LOCAL_STORAGE.get<AuthUser>('authUser');
 
         if (userInfo && (!userInfo.api_key || !userInfo.api_secret)) {
           routes.navigate('/login');
@@ -113,4 +112,4 @@ class AxiosAPI {
 
 const API = new AxiosAPI();
 
-export { API, SERVER_URL };
+export default API;

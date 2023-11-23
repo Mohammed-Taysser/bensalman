@@ -1,6 +1,6 @@
 import { Col, Empty, Image, Modal, Row, Typography, message } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
-import { API } from '../../core/api';
+import API from '../../core/api';
 import { getErrorMessage, getImageUrl } from '../../helper';
 import ProductQuantity from '../ProductQuantity';
 import SuspenseLoading from '../SuspenseLoading';

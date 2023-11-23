@@ -1,7 +1,7 @@
 import { Button, InputNumber, Row, Spin, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { API } from '../core/api';
+import API from '../core/api';
 import { getErrorMessage } from '../helper';
 import useDebounce from '../hooks/useDebounce';
 import { useAppDispatch } from '../hooks/useRedux';

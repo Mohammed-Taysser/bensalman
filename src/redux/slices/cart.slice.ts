@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { API } from '../../core/api';
+import API from '../../core/api';
 import { getErrorMessage } from '../../helper';
 
 const getCartItems = createAsyncThunk('cart/get-items', async (_, thunkApi) => {

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { API } from '../../core/api';
+import API from '../../core/api';
 import { getErrorMessage } from '../../helper';
 
 const welcome = createAsyncThunk('status/welcome', async (_, thunkApi) => {

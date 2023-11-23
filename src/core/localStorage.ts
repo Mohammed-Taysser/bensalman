@@ -1,7 +1,4 @@
-const Local_Storage_Keys: LocalStorageKeysObject = {
-  authUser: 'bs-auth-user',
-  language: 'bs-language',
-};
+import { Local_Storage_Keys } from './config';
 
 class LocalStorage {
   // Check if a key exists in localStorage const
@@ -53,4 +50,4 @@ class LocalStorage {
   }
 }
 
-export { LocalStorage };
+export default LocalStorage;

@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
-import { LocalStorage } from './localStorage';
+import LOCAL_STORAGE from './localStorage';
 
 i18n
   // load translation using http -> see /public/locales
@@ -17,7 +17,7 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     fallbackLng: 'en',
-    lng: LocalStorage.get('language', 'ar') ?? 'ar',
+    lng: LOCAL_STORAGE.get('language') ?? 'ar',
     detection: {
       order: ['localStorage', 'cookie', 'htmlTag', 'path', 'subdomain'],
       caches: ['localStorage', 'cookie'],

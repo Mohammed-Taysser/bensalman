@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { PiArmchairDuotone } from 'react-icons/pi';
 import columnBG from '../../assets/images/background/bg-column.png';
 import SuspenseLoading from '../../components/SuspenseLoading';
-import { API } from '../../core/api';
+import API from '../../core/api';
 import { getErrorMessage } from '../../helper';
 import { useAppDispatch } from '../../hooks/useRedux';
 import Base from '../../layouts/Base';

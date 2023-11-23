@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { BiHome } from 'react-icons/bi';
 import { MdOutlineMenuBook } from 'react-icons/md';
 import { PiShoppingCartDuotone } from 'react-icons/pi';
-import { SERVER_URL } from './core/api';
+import { SERVER_URL } from './core/config';
 import i18n from './core/i18n';
 import store from './redux/store';
 
@@ -112,10 +112,8 @@ function getOrderStatusIndex(status: CartStatus) {
 }
 
 export {
-  getErrorMessage,
-  getOrderStatusIndex,
-  getIcon,
-  getImageUrl,
-  isRouteAUth,
-  isUserAuth,
+  getErrorMessage, getIcon,
+  getImageUrl, getOrderStatusIndex, isRouteAUth,
+  isUserAuth
 };
+

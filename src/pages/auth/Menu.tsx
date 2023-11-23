@@ -8,7 +8,7 @@ import columnBG from '../../assets/images/background/bg-column.png';
 import SuspenseLoading from '../../components/SuspenseLoading';
 import MenuItem from '../../components/menu/MenuItem';
 import ProductModal from '../../components/menu/ProductModal';
-import { API } from '../../core/api';
+import API from '../../core/api';
 import { getErrorMessage } from '../../helper';
 import { useAppDispatch } from '../../hooks/useRedux';
 import Base from '../../layouts/Base';

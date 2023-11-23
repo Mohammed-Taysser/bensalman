@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { API } from '../../core/api';
-import { LocalStorage } from '../../core/localStorage';
+import API from '../../core/api';
+import LOCAL_STORAGE from '../../core/localStorage';
 import routes from '../../core/routes';
 import { getErrorMessage } from '../../helper';
 
@@ -26,7 +26,7 @@ const initialState: RequestState<AuthUser> = {
     routes: [],
     full_name: '',
     sid: '',
-    ...LocalStorage.get('authUser'),
+    ...LOCAL_STORAGE.get('authUser'),
   },
   status: 'idle',
   error: '',
@@ -40,7 +40,7 @@ const authSlice = createSlice({
       state.data.api_key = '';
       state.data.api_secret = '';
 
-      LocalStorage.remove('authUser');
+      LOCAL_STORAGE.remove('authUser');
 
       routes.navigate('/login');
     },
@@ -62,7 +62,7 @@ const authSlice = createSlice({
 
         state.status = 'succeeded';
         state.data = apiResponse;
-        LocalStorage.set('authUser', apiResponse);
+        LOCAL_STORAGE.set('authUser', apiResponse);
       })
       .addCase(login.rejected, (state, action) => {
         state.status = 'failed';
