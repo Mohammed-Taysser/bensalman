@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
+/// <reference types="antd" />
 
+// Import ENV Variables Types
 interface ImportMetaEnv {
   readonly VITE_SERVER_URL: string;
 }
@@ -7,6 +9,8 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+// Global
 
 interface Product {
   name: string;
@@ -28,6 +32,15 @@ interface Chair {
   code: string;
 }
 
+interface AuthUser {
+  api_secret: string;
+  api_key: string;
+  sid: string;
+  routes: string[];
+  full_name: string;
+}
+
+// Components
 interface ProductQuantityProps {
   id: string;
   quantity: number;
@@ -35,12 +48,26 @@ interface ProductQuantityProps {
   className?: React.ComponentProps<'div'>['className'];
 }
 
+// Layout
 interface BaseLayoutProps {
   children: React.ReactNode;
   bg?: string;
   noNavbar?: boolean;
 }
 
+interface NavbarDropdownItem {
+  id: number;
+  path: string;
+  label: string;
+}
+
+// Login page
+interface LoginRequestBody {
+  usr: string;
+  pwd: string;
+}
+
+// Menu page
 interface MenuItemProps {
   onProductClick: (id: string) => void;
   product: Product;
@@ -68,14 +95,10 @@ interface RequestState<T = null> {
   error: SerializedError;
 }
 
+// TODO: find a wat to make it global
+// add type to axios itself
 interface ResponseError {
   message: string;
-}
-
-interface NavbarDropdownItem {
-  id: number;
-  path: string;
-  label: string;
 }
 
 interface UserStatus {
@@ -87,14 +110,7 @@ interface UserStatus {
   cart_count: number;
 }
 
-interface AuthUser {
-  api_secret: string;
-  api_key: string;
-  sid: string;
-  routes: string[];
-  full_name: string;
-}
-
+// Cart Page
 interface CartStatusSlice {
   items: Product[];
   total_items: number;
@@ -104,12 +120,7 @@ interface CartStatusSlice {
   loading: string[];
 }
 
-interface LoginBody {
-  usr: string;
-  pwd: string;
-}
-
-interface ModifyQuantityBody {
+interface ModifyQuantityRequestBody {
   qty: number;
   item: string;
 }
@@ -124,24 +135,51 @@ interface KitchenProduct {
   total: number;
 }
 
+interface KitchenOrderProduct {
+  item: string;
+  qty: number;
+  cart: string;
+  image: string;
+}
+
 interface KitchenOrder {
-  orderNumber: string;
-  tableNumber: string;
-  items: CartProduct[];
+  chair: string;
+  items: KitchenOrderProduct[];
+  carts: string[];
+}
+
+interface KitchenCardStatus {
+  ordered: number;
+  completed: number;
+  onTable: number;
+  total: number;
+  Prepare: number;
+}
+
+interface KitchenDropdownOptions {
+  shifts: {
+    label: string;
+    value: string;
+  }[];
+  status: {
+    label: string;
+    value: string;
+  }[];
+  selectedStatus: string;
+  selectedShift: string;
 }
 
 interface KitchenStatusSlice {
   orders: KitchenOrder[];
   products: KitchenProduct[];
-  status: {
-    ordered: number;
-    completed: number;
-    onTable: number;
-    total: number;
-  };
-  options: {
-    status: SelectProps['options'];
-    shift: SelectProps['options'];
+  status: KitchenCardStatus;
+  options: KitchenDropdownOptions;
+}
+
+interface KitchenProductPayload {
+  payload: {
+    products: KitchenProduct[];
+    options: KitchenDropdownOptions;
   };
 }
 
@@ -254,4 +292,12 @@ interface AxiosCheckoutResponse {
   data: ResponseStatus & {
     status: CartStatus;
   };
+}
+
+interface AxiosKitchenProductsResponse {
+  message: string;
+  KitchenProduct: KitchenProduct[];
+  main_status: KitchenDropdownOptions;
+  status: KitchenCardStatus;
+  data: KitchenOrder[];
 }
