@@ -22,7 +22,7 @@ function Orders() {
   const selectedOrder = useMemo(
     () =>
       kitchenState.data.orders.find(
-        (product) => product.orderNumber === selectedOrderId
+        (product) => product.chair === selectedOrderId
       ),
     [selectedOrderId, kitchenState.data.orders]
   );
@@ -40,18 +40,18 @@ function Orders() {
 
         <Row className='justify-center md:justify-start' gutter={[15, 15]}>
           {kitchenState.data.orders.map((item) => (
-            <Col xs={24} sm={12} md={8} key={item.orderNumber}>
+            <Col xs={24} sm={12} md={8} key={item.chair}>
               <div className='px-5 py-8 rounded border border-solid border-[#fc8019]'>
                 <Row align='middle'>
                   <Col flex='auto'>
                     <Typography.Title level={4} className='!my-0'>
-                      {item.orderNumber}
+                      {item.chair}
                     </Typography.Title>
                     <Typography.Title
                       level={5}
                       className='!my-0 !text-gray-400 '
                     >
-                      {item.tableNumber}
+                      {item.carts[0]}
                     </Typography.Title>
                   </Col>
 
@@ -59,7 +59,7 @@ function Orders() {
                     <Button
                       key='details'
                       type='primary'
-                      onClick={() => onOrderClick(item.orderNumber)}
+                      onClick={() => onOrderClick(item.chair)}
                     >
                       {t('details')}
                     </Button>

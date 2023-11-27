@@ -23,6 +23,20 @@ function Status() {
       </Col>
 
       <Col xs={24}>
+        <div className='single-card-status card-4'>
+          <div className='body'>
+            <div className='title-wrapper'>
+              <div className='title'>{kitchenState.data.status.Prepare}</div>
+              <div className='total-count'>
+                / {kitchenState.data.status.total}
+              </div>
+            </div>
+            <div className='subtitle'>{t('preparing')}</div>
+          </div>
+        </div>
+      </Col>
+
+      <Col xs={24}>
         <div className='single-card-status card-2'>
           <div className='body'>
             <div className='title-wrapper'>

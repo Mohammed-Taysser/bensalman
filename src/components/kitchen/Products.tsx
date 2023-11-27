@@ -1,32 +1,51 @@
 import { Col, Empty, Image, Progress, Row } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { getImageUrl } from '../../helper';
 import { selectKitchen, useAppSelector } from '../../hooks/useRedux';
 
 function Products() {
   const kitchenState = useAppSelector(selectKitchen);
+  const { t } = useTranslation();
 
   if (kitchenState.data.products.length > 0) {
     return (
       <div className='products-list'>
-        <Row className='!mx-0' gutter={[10, 10]}>
+        <Row className='!mx-0' gutter={[10, 10]} align='stretch'>
           {kitchenState.data.products.map((item) => (
             <Col xs={24} sm={12} md={8} key={item.name}>
-              <div className='single-product'>
+              <div className='single-product h-full'>
                 <div className='body'>
                   <Row className='w-full' gutter={[10, 10]}>
-                    <Col>
-                      <div className='bg-white rounded-full'>
-                        <Image preview={false} src={item.image} width={80} />
+                    <Col xs={10}>
+                      <div className='w-20 h-20'>
+                        <Image
+                          preview={false}
+                          src={getImageUrl(item.image)}
+                          width={80}
+                        />
                       </div>
                     </Col>
 
-                    <Col flex='auto'>
+                    <Col xs={14}>
                       <div>
                         <div className='title'>{item.name}</div>
-                        <div className='subtitle'>{item.qty}</div>
+                        <div className='subtitle'>
+                          {item.qty === item.total ? (
+                            <>
+                              {item.total} {t('completed')}
+                            </>
+                          ) : (
+                            <>
+                              {item.qty} {t('completed')} {' - '} {item.total}{' '}
+                              {t('ordered')}
+                            </>
+                          )}
+                        </div>
                         <Progress
-                          percent={(item.qty / item.total / 100) * 100}
+                          percent={(item.qty / item.total) * 100}
                           showInfo={false}
-                          status='active'
+                          status={item.qty !== item.total ? 'active' : 'normal'}
+                          className='!m-0'
                         />
                       </div>
                     </Col>

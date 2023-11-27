@@ -1,6 +1,6 @@
-import { Button, Col, Modal } from 'antd';
+import { Button, Col, Image, Modal, Row, Space, Tag, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
-import OrderItem from './OrderItem';
+import { getImageUrl } from '../../helper';
 
 function OrderModal(props: Readonly<OrderModalProps>) {
   const { isOpen, onClose, selectedOrder } = props;
@@ -13,16 +13,62 @@ function OrderModal(props: Readonly<OrderModalProps>) {
       open={isOpen}
       onCancel={onClose}
       centered
-      className='md:!w-[60vw]'
+      className='md:!w-[80vw]'
       footer={[]}
     >
-      {selectedOrder.items.map((product) => (
-        <Col xs={24} md={12} key={product.item_name}>
-          <OrderItem product={product} />
-        </Col>
-      ))}
+      <Typography.Title level={3}>
+        {t('chair-number')}: {selectedOrder.chair}
+      </Typography.Title>
 
-      <Button onClick={onClose}>{t('close')}</Button>
+      <Space align='center'>
+        <Typography.Title level={4} className='!m-0'>
+          {t('order-number')}:
+        </Typography.Title>
+
+        <Space>
+          {selectedOrder.carts.map((cart) => (
+            <Tag key={cart}>{cart}</Tag>
+          ))}
+        </Space>
+      </Space>
+
+      <div className='kitchen-page-orders-products-list my-10'>
+        <Row className='!mx-0' gutter={[10, 10]} align='stretch'>
+          {selectedOrder.items.map((item) => (
+            <Col xs={24} sm={12} md={8} key={item.item}>
+              <div className='single-product h-full'>
+                <div className='body'>
+                  <Row className='w-full' gutter={[10, 10]}>
+                    <Col xs={8} md={10}>
+                      <div className='w-20 h-20'>
+                        <Image
+                          preview={false}
+                          src={getImageUrl(item.image)}
+                          width={80}
+                        />
+                      </div>
+                    </Col>
+
+                    <Col xs={16} md={14}>
+                      <div>
+                        <div className='title'>{item.item}</div>
+                        <div className='subtitle'>
+                          {t('quantity')}: {item.qty}
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
+              </div>
+            </Col>
+          ))}
+        </Row>
+      </div>
+
+      <Space>
+        <Button type='primary'>Confirm</Button>
+        <Button onClick={onClose}>{t('close')}</Button>
+      </Space>
     </Modal>
   );
 }
