@@ -30,5 +30,8 @@
   "select-status": "Select Status",
   "on-tabled": "On Tabled",
   "details": "Details",
-  "close": "Close"
+  "close": "Close",
+  "quantity": "Quantity",
+  "chair-number": "Chair Number",
+  "order-number": "Order Number"
 }

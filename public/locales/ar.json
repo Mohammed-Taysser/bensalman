@@ -30,5 +30,8 @@
   "select-status": "حدد الحالة",
   "on-tabled": "على الطاولة",
   "details": "تفاصيل",
-  "close": "أغلاق"
+  "close": "أغلاق",
+  "quantity": "الكمية",
+  "chair-number": "رقم الكرسي",
+  "order-number": "رقم الأوردر"
 }
