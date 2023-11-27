@@ -182,6 +182,12 @@ nav.navbar {
       gap: 10px;
       align-items: baseline;
 
+      .product-title {
+        direction: ltr;
+        text-align: right;
+        cursor: pointer;
+      }
+
       &:after {
         content: '';
         width: 100%;
@@ -309,10 +315,37 @@ nav.navbar {
         transform: rotate(90deg);
       }
     }
+
+    &.card-4 {
+      &:before {
+        background-repeat: no-repeat;
+        content: '';
+        position: absolute;
+        background-image: url('../images/icons/kitchen/card-3-shape-1.png');
+        height: 3rem;
+        top: 1.2rem;
+        width: 3rem;
+        left: 1.2rem;
+      }
+
+      &::after {
+        background-repeat: no-repeat;
+        content: '';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: -1;
+        opacity: 0.6;
+        background-position: 0 100%;
+        background-image: url('../images/icons/kitchen/card-2-shape-2.png');
+      }
+    }
   }
 
   .products-list {
-    max-height: 488px;
+    max-height: 654px;
     overflow: auto;
 
     &::-webkit-scrollbar-thumb {
@@ -338,17 +371,62 @@ nav.navbar {
 
         .subtitle {
           color: $orange-color;
-          font-size: 1rem;
+          font-size: 0.8rem;
           font-weight: 600;
           line-height: 1.5;
         }
 
         .title {
-          font-size: 1.2rem;
+          font-size: 1rem;
           line-height: 1.5;
+          margin-bottom: 5px;
           color: $orange-color;
           font-weight: 700;
+          direction: ltr;
+          text-align: right;
         }
+      }
+    }
+  }
+}
+
+.kitchen-page-orders-products-list {
+  &::-webkit-scrollbar-thumb {
+    background-color: $orange-color;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .single-product {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    border-radius: 0.5rem;
+    background-color: rgba($color: $orange-color, $alpha: 0.2);
+    border: 1px solid $orange-color;
+    transition: all 0.5s ease-in-out;
+
+    .body {
+      padding: 1.5rem;
+
+      .subtitle {
+        color: $orange-color;
+        font-size: 0.8rem;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .title {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 5px;
+        color: $orange-color;
+        font-weight: 700;
+        direction: ltr;
+        text-align: right;
       }
     }
   }
