@@ -27,7 +27,7 @@ const checkout = createAsyncThunk('cart/checkout', async (_, thunkApi) => {
 
 const modifyCartQuantity = createAsyncThunk(
   'cart/modify-quantity',
-  async (body: ModifyQuantityBody, thunkApi) => {
+  async (body: ModifyQuantityRequestBody, thunkApi) => {
     try {
       const response = await API.modifyCartQuantity(body);
       return response.data;

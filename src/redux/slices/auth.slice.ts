@@ -7,7 +7,7 @@ import { getErrorMessage } from '../../helper';
 
 const login = createAsyncThunk(
   'auth/login',
-  async (body: LoginBody, thunkApi) => {
+  async (body: LoginRequestBody, thunkApi) => {
     try {
       const response = await API.login(body);
       return response.data;
