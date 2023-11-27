@@ -1,0 +1,6 @@
+{
+  "email": "hagar1@mail.com",
+  "bad-email": "hagar1@mail",
+  "non-exist-email": "hagarsd1@mail.com",
+  "password": "12345678"
+}
