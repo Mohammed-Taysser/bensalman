@@ -14,7 +14,7 @@ function MenuItem(props: Readonly<MenuItemProps>) {
         <Col order={1}>
           <Typography.Title
             level={4}
-            className='cursor-pointer'
+            className='product-title'
             onClick={() => onProductClick(product.name)}
           >
             {product.item_name}
