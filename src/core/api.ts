@@ -108,6 +108,15 @@ class AxiosAPI {
       'alhoda.alhoda.cart.submit_cart'
     );
   }
+
+  getKitchenInfo(body?: { shift: string | null; status: string | null }) {
+    return this.axiosInstance.get<AxiosKitchenProductsResponse>(
+      'alhoda.alhoda.doctype.kitchen.get_KitchenProduct',
+      {
+        params: body,
+      }
+    );
+  }
 }
 
 const API = new AxiosAPI();
