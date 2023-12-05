@@ -117,7 +117,7 @@ function Kitchen() {
                 placeholder={t('select-shift')}
                 onChange={onShiftChange}
                 options={kitchenState.data.options.shifts}
-                className='w-60'
+                className='md:w-60 w-32'
                 value={kitchenState.data.options.selectedShift}
               />
 
@@ -131,7 +131,7 @@ function Kitchen() {
             </Space>
           </div>
 
-          <Row justify='center' className='mt-10'>
+          <Row justify='center' className='mt-5 md:mt-10'>
             <Col xs={23}>
               <Row gutter={[10, 10]}>
                 <Col xs={24} md={5}>
