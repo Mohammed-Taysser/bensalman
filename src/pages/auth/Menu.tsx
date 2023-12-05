@@ -168,7 +168,7 @@ function Menu() {
         className='min-h-screen justify-center md:justify-around menu-page '
         align='middle'
       >
-        <Col xs={22} md={18}>
+        <Col xs={24} sm={22} md={18}>
           {!isLoading && (
             <div>
               <Swiper
@@ -205,7 +205,10 @@ function Menu() {
             </div>
           )}
           <Row
-            gutter={{ xs: 0, md: 20 }}
+            gutter={[
+              { xs: 10, md: 10 },
+              { xs: 20, md: 20 },
+            ]}
             align='middle'
             className='menu-wrapper'
             style={{

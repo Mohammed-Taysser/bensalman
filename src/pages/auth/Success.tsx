@@ -19,7 +19,7 @@ function Success() {
         className='min-h-screen justify-center md:justify-around menu-page '
         align='middle'
       >
-        <Col xs={22} md={18}>
+        <Col xs={24} sm={22} md={18}>
           <Row
             gutter={{ xs: 0, md: 20 }}
             align='middle'
@@ -28,7 +28,7 @@ function Success() {
               backgroundImage: `url('${columnBG}')`,
             }}
           >
-            <Col xs={24} className='text-center my-16 '>
+            <Col xs={24} className='text-center md:my-16 '>
               <Image preview={false} width={300} src={successImage} />
 
               <Typography.Title className='!text-aurora' level={4}>
