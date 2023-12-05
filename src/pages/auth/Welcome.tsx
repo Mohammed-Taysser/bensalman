@@ -1,11 +1,13 @@
-import { Col, Image, Row, Typography, message } from 'antd';
-import { useEffect } from 'react';
+import { Col, Image, Row, Spin, Typography, message } from 'antd';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import chief from '../../assets/images/icons/chief.png';
 import bottomLines from '../../assets/images/icons/welcome/welcome-lines-bottom.png';
 import topLines from '../../assets/images/icons/welcome/welcome-lines-top.png';
 import SuspenseLoading from '../../components/SuspenseLoading';
+import API from '../../core/api';
+import { getErrorMessage } from '../../helper';
 import {
   selectStatus,
   useAppDispatch,
@@ -19,6 +21,7 @@ function Welcome() {
   const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
   const statusState = useAppSelector(selectStatus);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getWelcomeStatus();
@@ -39,6 +42,24 @@ function Welcome() {
     dispatch(welcome());
   };
 
+  const onTakeawayBtnClick = () => {
+    setIsLoading(true);
+
+    API.chooseTakeaway()
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        messageApi.open({
+          type: 'error',
+          content: getErrorMessage(error),
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
   return (
     <Base>
       {contextHolder}
@@ -48,7 +69,7 @@ function Welcome() {
       >
         <Col md={10}>
           <div className='text-center'>
-            <Image src={topLines} preview={false} className='mb-10 md:hidden' />
+            <Image src={topLines} preview={false} className='mb-5 md:hidden' />
             {statusState.status === 'loading' ? (
               <SuspenseLoading />
             ) : (
@@ -57,22 +78,36 @@ function Welcome() {
                 justify='center'
                 gutter={[
                   { xs: 0, md: 100 },
-                  { xs: 50, sm: 50, md: 50 },
+                  { xs: 20, sm: 50, md: 50 },
                 ]}
               >
-                {statusState.data.home_routing.map((item) => (
-                  <Col key={item.id} xs={20} md={12}>
-                    <Link to={item.path} className='ribbon'>
-                      {item.label}
-                    </Link>
-                  </Col>
-                ))}
+                {statusState.data.home_routing.map((item) => {
+                  if (item.path === '/takeaway') {
+                    return (
+                      <Col key={item.id} xs={20} md={12}>
+                        <Spin spinning={isLoading}>
+                          <span className='ribbon' onClick={onTakeawayBtnClick}>
+                            {item.label}
+                          </span>
+                        </Spin>
+                      </Col>
+                    );
+                  }
+
+                  return (
+                    <Col key={item.id} xs={20} md={12}>
+                      <Link to={item.path} className='ribbon'>
+                        {item.label}
+                      </Link>
+                    </Col>
+                  );
+                })}
               </Row>
             )}
             <Image
               src={bottomLines}
               preview={false}
-              className='mt-10 md:hidden'
+              className='mt-5 md:hidden'
             />
           </div>
         </Col>
