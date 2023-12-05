@@ -4,3 +4,9 @@ interface LoginInfoJson {
   'non-exist-email': string;
   password: string;
 }
+
+declare namespace Cypress {
+  interface Chainable {
+    getByData(dataTestAttribute: string): Chainable<JQuery<HTMLElement>>;
+  }
+}
