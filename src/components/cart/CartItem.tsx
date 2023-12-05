@@ -1,5 +1,6 @@
-import { Col, Image, InputNumber, Row, Spin, Typography, message } from 'antd';
+import { Button, Col, Image, Row, Spin, Typography, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
+import { FiMinus, FiPlus } from 'react-icons/fi';
 import { getImageUrl } from '../../helper';
 import useDebounce from '../../hooks/useDebounce';
 import {
@@ -42,6 +43,7 @@ function CartItem(props: Readonly<{ product: Product }>) {
     if (isMount.current) {
       modifyQty();
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue]);
 
@@ -55,15 +57,13 @@ function CartItem(props: Readonly<{ product: Product }>) {
     });
   };
 
-  const onQtyChange = (value: number | null) => {
-    if (value !== null && !isNaN(value)) {
-      setQty(value);
-    }
+  const onIncreaseBtnClick = () => {
+    setQty((prev) => prev + 1);
   };
 
-  if (!product) {
-    return null;
-  }
+  const onDecreaseBtnClick = () => {
+    setQty((prev) => (prev - 1 <= 0 ? 0 : prev - 1));
+  };
 
   return (
     <Row gutter={{ xs: 10, md: 20 }}>
@@ -81,11 +81,25 @@ function CartItem(props: Readonly<{ product: Product }>) {
           {product.cart_qty * product.standard_rate} ج.م
         </Typography.Title>
 
-        <Row className='mb-3' justify='start'>
-          <Spin spinning={cartStatus.data.loading.includes(product.item_name)}>
-            <InputNumber controls value={qty} min={0} onChange={onQtyChange} />
-          </Spin>
-        </Row>
+        <Spin spinning={cartStatus.data.loading.includes(product.item_name)}>
+          <Button.Group>
+            <Button
+              size='small'
+              onClick={onDecreaseBtnClick}
+              icon={<FiMinus />}
+            />
+
+            <Button size='small' disabled>
+              {qty}
+            </Button>
+
+            <Button
+              size='small'
+              onClick={onIncreaseBtnClick}
+              icon={<FiPlus />}
+            />
+          </Button.Group>
+        </Spin>
       </Col>
     </Row>
   );
