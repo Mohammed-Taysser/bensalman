@@ -1,19 +1,9 @@
-import {
-  Button,
-  Col,
-  Empty,
-  Row,
-  Space,
-  Statistic,
-  Steps,
-  message,
-} from 'antd';
-import { useCallback, useEffect, useMemo } from 'react';
+import { Button, Col, Empty, Row, Space, Statistic, message } from 'antd';
+import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BiMoneyWithdraw } from 'react-icons/bi';
-import { MdOutlineMenuBook, MdOutlineSoupKitchen } from 'react-icons/md';
-import { PiArmchairDuotone, PiShoppingCartDuotone } from 'react-icons/pi';
-import { TbToolsKitchen2 } from 'react-icons/tb';
+import { MdOutlineMenuBook } from 'react-icons/md';
+import { PiShoppingCartDuotone } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 import columnBG from '../../assets/images/background/bg-column.png';
 import SuspenseLoading from '../../components/SuspenseLoading';
@@ -26,7 +16,6 @@ import {
 import Base from '../../layouts/Base';
 import { checkout, getCartItems } from '../../redux/slices/cart.slice';
 import { setUserStatus } from '../../redux/slices/status.slice';
-import { getOrderStatusIndex } from '../../helper';
 
 function Cart() {
   const { t } = useTranslation();
@@ -52,6 +41,7 @@ function Cart() {
         content: cartState.error,
       });
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartState.error]);
 
@@ -88,11 +78,6 @@ function Cart() {
     );
   }, [cartState.status, cartState.data.items]);
 
-  const orderStatusIndex = useMemo(
-    () => getOrderStatusIndex(cartState.data.status),
-    [cartState.data.status]
-  );
-
   return (
     <Base>
       {contextHolder}
@@ -102,37 +87,16 @@ function Cart() {
       >
         <Col xs={22} md={18}>
           <Row
-            gutter={{ xs: 0, md: 20 }}
+            gutter={[
+              { xs: 10, md: 20 },
+              { xs: 10, md: 20 },
+            ]}
             align='middle'
             className='menu-wrapper'
             style={{
               backgroundImage: `url('${columnBG}')`,
             }}
           >
-            <Col className='mb-8' xs={24}>
-              <Steps
-                current={orderStatusIndex}
-                items={[
-                  {
-                    title: t('ordered'),
-                    icon: <PiShoppingCartDuotone />,
-                  },
-                  {
-                    title: t('preparing'),
-                    icon: <MdOutlineSoupKitchen />,
-                  },
-                  {
-                    title: t('completed'),
-                    icon: <PiArmchairDuotone />,
-                  },
-                  {
-                    title: t('on-table'),
-                    icon: <TbToolsKitchen2 />,
-                  },
-                ]}
-              />
-            </Col>
-
             <Products />
 
             <Col xs={24} className='mt-5'>
