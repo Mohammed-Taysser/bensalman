@@ -44,6 +44,14 @@ const authSlice = createSlice({
 
       routes.navigate('/login');
     },
+
+    setAuthRoutes: (state, action: { payload: string[] }) => {
+      state.data.routes = action.payload;
+      LOCAL_STORAGE.set('authUser', {
+        ...state.data,
+        routes: action.payload,
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -72,5 +80,5 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { logout } = authSlice.actions;
+export const { logout, setAuthRoutes } = authSlice.actions;
 export { login };
