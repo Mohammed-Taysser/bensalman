@@ -13,12 +13,12 @@ import { useTranslation } from 'react-i18next';
 import { BiCoffeeTogo } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import chief from '../../assets/images/icons/chief.png';
-import demo from '../../assets/videos/login-demo.mp4';
 import {
   selectAuth,
   useAppDispatch,
   useAppSelector,
 } from '../../hooks/useRedux';
+import Base from '../../layouts/Base';
 import { login } from '../../redux/slices/auth.slice';
 import { setUserStatus } from '../../redux/slices/status.slice';
 
@@ -56,11 +56,14 @@ function Login() {
   };
 
   return (
-    <div className='login-page'>
+    <Base noNavbar>
       {contextHolder}
-      <video src={demo} muted loop autoPlay className='video-bg' />
-      <Row justify='center' align='middle' className='min-h-screen'>
-        <Col xs={20} md={8}>
+
+      <Row
+        className='min-h-screen justify-center md:justify-around menu-page '
+        align='middle'
+      >
+        <Col xs={24} sm={20} md={15} xl={8} >
           <div className='bg-overlay'>
             <div className='text-center mb-5'>
               <Typography.Title className='mt-0 !text-aurora'>
@@ -81,7 +84,7 @@ function Login() {
                   },
                 ]}
               >
-                <Input placeholder={t('email')} />
+                <Input placeholder={t('email')} data-test='email' />
               </Form.Item>
 
               <Form.Item
@@ -90,7 +93,10 @@ function Login() {
                   { required: true, message: t('please-input-your-password') },
                 ]}
               >
-                <Input.Password placeholder={t('password')} />
+                <Input.Password
+                  placeholder={t('password')}
+                  data-test='password'
+                />
               </Form.Item>
 
               <Form.Item>
@@ -99,6 +105,7 @@ function Login() {
                   type='primary'
                   loading={authState.status === 'loading'}
                   block
+                  data-test='button'
                   icon={<BiCoffeeTogo className='btn-icon' />}
                 >
                   {t('sign-in')}
@@ -108,7 +115,7 @@ function Login() {
           </div>
         </Col>
       </Row>
-    </div>
+    </Base>
   );
 }
 
