@@ -7,6 +7,7 @@ import API from '../../core/api';
 import { getErrorMessage } from '../../helper';
 import { useAppDispatch } from '../../hooks/useRedux';
 import Base from '../../layouts/Base';
+import { setAuthRoutes } from '../../redux/slices/auth.slice';
 import { setUserStatus } from '../../redux/slices/status.slice';
 
 function ChairReservation() {
@@ -47,6 +48,7 @@ function ChairReservation() {
     API.reserveChair({ chair: id })
       .then((response) => {
         setChairs(response.data.data.chairs);
+        dispatch(setAuthRoutes(response.data.data.routing));
 
         dispatch(setUserStatus(response.data.data));
       })
@@ -106,7 +108,7 @@ function ChairReservation() {
   }, [isLoading, chairs]);
 
   return (
-    <Base  >
+    <Base>
       {contextHolder}
 
       <Row
