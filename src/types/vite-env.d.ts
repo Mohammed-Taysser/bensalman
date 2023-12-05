@@ -44,7 +44,6 @@ interface AuthUser {
 interface ProductQuantityProps {
   id: string;
   quantity: number;
-  onSuccessCallback?: () => void;
   className?: React.ComponentProps<'div'>['className'];
 }
 
