@@ -1,7 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
+import { logout } from '../redux/slices/auth.slice';
+import store from '../redux/store';
 import { SERVER_URL } from './config';
-import LOCAL_STORAGE from './localStorage';
-import routes from './routes';
+import { default as LOCAL_STORAGE } from './localStorage';
 
 const API_ENDPOINT = SERVER_URL + '/api/method';
 
@@ -38,10 +39,8 @@ class AxiosAPI {
         return response;
       },
       async (error) => {
-        const userInfo = LOCAL_STORAGE.get<AuthUser>('authUser');
-
-        if (userInfo && (!userInfo.api_key || !userInfo.api_secret)) {
-          routes.navigate('/login');
+        if (error.response.status === 401) {
+          store.dispatch(logout());
         }
 
         return Promise.reject(error);
@@ -104,6 +103,12 @@ class AxiosAPI {
   }
 
   checkout() {
+    return this.axiosInstance.post<AxiosCheckoutResponse>(
+      'alhoda.alhoda.cart.submit_cart'
+    );
+  }
+
+  chooseTakeaway() {
     return this.axiosInstance.post<AxiosCheckoutResponse>(
       'alhoda.alhoda.cart.submit_cart'
     );
