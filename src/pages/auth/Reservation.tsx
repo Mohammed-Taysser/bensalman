@@ -138,7 +138,11 @@ function Reservation() {
               backgroundImage: `url('${columnBG}')`,
             }}
           >
-            <ReservationContent />
+            <Col xs={24}>
+              <Row gutter={[10, 10]}>
+                <ReservationContent />
+              </Row>
+            </Col>
           </Row>
         </Col>
       </Row>
