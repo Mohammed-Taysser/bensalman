@@ -10,7 +10,7 @@ function Success() {
   const navigateTo = useNavigate();
 
   const onClick = () => {
-    navigateTo('/cart');
+    navigateTo('/menu');
   };
 
   return (
