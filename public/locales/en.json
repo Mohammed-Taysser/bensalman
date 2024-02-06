@@ -33,5 +33,6 @@
   "close": "Close",
   "quantity": "Quantity",
   "chair-number": "Chair Number",
-  "order-number": "Order Number"
+  "order-number": "Order Number",
+  "error-has-occurred": "error has occurred"
 }

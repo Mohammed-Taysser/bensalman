@@ -39,3 +39,23 @@
 Cypress.Commands.add('getByData', (selector) => {
   return cy.get(`[data-test=${selector}]`);
 });
+
+Cypress.Commands.add('loginSubmit', (info: LoginBody) => {
+  // Visit the login page
+  cy.visit('/login');
+
+  // Enter email and password
+  info.email && cy.getByData('email').type(info.email);
+  info.password && cy.getByData('password').type(info.password);
+
+  // Submit the login form
+  cy.getByData('button').click();
+});
+
+// Journey
+Cypress.Commands.add('loginJourney', (info: LoginBody) => {
+  cy.loginSubmit(info);
+
+  // Assert that the user is logged in
+  cy.location('pathname').should('eq', '/');
+});

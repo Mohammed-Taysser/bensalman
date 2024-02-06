@@ -33,5 +33,6 @@
   "close": "أغلاق",
   "quantity": "الكمية",
   "chair-number": "رقم الكرسي",
-  "order-number": "رقم الأوردر"
+  "order-number": "رقم الأوردر",
+  "error-has-occurred": "حدث خطأ"
 }

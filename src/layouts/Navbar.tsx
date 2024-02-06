@@ -82,6 +82,7 @@ function Navbar() {
                     count={statusState.data.current_chair}
                     showZero
                     color='tomato'
+                    data-test='current-chair-badge'
                   >
                     <PiArmchairDuotone />
                   </Badge>
@@ -95,6 +96,7 @@ function Navbar() {
                   count={statusState.data.cart_count}
                   showZero
                   color='tomato'
+                  data-test='cart-count-badge'
                 >
                   <PiShoppingCartDuotone />
                 </Badge>
@@ -105,6 +107,7 @@ function Navbar() {
               <Badge
                 count={statusState.data.balance}
                 showZero
+                data-test='balance-badge'
                 overflowCount={9999999}
                 color='tomato'
               >

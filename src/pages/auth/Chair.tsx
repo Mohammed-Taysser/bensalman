@@ -79,6 +79,7 @@ function ChairReservation() {
             gutter={{ xs: 10, md: 20 }}
             className='px-3 py-5 md:py-8 md:px-5 rounded border border-gray-500 border-solid cursor-pointer'
             justify='space-between'
+            data-test='single-chair'
             onClick={() => onChairClick(seat.name)}
           >
             <Col xs={24}>
@@ -88,7 +89,7 @@ function ChairReservation() {
                 </Col>
 
                 <Col>
-                  <Typography.Title className='!my-0' level={4}>
+                  <Typography.Title className='!my-0' data-test='chair-title' level={4}>
                     {seat.code}
                   </Typography.Title>
                 </Col>
@@ -121,6 +122,7 @@ function ChairReservation() {
             align='middle'
             justify='center'
             className='menu-wrapper'
+            data-test='chair-wrapper'
             style={{
               backgroundImage: `url('${columnBG}')`,
             }}
