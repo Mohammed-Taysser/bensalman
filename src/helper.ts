@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { BiHome } from 'react-icons/bi';
 import { MdOutlineMenuBook } from 'react-icons/md';
 import { PiShoppingCartDuotone } from 'react-icons/pi';
+import { TbReportSearch } from 'react-icons/tb';
 import { SERVER_URL } from './core/config';
 import i18n from './core/i18n';
 import store from './redux/store';
@@ -55,7 +56,9 @@ function isRouteAUth(path: string) {
  * returns a specific error message related to a canceled request. If none of these
  * conditions are met
  */
-function getErrorMessage(error: AxiosError<ResponseError>) {
+function getErrorMessage(err: unknown) {
+  const error = err as AxiosError<ResponseError>;
+
   if (!error) {
     return null;
   }
@@ -86,6 +89,9 @@ const getIcon = (path: string) => {
 
     case '/cart':
       return PiShoppingCartDuotone;
+
+    case '/reservation':
+      return TbReportSearch;
 
     default:
       return BiHome;
