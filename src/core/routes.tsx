@@ -9,7 +9,8 @@ import {
   RequireAuth,
   Success,
   Welcome,
-  Kitchen
+  Kitchen,
+  Reservation
 } from './LazyPages';
 
 const routes = createBrowserRouter([
@@ -66,6 +67,14 @@ const routes = createBrowserRouter([
     element: (
       <RequireAuth path='/kitchen'>
         <Kitchen />
+      </RequireAuth>
+    ),
+  },
+  {
+    path: '/reservation',
+    element: (
+      <RequireAuth path='/reservation'>
+        <Reservation />
       </RequireAuth>
     ),
   },
