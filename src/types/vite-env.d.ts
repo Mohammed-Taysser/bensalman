@@ -126,6 +126,23 @@ interface ModifyQuantityRequestBody {
 
 type CartStatus = 'Ordered' | 'Prepare' | 'Completed' | 'On Table';
 
+// Reservation page
+interface ReservationState {
+  chairs: ChairReservation[];
+  products: Product[];
+}
+
+interface ChairReservation {
+  chair: string;
+  invite: 0 | 1;
+}
+
+// Orders Page
+interface Order {
+  date: string;
+  products: Product[];
+}
+
 // kitchen page
 interface KitchenProduct {
   name: string;
@@ -299,4 +316,18 @@ interface AxiosKitchenProductsResponse {
   main_status: KitchenDropdownOptions;
   status: KitchenCardStatus;
   data: KitchenOrder[];
+}
+
+interface AxiosAllChairReservationResponse {
+  message: string;
+  data: ResponseStatus & {
+    chairs: ChairReservation[];
+  };
+}
+
+interface AxiosOrdersResponse{
+  message: string;
+  data: ResponseStatus & {
+    orders: Order[];
+  };
 }
