@@ -34,5 +34,9 @@
   "quantity": "الكمية",
   "chair-number": "رقم الكرسي",
   "order-number": "رقم الأوردر",
-  "error-has-occurred": "حدث خطأ"
+  "error-has-occurred": "حدث خطأ",
+  "yes": "نعم",
+  "cancel": "تراجع",
+  "are-you-sure-you-want-to-delete-this-reservation": "هل أنت متأكد من حذف هذا الحجز",
+  "delete-reservation": "حذف الحجز"
 }
