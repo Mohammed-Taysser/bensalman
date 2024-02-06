@@ -1,4 +1,6 @@
 import { Badge, Col, Dropdown, Row, Typography } from 'antd';
+import type { ItemType } from 'antd/es/menu/hooks/useItems';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import { FaRegUserCircle } from 'react-icons/fa';
@@ -28,35 +30,44 @@ function Navbar() {
     dispatch(logout());
   };
 
+  const menuItems = useMemo(() => {
+    const menu: ItemType[] = statusState.data.drop_down.map((item) => {
+      const Icon = getIcon(item.path);
+
+      return {
+        key: item.id,
+        icon: <Icon className='!text-lg' />,
+        label: <Link to={item.path}>{item.label}</Link>,
+      };
+    });
+
+    if (menu.length > 0) {
+      menu.push({
+        type: 'divider',
+      });
+    }
+
+    menu.push({
+      label: (
+        <a href='#logout' onClick={onLogoutBtnClick}>
+          {t('logout')}
+        </a>
+      ),
+      key: 'logout',
+      danger: true,
+      icon: <IoLogOutOutline className='!text-lg' />,
+    });
+
+    return menu;
+  }, [statusState]);
+
   return (
     <nav className='navbar'>
       <Row className='p-5 pl-10' justify='space-between' align='middle'>
         <Col>
           <Dropdown
             menu={{
-              items: [
-                ...statusState.data.drop_down.map((item) => {
-                  const Icon = getIcon(item.path);
-                  return {
-                    key: item.id,
-                    icon: <Icon className='!text-lg' />,
-                    label: <Link to={item.path}>{item.label}</Link>,
-                  };
-                }),
-                {
-                  type: 'divider',
-                },
-                {
-                  label: (
-                    <a href='#logout' onClick={onLogoutBtnClick}>
-                      {t('logout')}
-                    </a>
-                  ),
-                  key: 'logout',
-                  danger: true,
-                  icon: <IoLogOutOutline className='!text-lg' />,
-                },
-              ],
+              items: menuItems,
             }}
             trigger={['click']}
           >
