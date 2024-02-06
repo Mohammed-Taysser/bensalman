@@ -14,14 +14,14 @@ import {
   useAppSelector,
 } from '../../hooks/useRedux';
 import Base from '../../layouts/Base';
-import { welcome } from '../../redux/slices/status.slice';
+import { setUserStatus, welcome } from '../../redux/slices/status.slice';
 
 function Welcome() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
   const statusState = useAppSelector(selectStatus);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isTakeawayLoading, setIsTakeawayLoading] = useState(false);
 
   useEffect(() => {
     getWelcomeStatus();
@@ -43,11 +43,13 @@ function Welcome() {
   };
 
   const onTakeawayBtnClick = () => {
-    setIsLoading(true);
+    setIsTakeawayLoading(true);
 
-    API.chooseTakeaway()
+    API.reserveChair({
+      chair: 'takeaway',
+    })
       .then((response) => {
-        console.log(response);
+        dispatch(setUserStatus(response.data.data));
       })
       .catch((error) => {
         messageApi.open({
@@ -56,7 +58,7 @@ function Welcome() {
         });
       })
       .finally(() => {
-        setIsLoading(false);
+        setIsTakeawayLoading(false);
       });
   };
 
@@ -73,36 +75,40 @@ function Welcome() {
             {statusState.status === 'loading' ? (
               <SuspenseLoading />
             ) : (
-              <Row
-                align='middle'
-                justify='center'
-                gutter={[
-                  { xs: 0, md: 100 },
-                  { xs: 20, sm: 50, md: 50 },
-                ]}
-              >
-                {statusState.data.home_routing.map((item) => {
-                  if (item.path === '/takeaway') {
-                    return (
-                      <Col key={item.id} xs={20} md={12}>
-                        <Spin spinning={isLoading}>
-                          <span className='ribbon' onClick={onTakeawayBtnClick}>
+              <Spin spinning={isTakeawayLoading}>
+                {' '}
+                <Row
+                  align='middle'
+                  justify='center'
+                  gutter={[
+                    { xs: 0, md: 100 },
+                    { xs: 20, sm: 50, md: 50 },
+                  ]}
+                >
+                  {statusState.data.home_routing.map((item) => {
+                    if (item.path === '/takeaway') {
+                      return (
+                        <Col key={item.id} xs={20} md={12}>
+                          <span
+                            className='ribbon cursor-pointer'
+                            onClick={onTakeawayBtnClick}
+                          >
                             {item.label}
                           </span>
-                        </Spin>
+                        </Col>
+                      );
+                    }
+
+                    return (
+                      <Col key={item.id} xs={20} md={12}>
+                        <Link to={item.path} className='ribbon'>
+                          {item.label}
+                        </Link>
                       </Col>
                     );
-                  }
-
-                  return (
-                    <Col key={item.id} xs={20} md={12}>
-                      <Link to={item.path} className='ribbon'>
-                        {item.label}
-                      </Link>
-                    </Col>
-                  );
-                })}
-              </Row>
+                  })}
+                </Row>
+              </Spin>
             )}
             <Image
               src={bottomLines}
