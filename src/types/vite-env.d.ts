@@ -140,6 +140,7 @@ interface ChairReservation {
 // Orders Page
 interface Order {
   date: string;
+  name: string;
   products: Product[];
 }
 
@@ -325,7 +326,7 @@ interface AxiosAllChairReservationResponse {
   };
 }
 
-interface AxiosOrdersResponse{
+interface AxiosOrdersResponse {
   message: string;
   data: ResponseStatus & {
     orders: Order[];

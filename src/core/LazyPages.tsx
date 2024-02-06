@@ -13,6 +13,7 @@ const Welcome = lazy(() => import('../pages/auth/Welcome'));
 const Success = lazy(() => import('../pages/auth/Success'));
 const Kitchen = lazy(() => import('../pages/auth/kitchen'));
 const Reservation = lazy(() => import('../pages/auth/Reservation'));
+const Orders = lazy(() => import('../pages/auth/Orders'));
 
 function RequireAuth(
   props: Readonly<{ children: ReactElement; path: string }>
@@ -40,15 +41,11 @@ function NoRequireAuth(props: Readonly<{ children: ReactElement }>) {
 
 export {
   Cart,
-  ChairReservation,
-  Login,
+  ChairReservation, Kitchen, Login,
   Menu,
-  NotAuthorized,
-  PageNotFound,
-  Success,
-  Welcome,
-  Kitchen,
-  Reservation
+  NotAuthorized, Orders, PageNotFound, Reservation, Success,
+  Welcome
 };
 
-export { NoRequireAuth, RequireAuth };
+  export { NoRequireAuth, RequireAuth };
+

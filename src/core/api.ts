@@ -108,9 +108,15 @@ class AxiosAPI {
     );
   }
 
-  chooseTakeaway() {
-    return this.axiosInstance.post<AxiosCheckoutResponse>(
-      'alhoda.alhoda.cart.submit_cart'
+  getChairReservation() {
+    return this.axiosInstance.post<AxiosAllChairReservationResponse>(
+      'alhoda.alhoda.apis.get_all_reserved_chairs'
+    );
+  }
+
+  getOrders() {
+    return this.axiosInstance.post<AxiosOrdersResponse>(
+      'alhoda.alhoda.orders.get_orders'
     );
   }
 
