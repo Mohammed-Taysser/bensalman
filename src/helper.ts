@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { BiHome } from 'react-icons/bi';
-import { MdOutlineMenuBook } from 'react-icons/md';
+import { LuExternalLink } from 'react-icons/lu';
+import { MdManageHistory, MdOutlineMenuBook } from 'react-icons/md';
 import { PiShoppingCartDuotone } from 'react-icons/pi';
 import { TbReportSearch } from 'react-icons/tb';
 import { SERVER_URL } from './core/config';
@@ -93,8 +94,11 @@ const getIcon = (path: string) => {
     case '/reservation':
       return TbReportSearch;
 
+    case '/orders':
+      return MdManageHistory;
+
     default:
-      return BiHome;
+      return LuExternalLink;
   }
 };
 
@@ -123,5 +127,6 @@ export {
   getImageUrl,
   getOrderStatusIndex,
   isRouteAUth,
-  isUserAuth,
+  isUserAuth
 };
+
