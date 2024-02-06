@@ -74,7 +74,7 @@ function getErrorMessage(error: AxiosError<ResponseError>) {
     }
   }
 
-  return JSON.stringify(error);
+  return i18n.t('error-has-occurred');
 }
 
 const getIcon = (path: string) => {
@@ -112,8 +112,10 @@ function getOrderStatusIndex(status: CartStatus) {
 }
 
 export {
-  getErrorMessage, getIcon,
-  getImageUrl, getOrderStatusIndex, isRouteAUth,
-  isUserAuth
+  getErrorMessage,
+  getIcon,
+  getImageUrl,
+  getOrderStatusIndex,
+  isRouteAUth,
+  isUserAuth,
 };
-
