@@ -5,7 +5,11 @@ import columnBG from '../../assets/images/background/bg-column.png';
 import SuspenseLoading from '../../components/SuspenseLoading';
 import API from '../../core/api';
 import { getErrorMessage } from '../../helper';
-import { useAppDispatch } from '../../hooks/useRedux';
+import {
+  selectStatus,
+  useAppDispatch,
+  useAppSelector,
+} from '../../hooks/useRedux';
 import Base from '../../layouts/Base';
 import { setAuthRoutes } from '../../redux/slices/auth.slice';
 import { setUserStatus } from '../../redux/slices/status.slice';
@@ -13,6 +17,8 @@ import { setUserStatus } from '../../redux/slices/status.slice';
 function ChairReservation() {
   const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
+
+  const statusState = useAppSelector(selectStatus);
 
   const [isLoading, setIsLoading] = useState(true);
   const [chairs, setChairs] = useState<Chair[]>([]);
@@ -45,7 +51,10 @@ function ChairReservation() {
   const onChairClick = async (id: string) => {
     setIsLoading(true);
 
-    API.reserveChair({ chair: id })
+    API.reserveChair({
+      chair: id,
+      invite: statusState.data.current_chair ? 1 : 0,
+    })
       .then((response) => {
         setChairs(response.data.data.chairs);
         dispatch(setAuthRoutes(response.data.data.routing));
@@ -89,7 +98,11 @@ function ChairReservation() {
                 </Col>
 
                 <Col>
-                  <Typography.Title className='!my-0' data-test='chair-title' level={4}>
+                  <Typography.Title
+                    className='!my-0'
+                    data-test='chair-title'
+                    level={4}
+                  >
                     {seat.code}
                   </Typography.Title>
                 </Col>
