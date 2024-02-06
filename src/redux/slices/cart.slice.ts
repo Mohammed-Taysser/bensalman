@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AxiosError } from 'axios';
 import API from '../../core/api';
 import { getErrorMessage } from '../../helper';
 
@@ -7,9 +6,7 @@ const getCartItems = createAsyncThunk('cart/get-items', async (_, thunkApi) => {
   try {
     const response = await API.getCartItems();
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<ResponseError>;
-
+  } catch (error) {
     return thunkApi.rejectWithValue(getErrorMessage(error));
   }
 });
@@ -18,9 +15,7 @@ const checkout = createAsyncThunk('cart/checkout', async (_, thunkApi) => {
   try {
     const response = await API.checkout();
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<ResponseError>;
-
+  } catch (error) {
     return thunkApi.rejectWithValue(getErrorMessage(error));
   }
 });
@@ -31,9 +26,7 @@ const modifyCartQuantity = createAsyncThunk(
     try {
       const response = await API.modifyCartQuantity(body);
       return response.data;
-    } catch (err) {
-      const error = err as AxiosError<ResponseError>;
-
+    } catch (error) {
       return thunkApi.rejectWithValue(getErrorMessage(error));
     }
   }

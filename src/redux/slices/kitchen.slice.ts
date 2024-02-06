@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AxiosError } from 'axios';
 import API from '../../core/api';
 import { getErrorMessage } from '../../helper';
 
@@ -9,9 +8,7 @@ const getKitchenInfo = createAsyncThunk(
     try {
       const response = await API.getKitchenInfo(body);
       return response.data;
-    } catch (err) {
-      const error = err as AxiosError<ResponseError>;
-
+    } catch (error) {
       return thunkApi.rejectWithValue(getErrorMessage(error));
     }
   }

@@ -1,5 +1,4 @@
 import { Col, Empty, Row, message } from 'antd';
-import { AxiosError } from 'axios';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigation } from 'swiper/modules';
@@ -90,9 +89,7 @@ function Menu() {
       setCategories(categoryResponse.data.data);
 
       dispatch(setUserStatus(productsResponse.data.extra));
-    } catch (err) {
-      const error = err as AxiosError<ResponseError>;
-
+    } catch (error) {
       messageApi.open({
         type: 'error',
         content: getErrorMessage(error),

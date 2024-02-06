@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AxiosError } from 'axios';
 import API from '../../core/api';
 import { getErrorMessage } from '../../helper';
 
@@ -7,9 +6,7 @@ const welcome = createAsyncThunk('status/welcome', async (_, thunkApi) => {
   try {
     const response = await API.welcome();
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<ResponseError>;
-
+  } catch (error) {
     return thunkApi.rejectWithValue(getErrorMessage(error));
   }
 });
