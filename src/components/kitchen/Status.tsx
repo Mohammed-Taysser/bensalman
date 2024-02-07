@@ -1,6 +1,7 @@
 import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { selectKitchen, useAppSelector } from '../../hooks/useRedux';
+import { toArabicDigits } from '../../helper';
 
 function Status() {
   const { t } = useTranslation();
@@ -12,9 +13,11 @@ function Status() {
         <div className='single-card-status card-1'>
           <div className='body'>
             <div className='title-wrapper'>
-              <div className='title'>{kitchenState.data.status.ordered}</div>
+              <div className='title'>
+                {toArabicDigits(kitchenState.data.status.ordered)}
+              </div>
               <div className='total-count'>
-                / {kitchenState.data.status.total}
+                / {toArabicDigits(kitchenState.data.status.total)}
               </div>
             </div>
             <div className='subtitle'>{t('ordered')}</div>
@@ -26,9 +29,11 @@ function Status() {
         <div className='single-card-status card-4'>
           <div className='body'>
             <div className='title-wrapper'>
-              <div className='title'>{kitchenState.data.status.Prepare}</div>
+              <div className='title'>
+                {toArabicDigits(kitchenState.data.status.Prepare)}
+              </div>
               <div className='total-count'>
-                / {kitchenState.data.status.total}
+                / {toArabicDigits(kitchenState.data.status.total)}
               </div>
             </div>
             <div className='subtitle'>{t('preparing')}</div>
@@ -40,9 +45,11 @@ function Status() {
         <div className='single-card-status card-2'>
           <div className='body'>
             <div className='title-wrapper'>
-              <div className='title'>{kitchenState.data.status.completed}</div>
+              <div className='title'>
+                {toArabicDigits(kitchenState.data.status.completed)}
+              </div>
               <div className='total-count'>
-                / {kitchenState.data.status.total}
+                / {toArabicDigits(kitchenState.data.status.total)}
               </div>
             </div>
             <div className='subtitle'>{t('completed')}</div>
@@ -54,9 +61,11 @@ function Status() {
         <div className='single-card-status card-3'>
           <div className='body'>
             <div className='title-wrapper'>
-              <div className='title'>{kitchenState.data.status.onTable}</div>
+              <div className='title'>
+                {toArabicDigits(kitchenState.data.status.onTable)}
+              </div>
               <div className='total-count'>
-                / {kitchenState.data.status.total}
+                / {toArabicDigits(kitchenState.data.status.total)}
               </div>
             </div>
             <div className='subtitle'>{t('on-tabled')}</div>

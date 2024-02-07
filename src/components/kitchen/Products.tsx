@@ -1,6 +1,6 @@
 import { Col, Empty, Image, Progress, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { getImageUrl } from '../../helper';
+import { getImageUrl, toArabicDigits } from '../../helper';
 import { selectKitchen, useAppSelector } from '../../hooks/useRedux';
 
 function Products() {
@@ -36,7 +36,8 @@ function Products() {
                             </>
                           ) : (
                             <>
-                              {item.qty} {t('completed')} {' - '} {item.total}{' '}
+                              {toArabicDigits(item.qty)} {t('completed')}{' '}
+                              {' - '} {toArabicDigits(item.total)}{' '}
                               {t('ordered')}
                             </>
                           )}

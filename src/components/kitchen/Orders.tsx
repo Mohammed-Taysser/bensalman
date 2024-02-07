@@ -47,6 +47,7 @@ function Orders() {
                     <Typography.Title level={4} className='!my-0'>
                       {item.chair}
                     </Typography.Title>
+
                     <Typography.Title
                       level={5}
                       className='!my-0 !text-gray-400 '
@@ -57,7 +58,6 @@ function Orders() {
 
                   <Col>
                     <Button
-                      key='details'
                       type='primary'
                       onClick={() => onOrderClick(item.chair)}
                     >
