@@ -28,8 +28,8 @@ const initialState: RequestState<KitchenStatusSlice> = {
     options: {
       shifts: [],
       status: [],
-      selectedStatus: '',
-      selectedShift: '',
+      selectedStatus: null,
+      selectedShift: null,
     },
   },
   status: 'idle',
@@ -40,18 +40,6 @@ const kitchenSlice = createSlice({
   name: 'kitchen',
   initialState,
   reducers: {
-    // setKitchenProduct: (state, action: KitchenProductPayload) => {
-    //   state.data.products = action.payload.products;
-    //   state.data.options.status = action.payload.options.status;
-    //   state.data.options.shifts = action.payload.options.shifts;
-    //   // FIX:selectedShift & selectedStatus not right from api
-    //   state.data.options.selectedShift =
-    //     action.payload.options.selectedShift ??
-    //     action.payload.options.shifts[0].value;
-    //   state.data.options.selectedStatus =
-    //     action.payload.options.selectedStatus ??
-    //     action.payload.options.status[0].value;
-    // },
     setKitchenStatusCard: (state, action: { payload: KitchenCardStatus }) => {
       state.data.status = action.payload;
     },
@@ -73,21 +61,13 @@ const kitchenSlice = createSlice({
         state.error = '';
       })
       .addCase(getKitchenInfo.fulfilled, (state, action) => {
-        const selectedShift =
-          state.data.options.selectedShift ??
-          action.payload.main_status.shifts[0].value;
-
-        const selectedStatus =
-          state.data.options.selectedStatus ??
-          action.payload.main_status.status[0].value;
-
         const payload = {
           products: action.payload.KitchenProduct,
           options: {
             status: action.payload.main_status.status,
             shifts: action.payload.main_status.shifts,
-            selectedStatus,
-            selectedShift,
+            selectedStatus: null,
+            selectedShift: null,
           },
           orders: action.payload.data,
           status: action.payload.status,
@@ -105,7 +85,6 @@ const kitchenSlice = createSlice({
 
 export default kitchenSlice.reducer;
 export const {
-  // setKitchenProduct,
   setKitchenStatusCard,
   setKitchenOrders,
 

@@ -182,8 +182,8 @@ interface KitchenDropdownOptions {
     label: string;
     value: string;
   }[];
-  selectedStatus: string;
-  selectedShift: string;
+  selectedStatus: string | null;
+  selectedShift: string | null;
 }
 
 interface KitchenStatusSlice {

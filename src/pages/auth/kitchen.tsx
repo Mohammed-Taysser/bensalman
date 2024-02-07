@@ -8,7 +8,7 @@ import {
   message,
   theme,
 } from 'antd';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Orders from '../../components/kitchen/Orders';
 import Products from '../../components/kitchen/Products';
@@ -30,29 +30,11 @@ function Kitchen() {
   const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
   const kitchenState = useAppSelector(selectKitchen);
-  const wsRef = useRef(
-    new WebSocket(`${WS_SERVER_URL}/rooms/chatroom/test/test/`)
-  );
 
   useEffect(() => {
     document.body.classList.add('light');
 
-    wsRef.current.onopen = () => {
-      wsRef.current.send('yalla');
-    };
-
-    wsRef.current.onmessage = (event) => {
-      const payload = JSON.parse(event.data);
-      console.log(payload);
-    };
-
-    wsRef.current.onerror = (event) => {
-      console.log(event);
-    };
-
-    wsRef.current.onclose = (event) => {
-      console.log(event);
-    };
+    wsConnect();
   }, []);
 
   useEffect(() => {
@@ -69,6 +51,34 @@ function Kitchen() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kitchenState.error]);
+
+  const wsConnect = () => {
+    const ws = new WebSocket(`${WS_SERVER_URL}`);
+    console.log(111);
+
+    ws.onopen = () => {
+      ws.send('yalla');
+    };
+
+    ws.onmessage = (event) => {
+      console.log(event.data);
+
+      // try {
+      //   const payload = JSON.parse(event.data);
+      //   console.log(payload);
+      // } catch (error) {
+      //   console.log('Error parsing WebSocket message:');
+      // }
+    };
+
+    ws.onerror = () => {
+      console.log('Error in WebSocket connection');
+    };
+
+    ws.onclose = () => {
+      console.log('WebSocket connection closed');
+    };
+  };
 
   const onShiftChange = (value: string) => {
     dispatch(setSelectedShiftDropdown(value));

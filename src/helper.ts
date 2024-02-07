@@ -121,12 +121,17 @@ function getOrderStatusIndex(status: CartStatus) {
   }
 }
 
+function toArabicDigits(number: number) {
+  const id = '٠١٢٣٤٥٦٧٨٩';
+  return number.toString().replace(/\d/g, (w) => id[+w]);
+}
+
 export {
   getErrorMessage,
   getIcon,
   getImageUrl,
   getOrderStatusIndex,
   isRouteAUth,
-  isUserAuth
+  isUserAuth,
+  toArabicDigits,
 };
-
