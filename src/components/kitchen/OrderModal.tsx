@@ -1,10 +1,24 @@
-import { Button, Col, Image, Modal, Row, Space, Tag, Typography } from 'antd';
+import {
+  Button,
+  Col,
+  Image,
+  Modal,
+  Popconfirm,
+  Row,
+  Space,
+  Tag,
+  Typography,
+} from 'antd';
 import { useTranslation } from 'react-i18next';
-import { getImageUrl } from '../../helper';
+import { getImageUrl, toArabicDigits } from '../../helper';
 
 function OrderModal(props: Readonly<OrderModalProps>) {
   const { isOpen, onClose, selectedOrder } = props;
   const { t } = useTranslation();
+
+  const onConfirmClick = () => {
+    console.log(selectedOrder);
+  };
 
   return (
     <Modal
@@ -53,7 +67,7 @@ function OrderModal(props: Readonly<OrderModalProps>) {
                       <div>
                         <div className='title'>{item.item}</div>
                         <div className='subtitle'>
-                          {t('quantity')}: {item.qty}
+                          {t('quantity')}: {toArabicDigits(item.qty)}
                         </div>
                       </div>
                     </Col>
@@ -66,7 +80,15 @@ function OrderModal(props: Readonly<OrderModalProps>) {
       </div>
 
       <Space>
-        <Button type='primary'>Confirm</Button>
+        <Popconfirm
+          title={t('are-you-sure-to-confirm-order')}
+          onConfirm={onConfirmClick}
+          okText={t('yes')}
+          cancelText={t('cancel')}
+        >
+          <Button type='primary'>{t('confirm')}</Button>
+        </Popconfirm>
+
         <Button onClick={onClose}>{t('close')}</Button>
       </Space>
     </Modal>
