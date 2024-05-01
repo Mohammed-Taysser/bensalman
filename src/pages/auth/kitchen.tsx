@@ -23,6 +23,7 @@ import {
   getKitchenInfo,
   setSelectedShiftDropdown,
   setSelectedStatusDropdown,
+  setSocketResponseData,
 } from '../../redux/slices/kitchen.slice';
 
 function Kitchen() {
@@ -53,22 +54,19 @@ function Kitchen() {
   }, [kitchenState.error]);
 
   const wsConnect = () => {
-    const ws = new WebSocket(`${WS_SERVER_URL}`);
-    console.log(111);
-
-    ws.onopen = () => {
-      ws.send('yalla');
-    };
+    const ws = new WebSocket(`${WS_SERVER_URL}/status`);
 
     ws.onmessage = (event) => {
-      console.log(event.data);
-
-      // try {
-      //   const payload = JSON.parse(event.data);
-      //   console.log(payload);
-      // } catch (error) {
-      //   console.log('Error parsing WebSocket message:');
-      // }
+      try {
+        const payload:KitchenSocketResponse = JSON.parse(event.data);
+        console.log(payload);
+        
+        if(payload.type === 'status' && payload.KitchenProduct && payload.data && payload.status ) {
+          dispatch(setSocketResponseData(payload));
+        }
+      } catch (error) {
+        console.log('Error parsing WebSocket message:');
+      }
     };
 
     ws.onerror = () => {

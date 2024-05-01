@@ -40,12 +40,13 @@ const kitchenSlice = createSlice({
   name: 'kitchen',
   initialState,
   reducers: {
-    setKitchenStatusCard: (state, action: { payload: KitchenCardStatus }) => {
-      state.data.status = action.payload;
-    },
-
-    setKitchenOrders: (state, action: { payload: KitchenOrder[] }) => {
-      state.data.orders = action.payload;
+    setSocketResponseData: (
+      state,
+      action: { payload: KitchenSocketResponse }
+    ) => {
+      state.data.orders = action.payload.data;
+      state.data.status = action.payload.status;
+      state.data.products = action.payload.KitchenProduct;
     },
     setSelectedStatusDropdown: (state, action) => {
       state.data.options.selectedStatus = action.payload;
@@ -66,8 +67,8 @@ const kitchenSlice = createSlice({
           options: {
             status: action.payload.main_status.status,
             shifts: action.payload.main_status.shifts,
-            selectedStatus: null,
-            selectedShift: null,
+            selectedStatus: state.data.options.selectedStatus,
+            selectedShift: state.data.options.selectedShift,
           },
           orders: action.payload.data,
           status: action.payload.status,
@@ -84,11 +85,12 @@ const kitchenSlice = createSlice({
 });
 
 export default kitchenSlice.reducer;
+
 export const {
-  setKitchenStatusCard,
-  setKitchenOrders,
+  setSocketResponseData,
 
   setSelectedStatusDropdown,
   setSelectedShiftDropdown,
 } = kitchenSlice.actions;
+
 export { getKitchenInfo };

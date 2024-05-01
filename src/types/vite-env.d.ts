@@ -200,6 +200,13 @@ interface KitchenProductPayload {
   };
 }
 
+interface KitchenSocketResponse {
+  KitchenProduct: KitchenProduct[];
+  status: KitchenCardStatus;
+  data: KitchenOrder[];
+  type: 'status';
+}
+
 interface OrderModalProps {
   isOpen: boolean;
   onClose: () => void;
