@@ -94,6 +94,7 @@ function Navbar() {
                     showZero
                     color='tomato'
                     data-test='current-chair-badge'
+                    overflowCount={9999999}
                   >
                     <PiArmchairDuotone />
                   </Badge>
