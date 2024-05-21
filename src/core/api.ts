@@ -48,7 +48,7 @@ class AxiosAPI {
     );
   }
 
-  login(body = {}) {
+  login(body: LoginRequestBody) {
     return this.axiosInstance.post<AxiosLoginResponse>(
       'alhoda.alhoda.auth.login',
       body
@@ -67,14 +67,14 @@ class AxiosAPI {
     );
   }
 
-  reserveChair(body = {}) {
+  reserveChair(body: ReserveChairBody) {
     return this.axiosInstance.post<AxiosChairReservationResponse>(
       'alhoda.alhoda.apis.create_chair_Reservation',
       body
     );
   }
 
-  getProducts(params?: Record<string, string | null>) {
+  getProducts(params?: GetProductParams) {
     return this.axiosInstance.get<AxiosProductsResponse>(
       'alhoda.alhoda.apis.get_item_data',
       {

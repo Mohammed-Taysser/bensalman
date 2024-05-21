@@ -137,6 +137,12 @@ interface ChairReservation {
   invite: 0 | 1;
 }
 
+interface ReserveChairBody {
+  chair: 'takeaway' | string;
+  invite?: 0 | 1;
+  remove?: 0 | 1;
+}
+
 // Orders Page
 interface Order {
   date: string;
@@ -338,4 +344,9 @@ interface AxiosOrdersResponse {
   data: ResponseStatus & {
     orders: Order[];
   };
+}
+
+interface GetProductParams {
+  item_name?: string;
+  item_group?: string;
 }

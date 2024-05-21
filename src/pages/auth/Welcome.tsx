@@ -1,10 +1,6 @@
-import { Col, Image, Row, Spin, Typography, message } from 'antd';
+import { Col, Row, Spin, message } from 'antd';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import chief from '../../assets/images/icons/chief.png';
-import bottomLines from '../../assets/images/icons/welcome/welcome-lines-bottom.png';
-import topLines from '../../assets/images/icons/welcome/welcome-lines-top.png';
 import SuspenseLoading from '../../components/SuspenseLoading';
 import API from '../../core/api';
 import { getErrorMessage } from '../../helper';
@@ -17,7 +13,6 @@ import Base from '../../layouts/Base';
 import { setUserStatus, welcome } from '../../redux/slices/status.slice';
 
 function Welcome() {
-  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
   const statusState = useAppSelector(selectStatus);
@@ -63,7 +58,7 @@ function Welcome() {
   };
 
   return (
-    <Base>
+    <Base bg=''>
       {contextHolder}
       <Row
         className='min-h-screen justify-center md:justify-around'
@@ -71,12 +66,10 @@ function Welcome() {
       >
         <Col md={10}>
           <div className='text-center'>
-            <Image src={topLines} preview={false} className='mb-5 md:hidden' />
             {statusState.status === 'loading' ? (
               <SuspenseLoading />
             ) : (
               <Spin spinning={isTakeawayLoading}>
-                {' '}
                 <Row
                   align='middle'
                   justify='center'
@@ -110,33 +103,6 @@ function Welcome() {
                 </Row>
               </Spin>
             )}
-            <Image
-              src={bottomLines}
-              preview={false}
-              className='mt-5 md:hidden'
-            />
-          </div>
-        </Col>
-
-        <Col xs={20} md={10} className='hidden md:block'>
-          <div className='text-center'>
-            <Image src={topLines} preview={false} className='mb-5' />
-
-            <Typography.Title className='!text-aurora'>
-              {t('welcome-to-bs-restaurant')}
-            </Typography.Title>
-
-            <div>
-              <Image src={chief} preview={false} width={250} />
-            </div>
-
-            <Image src={bottomLines} preview={false} className='mt-5' />
-
-            <Typography.Title level={5} className='!font-normal'>
-              {t(
-                'welcome-to-bs-restaurant-offering-traditional-dishes-of-the-highest-quality'
-              )}
-            </Typography.Title>
           </div>
         </Col>
       </Row>
