@@ -50,7 +50,6 @@ interface ProductQuantityProps {
 // Layout
 interface BaseLayoutProps {
   children: React.ReactNode;
-  bg?: string;
   noNavbar?: boolean;
 }
 
@@ -349,4 +348,16 @@ interface AxiosOrdersResponse {
 interface GetProductParams {
   item_name?: string;
   item_group?: string;
+}
+
+interface ReReservationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+}
+
+
+interface ChairCardProps {
+  seat: Chair;
+  onChairClick?: (id: string) => Promise<void>;
 }

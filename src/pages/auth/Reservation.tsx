@@ -1,4 +1,4 @@
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, ReloadOutlined } from '@ant-design/icons';
 import {
   Button,
   Card,
@@ -12,6 +12,7 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import columnBG from '../../assets/images/background/bg-column.png';
+import ReReservationModal from '../../components/reservation/ReReservationModal';
 import SuspenseLoading from '../../components/SuspenseLoading';
 import API from '../../core/api';
 import { getErrorMessage } from '../../helper';
@@ -26,9 +27,11 @@ function Reservation() {
   const [chairs, setChairs] = useState<ChairReservation[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isReReservePopupOpen, setIsReReservePopupOpen] = useState(false);
 
   useEffect(() => {
     getReservationApi();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getReservationApi = async () => {
@@ -70,6 +73,15 @@ function Reservation() {
       });
   };
 
+  const onReReserveBtnClick = () => {
+    setIsReReservePopupOpen(true);
+  };
+
+  const onReReserveClose = () => {
+    setIsReReservePopupOpen(false);
+    getReservationApi();
+  };
+
   const ReservationContent = useCallback(() => {
     if (isLoading) {
       return (
@@ -92,8 +104,14 @@ function Reservation() {
                 </Typography.Text>
               </Col>
 
-              {item.invite !== 0 && (
-                <Col>
+              <Col>
+                {item.invite === 0 ? (
+                  <Button
+                    type='text'
+                    icon={<ReloadOutlined />}
+                    onClick={onReReserveBtnClick}
+                  />
+                ) : (
                   <Popconfirm
                     title={t(
                       'are-you-sure-you-want-to-delete-this-reservation'
@@ -104,8 +122,8 @@ function Reservation() {
                   >
                     <Button type='text' danger icon={<DeleteOutlined />} />
                   </Popconfirm>
-                </Col>
-              )}
+                )}
+              </Col>
             </Row>
           </Card>
         </Col>
@@ -117,11 +135,19 @@ function Reservation() {
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       </Col>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, chairs]);
 
   return (
     <Base>
       {contextHolder}
+
+      <ReReservationModal
+        isOpen={isReReservePopupOpen}
+        onClose={onReReserveClose}
+        onConfirm={() => getReservationApi()}
+      />
+
       <Row
         className='min-h-screen justify-center md:justify-around menu-page '
         align='middle'

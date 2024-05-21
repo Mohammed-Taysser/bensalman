@@ -58,7 +58,7 @@ function Welcome() {
   };
 
   return (
-    <Base bg=''>
+    <Base>
       {contextHolder}
       <Row
         className='min-h-screen justify-center md:justify-around'
