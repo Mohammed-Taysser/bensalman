@@ -14,7 +14,7 @@ const getKitchenInfo = createAsyncThunk(
   }
 );
 
-const initialState: RequestState<KitchenStatusSlice> = {
+const initialState: ReduxRequestState<KitchenStatusSlice> = {
   data: {
     orders: [],
     products: [],

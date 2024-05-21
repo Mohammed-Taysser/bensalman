@@ -11,7 +11,7 @@ const welcome = createAsyncThunk('status/welcome', async (_, thunkApi) => {
   }
 });
 
-const initialState: RequestState<UserStatus> = {
+const initialState: ReduxRequestState<UserProfileStatus> = {
   data: {
     balance: 0,
     cart_count: 0,
@@ -28,17 +28,8 @@ const statusSlice = createSlice({
   name: 'status',
   initialState,
   reducers: {
-    setUserStatus: (state, action: { payload: UserStatus }) => {
-      const payload: UserStatus = {
-        balance: action.payload.balance,
-        current_chair: action.payload.current_chair,
-        home_routing: action.payload.home_routing,
-        current_cart: action.payload.current_cart,
-        cart_count: action.payload.cart_count,
-        drop_down: action.payload.drop_down,
-      };
-
-      state.data = payload;
+    setUserStatus: (state, action: { payload: UserProfileStatus }) => {
+      state.data = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -48,7 +39,7 @@ const statusSlice = createSlice({
         state.error = '';
       })
       .addCase(welcome.fulfilled, (state, action) => {
-        const apiResponse: UserStatus = {
+        const apiResponse: UserProfileStatus = {
           balance: action.payload.data.balance,
           current_chair: action.payload.data.current_chair,
           current_cart: action.payload.data.current_cart,

@@ -32,7 +32,7 @@ const modifyCartQuantity = createAsyncThunk(
   }
 );
 
-const initialState: RequestState<CartStatusSlice> = {
+const initialState: ReduxRequestState<CartStatusSlice> = {
   data: {
     items: [],
     total_items: 0,

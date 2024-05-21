@@ -16,7 +16,7 @@ const login = createAsyncThunk(
   }
 );
 
-const initialState: RequestState<AuthUser> = {
+const initialState: ReduxRequestState<AuthUser> = {
   data: {
     api_key: '',
     api_secret: '',

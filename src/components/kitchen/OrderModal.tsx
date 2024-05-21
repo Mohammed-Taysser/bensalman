@@ -12,7 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { getImageUrl, toArabicDigits } from '../../helper';
 
-function OrderModal(props: Readonly<OrderModalProps>) {
+function OrderModal(props: Readonly<KitchenOrderModalProps>) {
   const { isOpen, onClose, selectedOrder } = props;
   const { t } = useTranslation();
 
