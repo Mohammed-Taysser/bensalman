@@ -1,19 +1,11 @@
-import welcomeBG from '../assets/images/background/welcome.jpeg';
 import Navbar from './Navbar';
 
-function Base(props: BaseLayoutProps) {
+function Base(props: Readonly<BaseLayoutProps>) {
   return (
     <>
       {!props.noNavbar && <Navbar />}
 
-      <div
-        className='blank-page'
-        style={{
-          backgroundImage: `url('${props.bg ?? welcomeBG}')`,
-        }}
-      >
-        {props.children}
-      </div>
+      <div className='blank-page'>{props.children}</div>
     </>
   );
 }
