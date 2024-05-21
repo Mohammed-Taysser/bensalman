@@ -40,5 +40,6 @@
   "are-you-sure-you-want-to-delete-this-reservation": "هل أنت متأكد من حذف هذا الحجز",
   "delete-reservation": "حذف الحجز",
   "confirm": "تأكيد",
-  "are-you-sure-to-confirm-order": "هل أنت متأكد من تأكيد الطلب؟"
+  "are-you-sure-to-confirm-order": "هل أنت متأكد من تأكيد الطلب؟",
+  "change-chair": "تغيير الكرسي"
 }
